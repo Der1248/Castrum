@@ -1,4 +1,4 @@
-A subgame by 1248
+A Game by 1248
 
 Thanks to:
 /
@@ -12,7 +12,7 @@ Collect resources and rebuild the old castle
 
 License:
 See README.txt in each mod for more information
-Every code written by me is LGPLv2.1 and CC-BY-SA
+Every code written by me is LGPLv2.1
 
 notes:
 wood door in doors mod changed

@@ -32,13 +32,6 @@ minetest.register_chatcommand("update", {
             Battleground(i,player)
         end
 
-        file = io.open(minetest.get_worldpath().."/SAVE/Bridge.txt", "r")
-	    local level = file:read("*l")
-        file:close()
-        for i=1,tonumber(level) do
-            Bridge(i,player)
-        end
-
         file = io.open(minetest.get_worldpath().."/SAVE/Camp1.txt", "r")
 	    local level = file:read("*l")
         file:close()
@@ -233,6 +226,61 @@ minetest.register_chatcommand("update", {
         file:close()
         if tonumber(level) > 0 then
             Update_knight(player)
+        end
+
+        file = io.open(minetest.get_worldpath().."/SAVE/Camp2.txt", "r")
+	    local level = file:read("*l")
+        file:close()
+        for i=1,tonumber(level) do
+            Camp2(i,player)
+        end
+        file = io.open(minetest.get_worldpath().."/SAVE/Cactusfarm.txt", "r")
+	    local level = file:read("*l")
+        file:close()
+        for i=1,tonumber(level) do
+            Cactusfarm(i,player)
+        end
+        file = io.open(minetest.get_worldpath().."/SAVE/Island_Smithy.txt", "r")
+	    local level = file:read("*l")
+        file:close()
+        for i=1,tonumber(level) do
+            Island_Smithy(i,player)
+        end
+        file = io.open(minetest.get_worldpath().."/SAVE/Lake2.txt", "r")
+	    local level = file:read("*l")
+        file:close()
+        for i=1,tonumber(level) do
+            Lake2(i,player)
+        end
+        file = io.open(minetest.get_worldpath().."/SAVE/Bridge.txt", "r")
+	    local level = file:read("*l")
+        file:close()
+        for i=1,tonumber(level) do
+            Bridge(i,player)
+        end
+		file = io.open(minetest.get_worldpath().."/SAVE/Stable.txt", "r")
+	    local level = file:read("*l")
+        file:close()
+        for i=1,tonumber(level) do
+            Stable(i,player)
+        end
+		file = io.open(minetest.get_worldpath().."/SAVE/Mountain_Quarry.txt", "r")
+	    local level = file:read("*l")
+        file:close()
+        for i=1,tonumber(level) do
+            Mountain_Quarry(i,player)
+        end
+		file = io.open(minetest.get_worldpath().."/SAVE/Mountain_Fountain.txt", "r")
+	    local level = file:read("*l")
+        file:close()
+        for i=1,tonumber(level) do
+            Mountain_Fountain(i,player)
+        end
+		file = io.open(minetest.get_worldpath().."/SAVE/Island_Home1.txt", "r")
+	    local level = file:read("*l")
+        file:close()
+        for i=1,tonumber(level) do
+            Island_Home1(i,player)
         end
 	end,
 })
