@@ -280,6 +280,47 @@ function set_fight(player,level)
         turn(player,{x=-170, y=9, z=-62},3)
         minetest.set_node({x=-169, y=9, z=-64}, {name="castrum:knight_lv2_dark"})
         turn(player,{x=-169, y=9, z=-64},3)
+	elseif level == 4 then
+        minetest.set_node({x=-173, y=9, z=-65}, {name="castrum:knight_lv2_dark"})
+        turn(player,{x=-173, y=9, z=-65},3)
+        minetest.set_node({x=-173, y=9, z=-67}, {name="castrum:knight_lv2_dark"})
+        turn(player,{x=-173, y=9, z=-67},3)
+		minetest.set_node({x=-174, y=9, z=-64}, {name="castrum:knight_lv2_dark"})
+        turn(player,{x=-174, y=9, z=-64},3)
+		minetest.set_node({x=-174, y=9, z=-68}, {name="castrum:knight_lv2_dark"})
+        turn(player,{x=-174, y=9, z=-68},3)
+		minetest.set_node({x=-172, y=9, z=-66}, {name="castrum:knight_lv2_dark"})
+        turn(player,{x=-172, y=9, z=-66},3)
+        minetest.set_node({x=-173, y=9, z=-62}, {name="castrum:knight_lv2_dark"})
+        turn(player,{x=-173, y=9, z=-62},3)
+        minetest.set_node({x=-173, y=9, z=-70}, {name="castrum:knight_lv2_dark"})
+        turn(player,{x=-173, y=9, z=-70},3)
+        minetest.set_node({x=-171, y=9, z=-69}, {name="castrum:knight_lv2_dark"})
+        turn(player,{x=-171, y=9, z=-69},3)
+        minetest.set_node({x=-171, y=9, z=-63}, {name="castrum:knight_lv2_dark"})
+        turn(player,{x=-171, y=9, z=-63},3)
+        minetest.set_node({x=-170, y=9, z=-65}, {name="castrum:knight_lv2_dark"})
+        turn(player,{x=-170, y=9, z=-65},3)
+        minetest.set_node({x=-170, y=9, z=-67}, {name="castrum:knight_lv2_dark"})
+        turn(player,{x=-170, y=9, z=-67},3)
+        minetest.set_node({x=-170, y=9, z=-70}, {name="castrum:knight_lv2_dark"})
+        turn(player,{x=-170, y=9, z=-70},3)
+        minetest.set_node({x=-169, y=9, z=-68}, {name="castrum:knight_lv2_dark"})
+        turn(player,{x=-169, y=9, z=-68},3)
+		minetest.set_node({x=-169, y=9, z=-64}, {name="castrum:knight_lv2_dark"})
+        turn(player,{x=-169, y=9, z=-64},3)
+        minetest.set_node({x=-168, y=9, z=-66}, {name="castrum:knight_lv2_dark"})
+        turn(player,{x=-168, y=9, z=-66},3)
+        minetest.set_node({x=-170, y=9, z=-62}, {name="castrum:knight_lv2_dark"})
+        turn(player,{x=-170, y=9, z=-62},3)
+        minetest.set_node({x=-172, y=9, z=-71}, {name="castrum:knight_lv2_dark"})
+        turn(player,{x=-172, y=9, z=-71},3)
+		minetest.set_node({x=-172, y=9, z=-61}, {name="castrum:knight_lv2_dark"})
+        turn(player,{x=-172, y=9, z=-61},3)
+		minetest.set_node({x=-174, y=9, z=-72}, {name="castrum:knight_lv2_dark"})
+        turn(player,{x=-174, y=9, z=-72},3)
+		minetest.set_node({x=-174, y=9, z=-60}, {name="castrum:knight_lv2_dark"})
+        turn(player,{x=-174, y=9, z=-60},3)
     end
     player:set_attribute("fightlv", ""..level)
 end
@@ -328,6 +369,8 @@ function fight_step2(player)
         list = Chapter2()
     elseif tonumber(chapter) == 3 then
         list = Chapter3()
+	elseif tonumber(chapter) == 4 then
+        list = Chapter4()
     end
     local move2 = move
     local d = 0
@@ -832,6 +875,19 @@ function fight_step2(player)
         end
     end
     while d == 0 and move2 < 300 and dd == 0 and tonumber(chapter) == 3 do
+        if minetest.get_node(list[move2][2]).name == "castrum:knight_lv2_dark" then
+            minetest.set_node(list[move2][2], {name="air"})
+            minetest.set_node(list[move2][3], {name="castrum:knight_lv2_dark"})
+            player:set_attribute("fightmove", ""..(move2+1))
+            screwdriver_handler(player, {type="node", under=list[move2][3], above=list[move2][3]}, 1)
+            screwdriver_handler(player, {type="node", under=list[move2][3], above=list[move2][3]}, 1)
+            screwdriver_handler(player, {type="node", under=list[move2][3], above=list[move2][3]}, 1)
+            d = 1
+        else
+            move2 = move2+1
+        end
+    end
+	while d == 0 and move2 < 430 and dd == 0 and tonumber(chapter) == 4 do
         if minetest.get_node(list[move2][2]).name == "castrum:knight_lv2_dark" then
             minetest.set_node(list[move2][2], {name="air"})
             minetest.set_node(list[move2][3], {name="castrum:knight_lv2_dark"})

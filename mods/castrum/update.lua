@@ -282,5 +282,11 @@ minetest.register_chatcommand("update", {
         for i=1,tonumber(level) do
             Island_Home1(i,player)
         end
+		file = io.open(minetest.get_worldpath().."/SAVE/Home3.txt", "r")
+	    local level = file:read("*l")
+        file:close()
+        for i=1,tonumber(level) do
+            Home3(i,player)
+        end
 	end,
 })

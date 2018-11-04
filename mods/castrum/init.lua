@@ -14,7 +14,7 @@ minetest.register_on_joinplayer(function(player)
 		offset = {x=0, y=30},
 		alignment = {x=1, y=0},
 		number = 0xFFFFFF ,
-		text = "Game Version	 :  1.5.0",
+		text = "Game Version	 :  1.6.0",
 	})
     player:hud_add({ 
 		hud_elem_type = "text",
@@ -22,7 +22,7 @@ minetest.register_on_joinplayer(function(player)
 		offset = {x=0, y=50},
 		alignment = {x=1, y=0},
 		number = 0xFFFFFF ,
-		text = "Map Version	   :  8",
+		text = "Map Version	   :  9",
 	})
 end)
 function file_check(file_name)
@@ -162,10 +162,17 @@ minetest.register_on_joinplayer(function(player)
 		file:write("0")
 		file:close()
 	end
+	if file_check(minetest.get_worldpath().."/SAVE/Home3.txt") == true then
+	else
+		file = io.open(minetest.get_worldpath().."/SAVE/Home3.txt", "w")
+		file:write("0")
+		file:close()
+	end
 end)
 dofile(minetest.get_modpath("castrum").."/Chapter1.lua")
 dofile(minetest.get_modpath("castrum").."/Chapter2.lua")
 dofile(minetest.get_modpath("castrum").."/Chapter3.lua")
+dofile(minetest.get_modpath("castrum").."/Chapter4.lua")
 dofile(minetest.get_modpath("castrum").."/fight.lua")
 dofile(minetest.get_modpath("castrum").."/update.lua")
 local timer = 0
@@ -178,7 +185,9 @@ local timer7 = 0
 local timer8 = 0
 local timer9 = 0
 local tree2 = 0
+local tree3 = 0
 local quarry2 = 0
+local quarry3 = 0
 local mine2 = 0
 local sandmine2 = 0
 local last = {x=-40,y=8.5,z=-5}
@@ -238,11 +247,13 @@ minetest.register_globalstep(function(dtime)
                 Ship1(6,player)
             end
         end
-		if minetest.get_node({x=-4, y=8,z=-52}).name == "default:junglewood" or minetest.get_node({x=-8, y=8,z=-65}).name == "default:junglewood" or minetest.get_node({x=121, y=8,z=38}).name == "default:junglewood" or minetest.get_node({x=125, y=8,z=51}).name == "default:junglewood" then
+		if minetest.get_node({x=-4, y=8,z=-52}).name == "default:junglewood" or minetest.get_node({x=-8, y=8,z=-65}).name == "default:junglewood" or minetest.get_node({x=121, y=8,z=38}).name == "default:junglewood" or minetest.get_node({x=125, y=8,z=51}).name == "default:junglewood" or minetest.get_node({x=309, y=8,z=38}).name == "default:pine_wood" or minetest.get_node({x=313, y=8,z=51}).name == "default:pine_wood" then
             file = io.open(minetest.get_worldpath().."/SAVE/Pier.txt", "r")
 	        local level = file:read("*l")
             file:close()
-            if tonumber(level) < 6 then
+			if tonumber(level) > 6 then
+                Pier(7,player)
+            elseif tonumber(level) < 6 then
 				Pier(0,player)
             end
         end
@@ -250,8 +261,16 @@ minetest.register_globalstep(function(dtime)
             file = io.open(minetest.get_worldpath().."/SAVE/Ship1.txt", "r")
 	        local level = file:read("*l")
             file:close()
-            if tonumber(level) < 6 then
+			if tonumber(level) < 6 then
                 Ship1(0,player)
+            end
+		end
+		if minetest.get_node({x=-4, y=8,z=-52}).name == "default:pine_wood" or minetest.get_node({x=-8, y=8,z=-65}).name == "default:pine_wood" or minetest.get_node({x=121, y=8,z=38}).name == "default:pine_wood" or minetest.get_node({x=125, y=8,z=51}).name == "default:pine_wood" or minetest.get_node({x=309, y=8,z=38}).name == "default:pine_wood" or minetest.get_node({x=313, y=8,z=51}).name == "default:pine_wood" then
+            file = io.open(minetest.get_worldpath().."/SAVE/Pier.txt", "r")
+	        local level = file:read("*l")
+            file:close()
+            if tonumber(level) < 7 then
+				Pier(0,player)
             end
         end
         file = io.open(minetest.get_worldpath().."/SAVE/Ship1.txt", "r")
@@ -295,6 +314,9 @@ minetest.register_globalstep(function(dtime)
 		elseif tonumber(quarry) == 3 then
             quarrytime = 2
             quarrynum = 2
+		elseif tonumber(quarry) == 4 then
+			quarrytime = 1.8
+            quarrynum = 3
         end
         local treetime = 0
         local treenum = 1
@@ -310,6 +332,9 @@ minetest.register_globalstep(function(dtime)
 		elseif tonumber(tree) == 4 then
             treetime = 3
             treenum = 2
+		elseif tonumber(tree) == 5 then
+            treetime = 2.5
+            treenum = 3
         end
         local minetime = 0
         local minenum = 1
@@ -321,6 +346,9 @@ minetest.register_globalstep(function(dtime)
             minenum = 1
         elseif tonumber(mine) == 3 then
             minetime = 9
+            minenum = 2
+		elseif tonumber(mine) == 4 then
+            minetime = 7
             minenum = 2
         end
         local laketime = 0
@@ -341,7 +369,7 @@ minetest.register_globalstep(function(dtime)
         elseif tonumber(sandmine) == 1 then
             sandminetime = 3.5
             sandminenum = 1
-        elseif tonumber(quarry) == 2 then
+        elseif tonumber(sandmine) == 2 then
             sandminetime = 2.5
             sandminenum = 2
         end
@@ -350,12 +378,16 @@ minetest.register_globalstep(function(dtime)
             lake2time = 18
         elseif tonumber(lake2) == 2 then
             lake2time = 13.5
+		elseif tonumber(lake2) == 3 then
+            lake2time = 10
         end
         local cactusfarmtime = 0
         if tonumber(cactusfarm) == 1 then
             cactusfarmtime = 15
         elseif tonumber(cactusfarm) == 2 then
             cactusfarmtime = 11.5
+		elseif tonumber(cactusfarm) == 3 then
+            cactusfarmtime = 9
         end
 		local mountain_quarrytime = 0
         local mountain_quarrynum = 1
@@ -368,12 +400,19 @@ minetest.register_globalstep(function(dtime)
 		        local inv = minetest.get_inventory({type="node", pos={x=-20, y=9, z=-2}})
                 if inv then
                     quarry2 = quarry2+1
+					quarry3 = quarry3+1
                     if quarry2 == 2 then
                         quarry2 = 0
+                    end
+					if quarry3 == 3 then
+                        quarry3 = 0
                     end
                     inv:add_item("main", "default:cobble ")
                     if quarrynum > 1 and quarry2 == 1 then
                         inv:add_item("main", "default:desert_cobble")
+                    end
+					if quarrynum > 2 and quarry3 == 1 then
+                        inv:add_item("main", "default:obsidian")
                     end
                 end
             end
@@ -384,12 +423,19 @@ minetest.register_globalstep(function(dtime)
 		        local inv = minetest.get_inventory({type="node", pos={x=-20, y=9, z=11}})
                 if inv then
                     tree2 = tree2+1
+					tree3 = tree3+1
                     if tree2 == 2 then
                         tree2 = 0
+                    end
+					if tree3 == 3 then
+                        tree3 = 0
                     end
                     inv:add_item("main", "default:wood")
                     if treenum > 1 and tree2 == 1 then
                         inv:add_item("main", "default:junglewood")
+                    end
+					if treenum > 2 and tree3 == 1 then
+                        inv:add_item("main", "default:pine_wood")
                     end
                 end
             end
@@ -778,6 +824,16 @@ function Home1(v,player)
                 end
             end
         end
+	elseif v+0 == 8 then
+        for i=26,32 do
+            for j=19,25 do
+                for k=9,14 do
+                    if minetest.get_node({x=i*(-1), y=k, z=j*(-1)}).name == "default:junglewood" then
+                        minetest.set_node({x=i*(-1), y=k, z=j*(-1)}, {name="default:pine_wood"})
+                    end
+                end
+            end
+        end
     elseif v+0 == 0 then
         for i=26,32 do
             for j=19,25 do
@@ -871,6 +927,75 @@ function Home2(v,player)
         end
     end
 end
+function Home3(v,player)
+    if v+0 == 1 then
+        for i=26,32 do
+            for j=26,31 do
+                minetest.set_node({x=i*(-1), y=9, z=j}, {name="default:cobble"})
+            end
+        end
+        minetest.set_node({x=-29, y=9, z=25}, {name="stairs:stair_cobble"})
+    elseif v+0 == 2 then
+        for j=26,31 do
+            minetest.set_node({x=-26, y=10, z=j}, {name="default:wood"})
+            minetest.set_node({x=-32, y=10, z=j}, {name="default:wood"})
+        end
+        for i=26,32 do
+            minetest.set_node({x=i*(-1), y=10, z=31}, {name="default:wood"})
+            minetest.set_node({x=i*(-1), y=10, z=26}, {name="default:wood"})
+        end
+        minetest.set_node({x=-29, y=10, z=26}, {name="air"})
+    elseif v+0 == 3 then
+        for j=26,31 do
+            minetest.set_node({x=-26, y=11, z=j}, {name="default:wood"})
+            minetest.set_node({x=-32, y=11, z=j}, {name="default:wood"})
+        end
+        for i=26,32 do
+            minetest.set_node({x=i*(-1), y=11, z=31}, {name="default:wood"})
+            minetest.set_node({x=i*(-1), y=11, z=26}, {name="default:wood"})
+        end
+        minetest.set_node({x=-29, y=11, z=26}, {name="air"})
+        minetest.set_node({x=-29, y=10, z=26}, {name="doors:door_wood_a"})
+    elseif v+0 == 4 then
+        for j=26,31 do
+            minetest.set_node({x=-26, y=12, z=j}, {name="default:wood"})
+            minetest.set_node({x=-32, y=12, z=j}, {name="default:wood"})
+        end
+        for i=26,32 do
+            minetest.set_node({x=i*(-1), y=12, z=31}, {name="default:wood"})
+            minetest.set_node({x=i*(-1), y=12, z=26}, {name="default:wood"})
+        end
+    elseif v+0 == 5 then
+        for j=27,30 do
+            minetest.set_node({x=-27, y=13, z=j}, {name="default:wood"})
+            minetest.set_node({x=-31, y=13, z=j}, {name="default:wood"})
+        end
+        for i=27,31 do
+            minetest.set_node({x=i*(-1), y=13, z=27}, {name="default:wood"})
+            minetest.set_node({x=i*(-1), y=13, z=30}, {name="default:wood"})
+        end
+    elseif v+0 == 6 then
+        for j=28,29 do
+            minetest.set_node({x=-28, y=14, z=j}, {name="default:wood"})
+            minetest.set_node({x=-30, y=14, z=j}, {name="default:wood"})
+        end
+        for i=28,30 do
+            minetest.set_node({x=i*(-1), y=14, z=28}, {name="default:wood"})
+            minetest.set_node({x=i*(-1), y=14, z=29}, {name="default:wood"})
+        end
+        minetest.set_node({x=-26, y=9, z=-19}, {name="castrum:character1"})
+        screwdriver_handler(player, {type="node", under={x=-26, y=9, z=-19}, above={x=-26, y=9, z=-19}}, 1)
+        screwdriver_handler(player, {type="node", under={x=-26, y=9, z=-19}, above={x=-26, y=9, z=-19}}, 1)
+    elseif v+0 == 0 then
+        for i=26,32 do
+            for j=25,31 do
+                for k=9,14 do
+                    minetest.set_node({x=i*(-1), y=k, z=j}, {name="air"})
+                end
+            end
+        end
+    end
+end
 function Bridge(v,player)
     if v+0 == 1 then
         for i=36,44 do
@@ -928,6 +1053,23 @@ function Bridge(v,player)
         for i=41,44 do
             minetest.set_node({x=i*(-1), y=8, z=-36}, {name="default:junglewood"})
         end
+	elseif v+0 == 11 then
+        for i=36,44 do
+            for j=32,35 do
+                minetest.set_node({x=i*(-1), y=8, z=j*(-1)}, {name="default:pine_wood"})
+            end
+        end
+        for i=36,44 do
+            for j=37,40 do
+                minetest.set_node({x=i*(-1), y=8, z=j*(-1)}, {name="default:pine_wood"})
+            end
+        end
+        for i=36,39 do
+            minetest.set_node({x=i*(-1), y=8, z=-36}, {name="default:pine_wood"})
+        end
+        for i=41,44 do
+            minetest.set_node({x=i*(-1), y=8, z=-36}, {name="default:pine_wood"})
+        end
     elseif v+0 == 0 then
         for i=36,44 do
             for j=32,35 do
@@ -952,6 +1094,13 @@ function Bridge2(v,player)
             for j=36,44 do
                 for k=8,16 do
                     minetest.set_node({x=j*(-1), y=k, z=-32}, {name="default:junglewood"})
+                end
+            end
+            minetest.set_node({x=-40, y=12, z=-32}, {name="castrum:bridge2"})
+	elseif v+0 == 11 then
+            for j=36,44 do
+                for k=8,16 do
+                    minetest.set_node({x=j*(-1), y=k, z=-32}, {name="default:pine_wood"})
                 end
             end
             minetest.set_node({x=-40, y=12, z=-32}, {name="castrum:bridge2"})
@@ -2110,6 +2259,16 @@ function Wall_south(v,player)
         minetest.set_node({x=-45, y=18, z=-30}, {name="default:desert_cobble"})
         minetest.set_node({x=-37, y=19, z=-29}, {name="default:desert_cobble"})
         minetest.set_node({x=-43, y=19, z=-29}, {name="default:desert_cobble"})
+	elseif v+0 == 18 then
+        for i=14,66 do
+            for j=28,31 do
+                for k=9,21 do
+                    if minetest.get_node({x=i*(-1), y=k, z=j*(-1)}).name == "default:stone_block" then
+                        minetest.set_node({x=i*(-1), y=k, z=j*(-1)}, {name="default:desert_cobble"})
+                    end
+                end
+            end
+        end
     elseif v+0 == 0 then
         for i=14,66 do
             for j=28,31 do
@@ -2262,6 +2421,21 @@ function Fountain(v,player)
         minetest.set_node({x=-44, y=10, z=0}, {name="default:desert_cobble"})
         minetest.set_node({x=-43, y=9, z=-1}, {name="default:desert_cobble"})
         minetest.set_node({x=-42, y=10, z=-1}, {name="default:desert_cobble"})
+	elseif v+0 == 8 then
+        for k=9,14 do
+            for i=35,45 do
+                for j=0,2 do
+                    if minetest.get_node({x=i*(-1), y=k, z=j*(-1)}).name == "default:stone_block" then
+                        minetest.set_node({x=i*(-1), y=k, z=j*(-1)}, {name="default:desert_cobble"})
+                    end
+                end
+                for j=0,8 do
+                    if minetest.get_node({x=i*(-1), y=k, z=j}).name == "default:stone_block" then
+                        minetest.set_node({x=i*(-1), y=k, z=j}, {name="default:desert_cobble"})
+                    end
+                end
+            end
+        end
     elseif v+0 == 0 then
         for k=9,14 do
             for i=35,45 do
@@ -2684,6 +2858,16 @@ function Tower1(v,player)
         minetest.set_node({x=-13, y=18, z=-29}, {name="default:desert_cobble"})
         minetest.set_node({x=-12, y=12, z=-27}, {name="default:desert_cobble"})
         minetest.set_node({x=-12, y=16, z=-27}, {name="default:desert_cobble"})
+	elseif v+0 == 22 then
+        for j=6,13 do
+            for i=24,31 do
+                for k=9,27 do
+                    if minetest.get_node({x=j*(-1), y=k, z=i*(-1)}).name == "default:stone_block" then
+                        minetest.set_node({x=j*(-1), y=k, z=i*(-1)}, {name="default:desert_cobble"})
+                    end
+                end
+            end
+        end
     elseif v+0 == 0 then
         for j=6,13 do
             for i=24,31 do
@@ -3103,6 +3287,16 @@ function Tower2(v,player)
         minetest.set_node({x=-67, y=18, z=-29}, {name="default:desert_cobble"})
         minetest.set_node({x=-68, y=12, z=-27}, {name="default:desert_cobble"})
         minetest.set_node({x=-68, y=16, z=-27}, {name="default:desert_cobble"})
+	elseif v+0 == 22 then
+        for j=67,74 do
+            for i=24,31 do
+                for k=9,27 do
+                    if minetest.get_node({x=j*(-1), y=k, z=i*(-1)}).name == "default:stone_block" then
+                        minetest.set_node({x=j*(-1), y=k, z=i*(-1)}, {name="default:desert_cobble"})
+                    end
+                end
+            end
+        end
     elseif v+0 == 0 then
         for j=67,74 do
             for i=24,31 do
@@ -3522,6 +3716,16 @@ function Tower3(v,player)
         minetest.set_node({x=-67, y=18, z=35}, {name="default:desert_cobble"})
         minetest.set_node({x=-68, y=12, z=33}, {name="default:desert_cobble"})
         minetest.set_node({x=-68, y=16, z=33}, {name="default:desert_cobble"})
+	elseif v+0 == 22 then
+        for j=67,74 do
+            for i=30,37 do
+                for k=9,27 do
+                    if minetest.get_node({x=j*(-1), y=k, z=i}).name == "default:stone_block" then
+                        minetest.set_node({x=j*(-1), y=k, z=i}, {name="default:desert_cobble"})
+                    end
+                end
+            end
+        end
     elseif v+0 == 0 then
         for j=67,74 do
             for i=30,37 do
@@ -3945,6 +4149,16 @@ function Tower4(v,player)
         minetest.set_node({x=-13, y=18, z=35}, {name="default:desert_cobble"})
         minetest.set_node({x=-12, y=12, z=33}, {name="default:desert_cobble"})
         minetest.set_node({x=-12, y=16, z=33}, {name="default:desert_cobble"})
+	elseif v+0 == 22 then
+        for j=6,13 do
+            for i=30,37 do
+                for k=9,27 do
+                    if minetest.get_node({x=j*(-1), y=k, z=i}).name == "default:stone_block" then
+                        minetest.set_node({x=j*(-1), y=k, z=i}, {name="default:desert_cobble"})
+                    end
+                end
+            end
+        end
     elseif v+0 == 0 then
         for j=6,13 do
             for i=30,37 do
@@ -4191,6 +4405,21 @@ function Wall_east(v,player)
                 minetest.set_node({x=-6, y=10, z=i*(-1)}, {name="default:desert_cobble"})
             end
         end
+	elseif v+0 == 18 then
+        for i=6,9 do
+            for k=9,21 do
+                for j=0,29 do
+                    if minetest.get_node({x=i*(-1), y=k, z=j}).name == "default:stone_block" then
+                        minetest.set_node({x=i*(-1), y=k, z=j}, {name="default:desert_cobble"})
+                    end
+                end
+                for j=0,23 do
+                    if minetest.get_node({x=i*(-1), y=k, z=j*(-1)}).name == "default:stone_block" then
+                        minetest.set_node({x=i*(-1), y=k, z=j*(-1)}, {name="default:desert_cobble"})
+                    end
+                end
+            end
+        end
     elseif v+0 == 0 then
         for i=6,9 do
             for k=9,21 do
@@ -4428,6 +4657,21 @@ function Wall_west(v,player)
                 minetest.set_node({x=-74, y=10, z=i*(-1)}, {name="default:desert_cobble"})
             end
         end
+	elseif v+0 == 18 then
+        for i=71,74 do
+            for k=9,21 do
+                for j=0,29 do
+                    if minetest.get_node({x=i*(-1), y=k, z=j}).name == "default:stone_block" then
+                        minetest.set_node({x=i*(-1), y=k, z=j}, {name="default:desert_cobble"})
+                    end
+                end
+                for j=0,23 do
+                    if minetest.get_node({x=i*(-1), y=k, z=j*(-1)}).name == "default:stone_block" then
+                        minetest.set_node({x=i*(-1), y=k, z=j*(-1)}, {name="default:desert_cobble"})
+                    end
+                end
+            end
+        end
     elseif v+0 == 0 then
         for i=71,74 do
             for k=9,21 do
@@ -4576,6 +4820,16 @@ function Wall_north(v,player)
                 minetest.set_node({x=i*(-1), y=18, z=37}, {name="default:desert_cobble"})
                 minetest.set_node({x=i*(-1), y=14, z=37}, {name="default:desert_cobble"})
                 minetest.set_node({x=i*(-1), y=10, z=37}, {name="default:desert_cobble"})
+            end
+        end
+	elseif v+0 == 18 then
+        for i=14,66 do
+            for j=34,37 do
+                for k=9,21 do
+                    if minetest.get_node({x=i*(-1), y=k, z=j}).name == "default:stone_block" then
+                        minetest.set_node({x=i*(-1), y=k, z=j}, {name="default:desert_cobble"})
+                    end
+                end
             end
         end
     elseif v+0 == 0 then
@@ -5056,7 +5310,6 @@ function Mine(v,player)
         minetest.set_node({x=-13, y=11, z=-8}, {name="default:stone_with_coal"})
         minetest.set_node({x=-11, y=11, z=-10}, {name="default:stone_with_coal"})
         minetest.set_node({x=-13, y=11, z=-14}, {name="default:stone_with_coal"})
-
         minetest.set_node({x=-19, y=9, z=-12}, {name="default:stone_with_iron"})
         minetest.set_node({x=-18, y=9, z=-8}, {name="default:stone_with_iron"})
         minetest.set_node({x=-15, y=9, z=-9}, {name="default:stone_with_iron"})
@@ -5064,8 +5317,37 @@ function Mine(v,player)
         minetest.set_node({x=-14, y=9, z=-6}, {name="default:stone_with_iron"})
         minetest.set_node({x=-12, y=9, z=-12}, {name="default:stone_with_iron"})
         minetest.set_node({x=-11, y=9, z=-7}, {name="default:stone_with_iron"})
-
-
+	elseif v+0 == 4 then
+		minetest.set_node({x=-19, y=10, z=-12}, {name="default:stone_with_iron"})
+        minetest.set_node({x=-18, y=10, z=-8}, {name="default:stone_with_iron"})
+        minetest.set_node({x=-15, y=10, z=-9}, {name="default:stone_with_iron"})
+        minetest.set_node({x=-15, y=10, z=-13}, {name="default:stone_with_iron"})
+        minetest.set_node({x=-14, y=10, z=-6}, {name="default:stone_with_iron"})
+        minetest.set_node({x=-12, y=10, z=-12}, {name="default:stone_with_iron"})
+        minetest.set_node({x=-11, y=10, z=-7}, {name="default:stone_with_iron"})
+		minetest.set_node({x=-12, y=9, z=-7}, {name="default:stone_with_iron"})
+		minetest.set_node({x=-11, y=9, z=-6}, {name="default:stone_with_iron"})
+		minetest.set_node({x=-11, y=9, z=-8}, {name="default:stone_with_iron"})
+		minetest.set_node({x=-13, y=9, z=-6}, {name="default:stone_with_iron"})
+		minetest.set_node({x=-14, y=9, z=-7}, {name="default:stone_with_iron"})
+		minetest.set_node({x=-15, y=9, z=-6}, {name="default:stone_with_iron"})
+		minetest.set_node({x=-14, y=9, z=-9}, {name="default:stone_with_iron"})
+		minetest.set_node({x=-15, y=9, z=-10}, {name="default:stone_with_iron"})
+		minetest.set_node({x=-15, y=9, z=-8}, {name="default:stone_with_iron"})
+		minetest.set_node({x=-16, y=9, z=-9}, {name="default:stone_with_iron"})
+		minetest.set_node({x=-11, y=9, z=-12}, {name="default:stone_with_iron"})
+		minetest.set_node({x=-12, y=9, z=-13}, {name="default:stone_with_iron"})
+		minetest.set_node({x=-12, y=9, z=-11}, {name="default:stone_with_iron"})
+		minetest.set_node({x=-13, y=9, z=-12}, {name="default:stone_with_iron"})
+		minetest.set_node({x=-14, y=9, z=-13}, {name="default:stone_with_iron"})
+		minetest.set_node({x=-15, y=9, z=-12}, {name="default:stone_with_iron"})
+		minetest.set_node({x=-15, y=9, z=-14}, {name="default:stone_with_iron"})
+		minetest.set_node({x=-18, y=9, z=-7}, {name="default:stone_with_iron"})
+		minetest.set_node({x=-17, y=9, z=-8}, {name="default:stone_with_iron"})
+		minetest.set_node({x=-19, y=9, z=-8}, {name="default:stone_with_iron"})
+		minetest.set_node({x=-19, y=9, z=-11}, {name="default:stone_with_iron"})
+		minetest.set_node({x=-18, y=9, z=-12}, {name="default:stone_with_iron"})
+		minetest.set_node({x=-19, y=9, z=-13}, {name="default:stone_with_iron"})
     elseif v+0 == 0 then 
         for j=11,19 do
             for i=6,14 do
@@ -5158,6 +5440,22 @@ function Quarry(v,player)
 		minetest.set_node({x=-18, y=9, z=1}, {name="default:desert_stone"})
 		minetest.set_node({x=-19, y=9, z=2}, {name="default:desert_stone"})
 		minetest.set_node({x=-19, y=9, z=0}, {name="default:desert_stone"})
+	elseif v+0 == 4 then
+		minetest.set_node({x=-19, y=11, z=1}, {name="default:desert_stone"})
+        minetest.set_node({x=-18, y=11, z=5}, {name="default:desert_stone"})
+        minetest.set_node({x=-15, y=11, z=4}, {name="default:desert_stone"})
+        minetest.set_node({x=-15, y=11, z=0}, {name="default:desert_stone"})
+        minetest.set_node({x=-14, y=11, z=7}, {name="default:desert_stone"})
+        minetest.set_node({x=-12, y=11, z=1}, {name="default:desert_stone"})
+        minetest.set_node({x=-11, y=11, z=6}, {name="default:desert_stone"})
+		
+		minetest.set_node({x=-12, y=9, z=7}, {name="default:obsidian"})
+		minetest.set_node({x=-12, y=9, z=4}, {name="default:obsidian"})
+		minetest.set_node({x=-11, y=9, z=0}, {name="default:obsidian"})
+		minetest.set_node({x=-13, y=9, z=3}, {name="default:obsidian"})
+		minetest.set_node({x=-16, y=9, z=2}, {name="default:obsidian"})
+		minetest.set_node({x=-18, y=9, z=7}, {name="default:obsidian"})
+		minetest.set_node({x=-18, y=9, z=-1}, {name="default:obsidian"})
     elseif v+0 == 0 then
         for j=11,19 do
             for i=0,7 do
@@ -5242,7 +5540,6 @@ function Tree(v,player)
 	elseif v+0 == 4 then
         minetest.set_node({x=-12, y=10, z=19}, {name="default:jungletree"})
 		minetest.set_node({x=-12, y=11, z=19}, {name="default:jungletree"})
-		
 		minetest.set_node({x=-11, y=11, z=18}, {name="default:jungleleaves"})
 		minetest.set_node({x=-12, y=11, z=18}, {name="default:jungleleaves"})
 		minetest.set_node({x=-13, y=11, z=18}, {name="default:jungleleaves"})
@@ -5257,6 +5554,37 @@ function Tree(v,player)
         minetest.set_node({x=-13, y=9, z=19}, {name="air"})
         minetest.set_node({x=-12, y=9, z=18}, {name="air"})
         minetest.set_node({x=-12, y=9, z=20}, {name="air"})
+	elseif v+0 == 5 then
+		minetest.set_node({x=-12, y=12, z=19}, {name="default:jungletree"})
+		minetest.set_node({x=-11, y=11, z=18}, {name="air"})
+		minetest.set_node({x=-12, y=11, z=18}, {name="air"})
+		minetest.set_node({x=-13, y=11, z=18}, {name="air"})
+		minetest.set_node({x=-11, y=11, z=19}, {name="air"})
+		minetest.set_node({x=-13, y=11, z=19}, {name="air"})
+		minetest.set_node({x=-11, y=11, z=20}, {name="air"})
+		minetest.set_node({x=-12, y=11, z=20}, {name="air"})
+		minetest.set_node({x=-13, y=11, z=20}, {name="air"})
+		minetest.set_node({x=-11, y=12, z=18}, {name="default:jungleleaves"})
+		minetest.set_node({x=-12, y=12, z=18}, {name="default:jungleleaves"})
+		minetest.set_node({x=-13, y=12, z=18}, {name="default:jungleleaves"})
+		minetest.set_node({x=-11, y=12, z=19}, {name="default:jungleleaves"})
+		minetest.set_node({x=-13, y=12, z=19}, {name="default:jungleleaves"})
+		minetest.set_node({x=-11, y=12, z=20}, {name="default:jungleleaves"})
+		minetest.set_node({x=-12, y=12, z=20}, {name="default:jungleleaves"})
+		minetest.set_node({x=-13, y=12, z=20}, {name="default:jungleleaves"})
+		minetest.set_node({x=-12, y=13, z=19}, {name="default:jungleleaves"})
+		minetest.set_node({x=-14, y=12, z=19}, {name="default:jungleleaves"})
+		minetest.set_node({x=-12, y=12, z=17}, {name="default:jungleleaves"})
+		minetest.set_node({x=-13, y=13, z=19}, {name="default:jungleleaves"})
+		minetest.set_node({x=-12, y=13, z=18}, {name="default:jungleleaves"})
+		minetest.set_node({x=-11, y=13, z=19}, {name="default:jungleleaves"})
+		minetest.set_node({x=-12, y=13, z=20}, {name="default:jungleleaves"})
+		minetest.set_node({x=-12, y=9, z=13}, {name="default:pine_tree"})
+		minetest.set_node({x=-12, y=9, z=14}, {name="default:pine_needles"})
+		minetest.set_node({x=-12, y=9, z=12}, {name="default:pine_needles"})
+		minetest.set_node({x=-11, y=9, z=13}, {name="default:pine_needles"})
+		minetest.set_node({x=-13, y=9, z=13}, {name="default:pine_needles"})
+		minetest.set_node({x=-12, y=10, z=13}, {name="default:pine_needles"})
     elseif v+0 == 0 then
         for j=11,19 do
             for i=12,20 do
@@ -5340,6 +5668,34 @@ function Pier(v,player)
                 end
             end
         end
+	elseif v+0 == 7 then
+        for j=4,8 do
+            for i=52,65 do
+                for k=6,8 do
+                    if minetest.get_node({x=j*(-1), y=k, z=i*(-1)}).name == "default:junglewood" then
+                        minetest.set_node({x=j*(-1), y=k, z=i*(-1)}, {name="default:pine_wood"})
+                    end
+                end
+            end
+        end
+        for j=121,125 do
+            for i=38,51 do
+                for k=6,8 do
+                    if minetest.get_node({x=j, y=k, z=i}).name == "default:junglewood" then
+                        minetest.set_node({x=j, y=k, z=i}, {name="default:pine_wood"})
+                    end
+                end
+            end
+        end
+		for j=309,313 do
+            for i=38,51 do
+                for k=6,8 do
+                    if minetest.get_node({x=j, y=k, z=i}).name == "default:junglewood" then
+                        minetest.set_node({x=j, y=k, z=i}, {name="default:pine_wood"})
+                    end
+                end
+            end
+        end
     elseif v+0 == 0 then
         for j=4,8 do
             for i=52,65 do
@@ -5352,8 +5708,17 @@ function Pier(v,player)
         for j=121,125 do
             for i=38,51 do
                 for k=6,8 do
-                    if minetest.get_node({x=j, y=k, z=i}).name == "default:junglewood" then
+                    if minetest.get_node({x=j, y=k, z=i}).name == "default:junglewood" or minetest.get_node({x=j, y=k, z=i}).name == "default:pine_wood" then
                         minetest.set_node({x=j, y=k, z=i}, {name="default:wood"})
+                    end
+                end
+            end
+        end
+		for j=309,313 do
+            for i=38,51 do
+                for k=6,8 do
+                    if minetest.get_node({x=j, y=k, z=i}).name == "default:pine_wood" then
+                        minetest.set_node({x=j, y=k, z=i}, {name="default:junglewood"})
                     end
                 end
             end
@@ -5520,6 +5885,15 @@ function Lake2(v,player)
         minetest.set_node({x=-32, y=8, z=-64}, {name="default:river_water_source"})
         minetest.set_node({x=-31, y=8, z=-65}, {name="default:river_water_source"})
         minetest.set_node({x=-31, y=8, z=-63}, {name="default:river_water_source"})
+	elseif v+0 == 3 then
+        minetest.set_node({x=-29, y=8, z=-64}, {name="default:river_water_source"})
+        minetest.set_node({x=-30, y=8, z=-65}, {name="default:river_water_source"})
+        minetest.set_node({x=-31, y=8, z=-66}, {name="default:river_water_source"})
+        minetest.set_node({x=-32, y=8, z=-65}, {name="default:river_water_source"})
+		minetest.set_node({x=-33, y=8, z=-64}, {name="default:river_water_source"})
+		minetest.set_node({x=-32, y=8, z=-63}, {name="default:river_water_source"})
+		minetest.set_node({x=-31, y=8, z=-62}, {name="default:river_water_source"})
+		minetest.set_node({x=-30, y=8, z=-63}, {name="default:river_water_source"})
     elseif v+0 == 0 then 
         for j=29,33 do
             for i=62,66 do
@@ -6040,6 +6414,30 @@ function Battleground(v,player)
                 end
             end
         end
+	elseif v+0 == 7 then
+        minetest.set_node({x=-72, y=11, z=-80}, {name="default:desert_cobble"})
+        minetest.set_node({x=-72, y=11, z=-82}, {name="default:desert_cobble"})
+        minetest.set_node({x=-72, y=11, z=-84}, {name="default:desert_cobble"})
+        minetest.set_node({x=-74, y=11, z=-84}, {name="default:desert_cobble"})
+        minetest.set_node({x=-76, y=11, z=-84}, {name="default:desert_cobble"})
+        minetest.set_node({x=-76, y=11, z=-82}, {name="default:desert_cobble"})
+        minetest.set_node({x=-76, y=11, z=-80}, {name="default:desert_cobble"})
+        minetest.set_node({x=-72, y=9, z=-80}, {name="default:desert_cobble"})
+        minetest.set_node({x=-72, y=9, z=-82}, {name="default:desert_cobble"})
+        minetest.set_node({x=-72, y=9, z=-84}, {name="default:desert_cobble"})
+        minetest.set_node({x=-74, y=9, z=-84}, {name="default:desert_cobble"})
+        minetest.set_node({x=-76, y=9, z=-84}, {name="default:desert_cobble"})
+        minetest.set_node({x=-76, y=9, z=-82}, {name="default:desert_cobble"})
+        minetest.set_node({x=-76, y=9, z=-80}, {name="default:desert_cobble"})
+        minetest.set_node({x=-74, y=9, z=-80}, {name="default:desert_cobble"})
+        minetest.set_node({x=-73, y=10, z=-80}, {name="default:desert_cobble"})
+        minetest.set_node({x=-75, y=10, z=-80}, {name="default:desert_cobble"})
+        minetest.set_node({x=-76, y=10, z=-81}, {name="default:desert_cobble"})
+        minetest.set_node({x=-76, y=10, z=-83}, {name="default:desert_cobble"})
+        minetest.set_node({x=-72, y=10, z=-81}, {name="default:desert_cobble"})
+        minetest.set_node({x=-72, y=10, z=-83}, {name="default:desert_cobble"})
+        minetest.set_node({x=-73, y=10, z=-84}, {name="default:desert_cobble"})
+        minetest.set_node({x=-75, y=10, z=-84}, {name="default:desert_cobble"})
     elseif v+0 == 0 then 
         for j=72,76 do
             for i=80,84 do
@@ -6151,6 +6549,16 @@ function Cactusfarm(v,player)
         minetest.set_node({x=124, y=10, z=-1}, {name="castrum:cactus"})
         minetest.set_node({x=124, y=10, z=-7}, {name="castrum:cactus"})
         minetest.set_node({x=127, y=11, z=-4}, {name="castrum:cactus"})
+	elseif v+0 == 3 then
+		minetest.set_node({x=130, y=11, z=-7}, {name="castrum:cactus"})
+        minetest.set_node({x=130, y=11, z=-1}, {name="castrum:cactus"})
+        minetest.set_node({x=124, y=11, z=-1}, {name="castrum:cactus"})
+        minetest.set_node({x=124, y=11, z=-7}, {name="castrum:cactus"})
+        minetest.set_node({x=127, y=12, z=-4}, {name="castrum:cactus"})
+		minetest.set_node({x=126, y=12, z=-4}, {name="castrum:cactus"})
+		minetest.set_node({x=128, y=12, z=-4}, {name="castrum:cactus"})
+		minetest.set_node({x=127, y=12, z=-3}, {name="castrum:cactus"})
+		minetest.set_node({x=127, y=12, z=-5}, {name="castrum:cactus"})
     elseif v+0 == 0 then
         for j=123,131 do
             for i=0,8 do
@@ -6346,6 +6754,38 @@ function Bridge_Status(player)
                 end
             end
         end
+	elseif tonumber(level) == 11 then
+        if tonumber(status) == 0 then
+            file = io.open(minetest.get_worldpath().."/SAVE/Bridge_status.txt", "w")
+		    file:write("1")
+		    file:close()
+            for j=36,44 do
+                for i=32,40 do
+                    minetest.set_node({x=j*(-1), y=8, z=i*(-1)}, {name="air"})
+                end
+            end
+            for j=36,44 do
+                for k=8,16 do
+                    minetest.set_node({x=j*(-1), y=k, z=-32}, {name="default:pine_wood"})
+                end
+            end
+            minetest.set_node({x=-40, y=12, z=-32}, {name="castrum:bridge2"})
+        elseif tonumber(status) == 1 then
+            file = io.open(minetest.get_worldpath().."/SAVE/Bridge_status.txt", "w")
+		    file:write("0")
+		    file:close()
+            for j=36,44 do
+                for i=32,40 do
+                    minetest.set_node({x=j*(-1), y=8, z=i*(-1)}, {name="default:pine_wood"})
+                end
+            end
+            minetest.set_node({x=-40, y=8, z=-36}, {name="castrum:bridge"})
+            for j=36,44 do
+                for k=9,16 do
+                    minetest.set_node({x=j*(-1), y=k, z=-32}, {name="air"})
+                end
+            end
+        end
     end
 end
 function Add_knight(player,lv,state)
@@ -6374,16 +6814,26 @@ local knight_pos = {
     {12, -62, -60, 2},
     {13, -63, -60, 2},
     {14, -64, -60, 2},
-    {15, -65, -60, 2}, 
+    {15, -65, -60, 2},
     {16, -66, -59, 3},
     {17, -66, -58, 3},
     {18, -66, -57, 3},
     {19, -66, -56, 3},
     {20, -66, -55, 3},
-
     {21, -65, -67, 0},
     {22, -64, -67, 0},
     {23, -63, -67, 0},
+	{24, -62, -67, 0},
+	{25, -61, -67, 0},
+	{26, -60, -68, 1},
+	{27, -60, -69, 1},
+	{28, -60, -70, 1},
+	{29, -60, -71, 1},
+	{30, -60, -72, 1},
+	{31, -61, -73, 2},
+	{32, -62, -73, 2},
+	{33, -63, -73, 2},
+	
 }
 function Update_knight(player)
     file = io.open(minetest.get_worldpath().."/SAVE/Knight_1.txt", "r")
@@ -6521,13 +6971,19 @@ home1.get_formspec = function(player, pos)
         need2 = "10 Wooden Planks"
         need3 = "Fountain lv.1"
     elseif tonumber(level) == 6 then
-        label = (level-5).."/2"
+        label = (level-5).."/3"
         label2 = "Upgrade"
         need1 = "64 Cobblestone"
         need2 = "80 Jungle Wood Planks"
         need3 = "Fountain lv.2"
+	elseif tonumber(level) == 7 then
+        label = (level-5).."/3"
+        label2 = "Upgrade"
+        need1 = "128 Cobblestone"
+        need2 = "160 Pine Wood Planks"
+        need3 = "Fountain lv.4"
     else
-        label = (level-5).."/2"
+        label = (level-5).."/3"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -6590,6 +7046,45 @@ home2.get_formspec = function(player, pos)
         .."image_button[4.5,-0.3;0.8,0.8;;esc;X]"
 	return formspec			
 end
+local home3 = {}
+home3.get_formspec = function(player, pos)
+	if player == nil then
+        return
+    end
+    file = io.open(minetest.get_worldpath().."/SAVE/Home3.txt", "r")
+	local level = file:read("*l")
+    file:close()
+    local label = ""
+    local label2 = ""
+    local need1 = ""
+    local need2 = ""
+    local need3 = ""
+    local need4 = ""
+    if tonumber(level) < 6 then
+        label = "not build yet ("..math.floor((level/6)*100).."%)"
+        label2 = "Build"
+        need1 = "8 Cobblestone"
+        need2 = "10 Wooden Planks"
+        need3 = "Fountain lv.5"
+    else
+        label = (level-5).."/1"
+        label2 = "Upgrade (comming soon)"
+    end
+	formspec = "size[5,6.5]"
+        .."background[5,6.5;1,1;gui_formbg.png;true]"
+        .."listcolors[#00000069;#5A5A5A;#141318;#30434C;#FFF]"
+        .."bgcolor[#080808BB;true]"
+        .."label[0,0;Level:     "..label.."]"
+        .."label[0,0.5;You need:]"
+        .."label[0,0.8;"..need1.."]"
+        .."label[0,1.1;"..need2.."]"
+        .."label[0,1.4;"..need3.."]"
+        .."label[0,1.7;"..need4.."]"
+        .."button[0,2;5,1;;"..label2.."]"
+        --.."button[0,3;5,1;;del]"
+        .."image_button[4.5,-0.3;0.8,0.8;;esc;X]"
+	return formspec			
+end
 local bridge = {}
 bridge.get_formspec = function(player, pos)
 	if player == nil then
@@ -6610,12 +7105,17 @@ bridge.get_formspec = function(player, pos)
         need1 = "3 Wooden Planks"
 		need2 = "Fountain lv.1"
     elseif tonumber(level) == 9 then
-        label = (level-8).."/2"
+        label = (level-8).."/3"
         label2 = "Upgrade"
         need1 = "27 Jungle Wood Planks"
 		need2 = "Fountain lv.3"
+	elseif tonumber(level) == 10 then
+        label = (level-8).."/3"
+        label2 = "Upgrade"
+        need1 = "108 Pine Wood Planks"
+		need2 = "Fountain lv.5"
     else
-        label = (level-8).."/2"
+        label = (level-8).."/3"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -6828,25 +7328,31 @@ walls.get_formspec = function(player, pos)
         label2 = "Build"
         need1 = "3 Cobblestone"
     elseif tonumber(level) == 14 then
-        label = (level-13).."/4"
+        label = (level-13).."/5"
         label2 = "Upgrade"
         need1 = "10 Cobblestone"
         need2 = "3 Stone Sword"
         need3 = "Fountain lv.1"
     elseif tonumber(level) == 15 then
-        label = (level-13).."/4"
+        label = (level-13).."/5"
         label2 = "Upgrade"
         need1 = "40 Cobblestone"
         need2 = "12 Stone Sword"
         need3 = "Fountain lv.2"
     elseif tonumber(level) == 16 then
-        label = (level-13).."/4"
+        label = (level-13).."/5"
         label2 = "Upgrade"
         need1 = "40 Desert Cobblestone"
         need2 = "12 Steel Sword"
         need3 = "Fountain lv.3"
+	elseif tonumber(level) == 17 then
+        label = (level-13).."/5"
+        label2 = "Upgrade"
+        need1 = "160 Desert Cobblestone"
+        need2 = "48 Steel Sword"
+        need3 = "Fountain lv.4"
     else
-        label = (level-13).."/4"
+        label = (level-13).."/5"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -6883,25 +7389,31 @@ wallw.get_formspec = function(player, pos)
         label2 = "Build"
         need1 = "3 Cobblestone"
     elseif tonumber(level) == 14 then
-        label = (level-13).."/4"
+        label = (level-13).."/5"
         label2 = "Upgrade"
         need1 = "10 Cobblestone"
         need2 = "3 Stone Sword"
         need3 = "Fountain lv.1"
     elseif tonumber(level) == 15 then
-        label = (level-13).."/4"
+        label = (level-13).."/5"
         label2 = "Upgrade"
         need1 = "40 Cobblestone"
         need2 = "12 Stone Sword"
         need3 = "Fountain lv.2"
     elseif tonumber(level) == 16 then
-        label = (level-13).."/4"
+        label = (level-13).."/5"
         label2 = "Upgrade"
         need1 = "40 Desert Cobblestone"
         need2 = "12 Steel Sword"
         need3 = "Fountain lv.3"
+	elseif tonumber(level) == 17 then
+        label = (level-13).."/5"
+        label2 = "Upgrade"
+        need1 = "160 Desert Cobblestone"
+        need2 = "48 Steel Sword"
+        need3 = "Fountain lv.4"
     else
-        label = (level-13).."/4"
+        label = (level-13).."/5"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -6938,25 +7450,31 @@ walln.get_formspec = function(player, pos)
         label2 = "Build"
         need1 = "3 Cobblestone"
     elseif tonumber(level) == 14 then
-        label = (level-13).."/4"
+        label = (level-13).."/5"
         label2 = "Upgrade"
         need1 = "10 Cobblestone"
         need2 = "3 Stone Sword"
         need3 = "Fountain lv.1"
     elseif tonumber(level) == 15 then
-        label = (level-13).."/4"
+        label = (level-13).."/5"
         label2 = "Upgrade"
         need1 = "40 Cobblestone"
         need2 = "12 Stone Sword"
         need3 = "Fountain lv.2"
     elseif tonumber(level) == 16 then
-        label = (level-13).."/4"
+        label = (level-13).."/5"
         label2 = "Upgrade"
         need1 = "40 Desert Cobblestone"
         need2 = "12 Steel Sword"
         need3 = "Fountain lv.3"
+	elseif tonumber(level) == 17 then
+        label = (level-13).."/5"
+        label2 = "Upgrade"
+        need1 = "160 Desert Cobblestone"
+        need2 = "48 Steel Sword"
+        need3 = "Fountain lv.4"
     else
-        label = (level-13).."/4"
+        label = (level-13).."/5"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -6993,25 +7511,31 @@ walle.get_formspec = function(player, pos)
         label2 = "Build"
         need1 = "3 Cobblestone"
     elseif tonumber(level) == 14 then
-        label = (level-13).."/4"
+        label = (level-13).."/5"
         label2 = "Upgrade"
         need1 = "10 Cobblestone"
         need2 = "3 Stone Sword"
         need3 = "Fountain lv.1"
     elseif tonumber(level) == 15 then
-        label = (level-13).."/4"
+        label = (level-13).."/5"
         label2 = "Upgrade"
         need1 = "40 Cobblestone"
         need2 = "12 Stone Sword"
         need3 = "Fountain lv.3"
     elseif tonumber(level) == 16 then
-        label = (level-13).."/4"
+        label = (level-13).."/5"
         label2 = "Upgrade"
         need1 = "40 Desert Cobblestone"
         need2 = "12 Steel Sword"
         need3 = "Fountain lv.3"
+	elseif tonumber(level) == 17 then
+        label = (level-13).."/5"
+        label2 = "Upgrade"
+        need1 = "160 Desert Cobblestone"
+        need2 = "48 Steel Sword"
+        need3 = "Fountain lv.4"
     else
-        label = (level-13).."/4"
+        label = (level-13).."/5"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -7049,27 +7573,33 @@ fountain.get_formspec = function(player, pos)
         need1 = "10 Cobblestone"
 		need2 = "Walls and Towers lv.1"
     elseif tonumber(level) == 4 then
-        label = (level-3).."/4"
+        label = (level-3).."/5"
         label2 = "Upgrade"
         need1 = "25 Cobblestone"
         need2 = "8 Stone Pickaxe"
         need3 = "Walls and Towers lv.2"
 		need4 = "Moats lv.1"
     elseif tonumber(level) == 5 then
-        label = (level-3).."/4"
+        label = (level-3).."/5"
         label2 = "Upgrade"
         need1 = "100 Cobblestone"
         need2 = "32 Stone Pickaxe"
         need3 = "Walls and Towers lv.3"
     elseif tonumber(level) == 6 then
-        label = (level-3).."/4"
+        label = (level-3).."/5"
         label2 = "Upgrade"
         need1 = "100 Desert Cobblestone"
         need2 = "32 Steel Pickaxe"
         need3 = "Walls and Towers lv.4"
         need4 = "Moats lv.2"
+	elseif tonumber(level) == 7 then
+        label = (level-3).."/5"
+        label2 = "Upgrade"
+        need1 = "400 Desert Cobblestone"
+        need2 = "64 Steel Pickaxe"
+        need3 = "Walls and Towers lv.5"
     else
-        label = (level-3).."/4"
+        label = (level-3).."/5"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -7106,25 +7636,31 @@ tower1.get_formspec = function(player, pos)
         label2 = "Build"
         need1 = "3 Cobblestone"
     elseif tonumber(level) == 18 then
-        label = (level-17).."/4"
+        label = (level-17).."/5"
         label2 = "Upgrade"
         need1 = "10 Cobblestone"
         need2 = "3 Stone Sword"
         need3 = "Fountain lv.1"
     elseif tonumber(level) == 19 then
-        label = (level-17).."/4"
+        label = (level-17).."/5"
         label2 = "Upgrade"
         need1 = "40 Cobblestone"
         need2 = "12 Stone Sword"
         need3 = "Fountain lv.2"
     elseif tonumber(level) == 20 then
-        label = (level-17).."/4"
+        label = (level-17).."/5"
         label2 = "Upgrade"
         need1 = "40 Desert Cobblestone"
         need2 = "12 Steel Sword"
         need3 = "Fountain lv.3"
+	elseif tonumber(level) == 21 then
+        label = (level-17).."/5"
+        label2 = "Upgrade"
+        need1 = "160 Desert Cobblestone"
+        need2 = "48 Steel Sword"
+        need3 = "Fountain lv.4"
     else
-        label = (level-17).."/4"
+        label = (level-17).."/5"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -7161,25 +7697,31 @@ tower2.get_formspec = function(player, pos)
         label2 = "Build"
         need1 = "3 Cobblestone"
     elseif tonumber(level) == 18 then
-        label = (level-17).."/4"
+        label = (level-17).."/5"
         label2 = "Upgrade"
         need1 = "10 Cobblestone"
         need2 = "3 Stone Sword"
         need3 = "Fountain lv.1"
     elseif tonumber(level) == 19 then
-        label = (level-17).."/4"
+        label = (level-17).."/5"
         label2 = "Upgrade"
         need1 = "40 Cobblestone"
         need2 = "12 Stone Sword"
         need3 = "Fountain lv.2"
     elseif tonumber(level) == 20 then
-        label = (level-17).."/4"
+        label = (level-17).."/5"
         label2 = "Upgrade"
         need1 = "40 Desert Cobblestone"
         need2 = "12 Steel Sword"
         need3 = "Fountain lv.3"
+	elseif tonumber(level) == 21 then
+        label = (level-17).."/5"
+        label2 = "Upgrade"
+        need1 = "160 Desert Cobblestone"
+        need2 = "48 Steel Sword"
+        need3 = "Fountain lv.4"
     else
-        label = (level-17).."/4"
+        label = (level-17).."/5"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -7216,25 +7758,31 @@ tower3.get_formspec = function(player, pos)
         label2 = "Build"
         need1 = "3 Cobblestone"
     elseif tonumber(level) == 18 then
-        label = (level-17).."/4"
+        label = (level-17).."/5"
         label2 = "Upgrade"
         need1 = "10 Cobblestone"
         need2 = "3 Stone Sword"
         need3 = "Fountain lv.1"
     elseif tonumber(level) == 19 then
-        label = (level-17).."/4"
+        label = (level-17).."/5"
         label2 = "Upgrade"
         need1 = "40 Cobblestone"
         need2 = "12 Stone Sword"
         need3 = "Fountain lv.2"
     elseif tonumber(level) == 20 then
-        label = (level-17).."/4"
+        label = (level-17).."/5"
         label2 = "Upgrade"
         need1 = "40 Desert Cobblestone"
         need2 = "12 Steel Sword"
         need3 = "Fountain lv.3"
+	elseif tonumber(level) == 21 then
+        label = (level-17).."/5"
+        label2 = "Upgrade"
+        need1 = "160 Desert Cobblestone"
+        need2 = "48 Steel Sword"
+        need3 = "Fountain lv.4"
     else
-        label = (level-17).."/4"
+        label = (level-17).."/5"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -7271,25 +7819,31 @@ tower4.get_formspec = function(player, pos)
         label2 = "Build"
         need1 = "3 Cobblestone"
     elseif tonumber(level) == 18 then
-        label = (level-17).."/4"
+        label = (level-17).."/5"
         label2 = "Upgrade"
         need1 = "10 Cobblestone"
         need2 = "3 Stone Sword"
         need3 = "Fountain lv.1"
     elseif tonumber(level) == 19 then
-        label = (level-17).."/4"
+        label = (level-17).."/5"
         label2 = "Upgrade"
         need1 = "40 Cobblestone"
         need2 = "12 Stone Sword"
         need3 = "Fountain lv.2"
     elseif tonumber(level) == 20 then
-        label = (level-17).."/4"
+        label = (level-17).."/5"
         label2 = "Upgrade"
         need1 = "40 Desert Cobblestone"
         need2 = "12 Steel Sword"
         need3 = "Fountain lv.3"
+	elseif tonumber(level) == 21 then
+        label = (level-17).."/5"
+        label2 = "Upgrade"
+        need1 = "160 Desert Cobblestone"
+        need2 = "48 Steel Sword"
+        need3 = "Fountain lv.4"
     else
-        label = (level-17).."/4"
+        label = (level-17).."/5"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -7457,15 +8011,19 @@ mine.get_formspec = function(player, pos)
         label2 = "Build"
         need1 = "Fountain lv.3"
     elseif tonumber(level) == 1 then
-        label = (level).."/3"
+        label = (level).."/4"
         label2 = "Upgrade"
         need1 = "Completed chapter 2"
     elseif tonumber(level) == 2 then
-        label = (level).."/3"
+        label = (level).."/4"
         label2 = "Upgrade"
         need1 = "Completed chapter 3"
+	elseif tonumber(level) == 3 then
+        label = (level).."/4"
+        label2 = "Upgrade"
+        need1 = "Completed chapter 4"
     else
-        label = (level).."/3"
+        label = (level).."/4"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -7497,19 +8055,23 @@ quarry.get_formspec = function(player, pos)
     local need3 = ""
     local need4 = ""
     if tonumber(level) == 0 then
-        label = (level+1).."/4"
+        label = (level+1).."/5"
         label2 = "Upgrade"
         need1 = "Completed chapter 1"
     elseif tonumber(level) == 1 then
-        label = (level+1).."/4"
+        label = (level+1).."/5"
         label2 = "Upgrade"
         need1 = "Completed chapter 2"
 	elseif tonumber(level) == 2 then
-        label = (level+1).."/4"
+        label = (level+1).."/5"
         label2 = "Upgrade"
         need1 = "Completed chapter 3"
+	elseif tonumber(level) == 3 then
+        label = (level+1).."/5"
+        label2 = "Upgrade"
+        need1 = "Completed chapter 4"
     else
-        label = (level+1).."/4"
+        label = (level+1).."/5"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -7546,19 +8108,23 @@ tree.get_formspec = function(player, pos)
         label2 = "Build"
         need1 = "Fountain lv.1"
     elseif tonumber(level) == 1 then
-        label = (level).."/4"
+        label = (level).."/5"
         label2 = "Upgrade"
         need1 = "Completed chapter 1"
     elseif tonumber(level) == 2 then
-        label = (level).."/4"
+        label = (level).."/5"
         label2 = "Upgrade"
         need1 = "Completed chapter 2"
 	elseif tonumber(level) == 3 then
-        label = (level).."/4"
+        label = (level).."/5"
         label2 = "Upgrade"
         need1 = "Completed chapter 3"
+	elseif tonumber(level) == 4 then
+        label = (level).."/5"
+        label2 = "Upgrade"
+        need1 = "Completed chapter 4"
     else
-        label = (level).."/4"
+        label = (level).."/5"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -7595,11 +8161,15 @@ pier.get_formspec = function(player, pos)
         label2 = "Build"
         need1 = "5 Wooden Planks"
     elseif tonumber(level) == 5 then
-        label = (level-4).."/2"
+        label = (level-4).."/3"
         label2 = "Upgrade"
         need1 = "25 Jungle Wood Planks"
+	elseif tonumber(level) == 6 then
+        label = (level-4).."/3"
+        label2 = "Upgrade"
+        need1 = "100 Jungle Wood Planks"
     else
-        label = (level-4).."/2"
+        label = (level-4).."/3"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -7778,11 +8348,15 @@ lake2.get_formspec = function(player, pos)
         label2 = "Build"
         need1 = "Fountain lv.4"
     elseif tonumber(level) == 1 then
-        label = (level).."/2"
+        label = (level).."/3"
         label2 = "Upgrade"
         need1 = "Completed chapter 3"
+	elseif tonumber(level) == 2 then
+        label = (level).."/3"
+        label2 = "Upgrade"
+        need1 = "Completed chapter 4"
     else
-        label = (level).."/2"
+        label = (level).."/3"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -7941,6 +8515,9 @@ knight.get_formspec = function(player, pos)
     file = io.open(minetest.get_worldpath().."/SAVE/Home2.txt", "r")
 	local home2 = file:read("*l")
     file:close()
+	file = io.open(minetest.get_worldpath().."/SAVE/Home3.txt", "r")
+	local home3 = file:read("*l")
+    file:close()
     file = io.open(minetest.get_worldpath().."/SAVE/Barracks.txt", "r")
 	local barracks = file:read("*l")
     file:close()
@@ -7948,10 +8525,17 @@ knight.get_formspec = function(player, pos)
         max1 = max1+8
     elseif tonumber(home1) == 7 then
         max1 = max1+11
+	elseif tonumber(home1) == 8 then
+        max1 = max1+14
     end
     if tonumber(home2) == 6 then
         max1 = max1+8
     elseif tonumber(home2) == 7 then
+        max1 = max1+11
+    end
+	if tonumber(home3) == 6 then
+        max1 = max1+8
+    elseif tonumber(home3) == 7 then
         max1 = max1+11
     end
     file = io.open(minetest.get_worldpath().."/SAVE/Camp1.txt", "r")
@@ -8029,19 +8613,25 @@ battleground.get_formspec = function(player, pos)
 		need1 = "4 Cobblestone"
         need2 = "Fountain lv.1"
     elseif tonumber(level) == 4 then
-        label = (level-3).."/3"
+        label = (level-3).."/4"
         label2 = "Upgrade"
         need1 = "Completed chapter 1"
         need2 = "40 Cobblestone"
 		need3 = "Fountain lv.2"
     elseif tonumber(level) == 5 then
-        label = (level-3).."/3"
+        label = (level-3).."/4"
         label2 = "Upgrade"
         need1 = "Completed chapter 2"
         need2 = "400 Cobblestone"
 		need3 = "Fountain lv.3"
+	elseif tonumber(level) == 6 then
+        label = (level-3).."/4"
+        label2 = "Upgrade"
+        need1 = "Completed chapter 3"
+        need2 = "400 Desert Cobblestone"
+		need3 = "Fountain lv.4"
     else
-        label = (level-3).."/3"
+        label = (level-3).."/4"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -8065,6 +8655,10 @@ battleground.get_formspec = function(player, pos)
             formspec = formspec.."button[0,3;5,1;;Start Chapter 3]"
         elseif tonumber(chapter) == 3 then
             formspec = formspec.."button[0,3;5,1;;Start Chapter 3 (battleground lv.3 needed)]"
+		elseif tonumber(chapter) == 4 and tonumber(level) > 6 then
+            formspec = formspec.."button[0,3;5,1;;Start Chapter 4]"
+		elseif tonumber(chapter) == 4 then
+            formspec = formspec.."button[0,3;5,1;;Start Chapter 4 (battleground lv.4 needed)]"	
         end
         formspec = formspec--.."button[0,4;5,1;;del]"
         .."image_button[4.5,-0.3;0.8,0.8;;esc;X]"
@@ -8389,16 +8983,15 @@ sandmine.get_formspec = function(player, pos)
     local need3 = ""
     local need4 = ""
     if tonumber(level) == 0 then
-        label = (level+1).."/2"
+        label = (level+1).."/3"
         label2 = "Upgrade"
         need1 = "Completed chapter 3"
-    --elseif tonumber(level) == 1 then
-    --    label = (level+1).."/3"
-    --    label2 = "Upgrade"
-    --    need1 = "Completed chapter 2"
-    --    need2 = "Island Fountain lv.1"
+    elseif tonumber(level) == 1 then
+        label = (level+1).."/3"
+        label2 = "Upgrade"
+        need1 = "Completed chapter 4"
     else
-        label = (level+1).."/2"
+        label = (level+1).."/3"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -8435,11 +9028,15 @@ cactusfarm.get_formspec = function(player, pos)
         label2 = "Build"
         need1 = "Island Fountain lv.1"
     elseif tonumber(level) == 1 then
-        label = (level).."/2"
+        label = (level).."/3"
         label2 = "Upgrade"
         need1 = "Completed chapter 3"
+	elseif tonumber(level) == 2 then
+        label = (level).."/3"
+        label2 = "Upgrade"
+        need1 = "Completed chapter 4"
     else
-        label = (level).."/2"
+        label = (level).."/3"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -8578,6 +9175,15 @@ minetest.register_node("castrum:home_2",{
     --groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
     on_punch = function(pos, node, player, pointed_thing)
         minetest.show_formspec(player:get_player_name(), "home2" , home2.get_formspec(player))
+    end,
+})
+
+minetest.register_node("castrum:home_3",{
+	tiles  = {"default_diamond_block.png"},
+	description = "Configurate Home 3",
+    --groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
+    on_punch = function(pos, node, player, pointed_thing)
+        minetest.show_formspec(player:get_player_name(), "home3" , home3.get_formspec(player))
     end,
 })
 
@@ -9163,7 +9769,7 @@ minetest.register_node("castrum:knight_lv2_dark", {
 	tiles = {"castrum_knight_lv2_dark.png"},
 	paramtype = "light",
 	paramtype2 = "facedir",
-	--groups = {cracky=3, oddly_breakable_by_hand=2},
+	groups = {cracky=3, oddly_breakable_by_hand=2},
 })
 minetest.register_node("castrum:fire", {
 	description = "Fire",
@@ -9258,15 +9864,21 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     txt = "build fountain first"
                 elseif tonumber(level) == 6 and inv:contains_item("main", "default:cobble 64") and inv:contains_item("main", "default:junglewood 80") and tonumber(fountain) > 4 then
                     inv:remove_item("main", "default:junglewood 80")
-                    inv:remove_item("main", "default:wood 64")
+                    inv:remove_item("main", "default:cobble 64")
                     upgrade = true
                 elseif tonumber(level) == 6 and inv:contains_item("main", "default:cobble 64") and inv:contains_item("main", "default:junglewood 80") then
                     txt = "upgrade fountain to lv.2 first"
+				elseif tonumber(level) == 7 and inv:contains_item("main", "default:cobble 128") and inv:contains_item("main", "default:pine_wood 160") and tonumber(fountain) > 6 then
+                    inv:remove_item("main", "default:pine_wood 160")
+                    inv:remove_item("main", "default:cobble 128")
+                    upgrade = true
+                elseif tonumber(level) == 7 and inv:contains_item("main", "default:cobble 128") and inv:contains_item("main", "default:pine_wood 160") then
+                    txt = "upgrade fountain to lv.4 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 7 and upgrade then
+                if (tonumber(level)) < 8 and upgrade then
                     Home1(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Home1.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -9304,7 +9916,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     txt = "upgrade fountain to lv.3 first"
                 elseif tonumber(level) == 6 and inv:contains_item("main", "default:cobble 64") and inv:contains_item("main", "default:junglewood 80") and tonumber(fountain) > 6 then
                     inv:remove_item("main", "default:junglewood 80")
-                    inv:remove_item("main", "default:wood 64")
+                    inv:remove_item("main", "default:cobble 64")
                     upgrade = true
                 elseif tonumber(level) == 6 and inv:contains_item("main", "default:cobble 64") and inv:contains_item("main", "default:junglewood 80") then
                     txt = "upgrade fountain to lv.4 first"
@@ -9353,11 +9965,16 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
 				elseif tonumber(level) == 9 and inv:contains_item("main", "default:junglewood 27") then
                     txt = "upgrade fountain to lv.3 first"
+				elseif tonumber(level) == 10 and inv:contains_item("main", "default:pine_wood 108") and tonumber(fountain) > 7 then
+                    inv:remove_item("main", "default:pine_wood 108")
+                    upgrade = true
+				elseif tonumber(level) == 10 and inv:contains_item("main", "default:pine_wood 108") then
+                    txt = "upgrade fountain to lv.5 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 10 and upgrade then
+                if (tonumber(level)) < 11 and upgrade then
                     Bridge(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Bridge.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -9392,11 +10009,16 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
 				elseif tonumber(level) == 9 and inv:contains_item("main", "default:junglewood 27") then
                     txt = "upgrade fountain to lv.3 first"
+				elseif tonumber(level) == 10 and inv:contains_item("main", "default:pine_wood 108") and tonumber(fountain) > 7 then
+                    inv:remove_item("main", "default:pine_wood 108")
+                    upgrade = true
+				elseif tonumber(level) == 10 and inv:contains_item("main", "default:pine_wood 108") then
+                    txt = "upgrade fountain to lv.5 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 10 and upgrade then
+                if (tonumber(level)) < 11 and upgrade then
                     Bridge2(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Bridge.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -9492,11 +10114,17 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
                 elseif tonumber(level) == 16 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") then
                     txt = "upgrade fountain to lv.3 first"
+				elseif tonumber(level) == 17 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") and tonumber(fountain) > 6 then
+                    inv:remove_item("main", "default:desert_cobble 160")
+                    inv:remove_item("main", "castrum:sword_steel 48")
+                    upgrade = true
+                elseif tonumber(level) == 17 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") then
+                    txt = "upgrade fountain to lv.4 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 17 and upgrade then
+                if (tonumber(level)) < 18 and upgrade then
                     Wall_south(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Walls.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -9589,11 +10217,18 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     txt = "upgrade moats to lv.2 first"
                 elseif tonumber(level) == 6 and inv:contains_item("main", "default:desert_cobble 100") and inv:contains_item("main", "castrum:pick_steel 32") then
                     txt = "upgrade walls and towers to lv.4 first"
+				
+				elseif tonumber(level) == 7 and inv:contains_item("main", "default:desert_cobble 400") and inv:contains_item("main", "castrum:pick_steel 64") and tonumber(tower1) > 21 and tonumber(tower2) > 21 and tonumber(tower3) > 21 and tonumber(tower4) > 21 and tonumber(walle) > 17 and tonumber(wallw) > 17 and tonumber(walln) > 17 and tonumber(walls) > 17 then
+                    inv:remove_item("main", "default:desert_cobble 400")
+                    inv:remove_item("main", "castrum:pick_steel 64")
+                    upgrade = true
+                elseif tonumber(level) == 7 and inv:contains_item("main", "default:desert_cobble 400") and inv:contains_item("main", "castrum:pick_steel 64") then
+                    txt = "upgrade walls and towers to lv.5 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 7 and upgrade then
+                if (tonumber(level)) < 8 and upgrade then
                     Fountain(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Fountain.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -9644,11 +10279,17 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
                 elseif tonumber(level) == 20 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") then
                     txt = "upgrade fountain to lv.3 first"
+				elseif tonumber(level) == 21 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") and tonumber(fountain) > 6 then
+                    inv:remove_item("main", "default:desert_cobble 160")
+                    inv:remove_item("main", "castrum:sword_steel 48")
+                    upgrade = true
+                elseif tonumber(level) == 21 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") then
+                    txt = "upgrade fountain to lv.4 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 21 and upgrade then
+                if (tonumber(level)) < 22 and upgrade then
                     Tower1(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Tower1.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -9699,11 +10340,17 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
                 elseif tonumber(level) == 16 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") then
                     txt = "upgrade fountain to lv.3 first"
+				elseif tonumber(level) == 17 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") and tonumber(fountain) > 6 then
+                    inv:remove_item("main", "default:desert_cobble 160")
+                    inv:remove_item("main", "castrum:sword_steel 48")
+                    upgrade = true
+                elseif tonumber(level) == 17 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") then
+                    txt = "upgrade fountain to lv.4 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 17 and upgrade then
+                if (tonumber(level)) < 18 and upgrade then
                     Wall_east(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Walle.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -9754,11 +10401,17 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
                 elseif tonumber(level) == 20 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") then
                     txt = "upgrade fountain to lv.3 first"
+				elseif tonumber(level) == 21 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") and tonumber(fountain) > 6 then
+                    inv:remove_item("main", "default:desert_cobble 160")
+                    inv:remove_item("main", "castrum:sword_steel 48")
+                    upgrade = true
+                elseif tonumber(level) == 21 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") then
+                    txt = "upgrade fountain to lv.4 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 21 and upgrade then
+                if (tonumber(level)) < 22 and upgrade then
                     Tower2(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Tower2.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -9809,11 +10462,17 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
                 elseif tonumber(level) == 16 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") then
                     txt = "upgrade fountain to lv.3 first"
+				elseif tonumber(level) == 17 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") and tonumber(fountain) > 6 then
+                    inv:remove_item("main", "default:desert_cobble 160")
+                    inv:remove_item("main", "castrum:sword_steel 48")
+                    upgrade = true
+                elseif tonumber(level) == 17 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") then
+                    txt = "upgrade fountain to lv.4 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 17 and upgrade then
+                if (tonumber(level)) < 18 and upgrade then
                     Wall_west(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Wallw.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -9864,11 +10523,17 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
                 elseif tonumber(level) == 16 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") then
                     txt = "upgrade fountain to lv.3 first"
+				elseif tonumber(level) == 17 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") and tonumber(fountain) > 6 then
+                    inv:remove_item("main", "default:desert_cobble 160")
+                    inv:remove_item("main", "castrum:sword_steel 48")
+                    upgrade = true
+                elseif tonumber(level) == 17 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") then
+                    txt = "upgrade fountain to lv.4 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 17 and upgrade then
+                if (tonumber(level)) < 18 and upgrade then
                     Wall_north(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Walln.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -9964,11 +10629,17 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
                 elseif tonumber(level) == 20 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") then
                     txt = "upgrade fountain to lv.3 first"
+				elseif tonumber(level) == 21 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") and tonumber(fountain) > 6 then
+                    inv:remove_item("main", "default:desert_cobble 160")
+                    inv:remove_item("main", "castrum:sword_steel 48")
+                    upgrade = true
+                elseif tonumber(level) == 21 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") then
+                    txt = "upgrade fountain to lv.4 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 21 and upgrade then
+                if (tonumber(level)) < 22 and upgrade then
                     Tower3(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Tower3.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -10109,11 +10780,17 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
                 elseif tonumber(level) == 20 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") then
                     txt = "upgrade fountain to lv.3 first"
+				elseif tonumber(level) == 21 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") and tonumber(fountain) > 6 then
+                    inv:remove_item("main", "default:desert_cobble 160")
+                    inv:remove_item("main", "castrum:sword_steel 48")
+                    upgrade = true
+                elseif tonumber(level) == 21 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") then
+                    txt = "upgrade fountain to lv.4 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 21 and upgrade then
+                if (tonumber(level)) < 22 and upgrade then
                     Tower4(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Tower4.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -10284,15 +10961,19 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
                 elseif tonumber(level) == 2 and tonumber(chapter) > 3 then
                     upgrade = true
+				elseif tonumber(level) == 3 and tonumber(chapter) > 4 then
+                    upgrade = true
                 elseif tonumber(level) == 1 then
                     txt = "complete chapter 2 first"
                 elseif tonumber(level) == 2 then
                     txt = "complete chapter 3 first"
+				elseif tonumber(level) == 3 then
+                    txt = "complete chapter 4 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 3 and upgrade then
+                if (tonumber(level)) < 4 and upgrade then
                     Mine(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Mine.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -10331,17 +11012,21 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
 				elseif tonumber(level) == 2 and tonumber(chapter) > 3 then
                     upgrade = true
+				elseif tonumber(level) == 3 and tonumber(chapter) > 4 then
+                    upgrade = true
                 elseif tonumber(level) == 0 then
                     txt = "complete chapter 1 first"
                 elseif tonumber(level) == 1 then
                     txt = "complete chapter 2 first"
 				elseif tonumber(level) == 2 then
                     txt = "complete chapter 3 first"
+				elseif tonumber(level) == 3 then
+                    txt = "complete chapter 4 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 3 and upgrade then
+                if (tonumber(level)) < 4 and upgrade then
                     Quarry(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Quarry.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -10384,17 +11069,21 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
 				elseif tonumber(level) == 3 and tonumber(chapter) > 3 then
                     upgrade = true
+				elseif tonumber(level) == 4 and tonumber(chapter) > 4 then
+                    upgrade = true
                 elseif tonumber(level) == 1 then
                     txt = "complete chapter 1 first"
                 elseif tonumber(level) == 2 then
                     txt = "complete chapter 2 first"
 				elseif tonumber(level) == 3 then
                     txt = "complete chapter 3 first"
+				elseif tonumber(level) == 4 then
+                    txt = "complete chapter 4 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 4 and upgrade then
+                if (tonumber(level)) < 5 and upgrade then
                     Tree(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Tree.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -10427,11 +11116,14 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 elseif tonumber(level) == 5 and inv:contains_item("main", "default:junglewood 25") then
                     inv:remove_item("main", "default:junglewood 25")
                     upgrade = true
+				elseif tonumber(level) == 6 and inv:contains_item("main", "default:pine_wood 100") then
+                    inv:remove_item("main", "default:pine_wood 100")
+                    upgrade = true
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 6 and upgrade then
+                if (tonumber(level)) < 7 and upgrade then
                     Pier(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Pier.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -10777,14 +11469,24 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 file = io.open(minetest.get_worldpath().."/SAVE/Home2.txt", "r")
 	            local home2 = file:read("*l")
                 file:close()
+				file = io.open(minetest.get_worldpath().."/SAVE/Home3.txt", "r")
+	            local home3 = file:read("*l")
+                file:close()
                 if tonumber(home1) == 6 then
                     max1 = max1+8
                 elseif tonumber(home1) == 7 then
                     max1 = max1+11
+				elseif tonumber(home1) == 8 then
+                    max1 = max1+14
                 end
                 if tonumber(home2) == 6 then
                     max1 = max1+8
                 elseif tonumber(home2) == 7 then
+                    max1 = max1+11
+                end
+				if tonumber(home3) == 6 then
+                    max1 = max1+8
+                elseif tonumber(home3) == 7 then
                     max1 = max1+11
                 end
                 file = io.open(minetest.get_worldpath().."/SAVE/Camp1.txt", "r")
@@ -10838,9 +11540,9 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 minetest.show_formspec(player:get_player_name(), "knight" , knight.get_formspec(player))
             elseif v == "Knight\nlv.2" then
                 player:set_attribute("2item", "Knight lv.2")
-                player:set_attribute("2need1", "8 Soul")
+                player:set_attribute("2need1", "4 Soul")
                 player:set_attribute("2need2", "")
-                player:set_attribute("2need1string", "castrum:soul 8")
+                player:set_attribute("2need1string", "castrum:soul 4")
                 player:set_attribute("2need2string", "")
                 player:set_attribute("knightlv", "2")
                 minetest.show_formspec(player:get_player_name(), "knight" , knight.get_formspec(player))
@@ -10891,11 +11593,18 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     txt = "complete chapter 2 first"
                 elseif tonumber(level) == 5 and inv:contains_item("main", "default:cobble 400") then
                     txt = "upgrade fountain to lv.3 first"
+				elseif tonumber(level) == 6 and tonumber(fountain) > 6 and inv:contains_item("main", "default:desert_cobble 400") and tonumber(chapter) > 3 then
+                    upgrade = true
+                    inv:remove_item("main", "default:desert_cobble 400")
+                elseif tonumber(level) == 6 and inv:contains_item("main", "default:desert_cobble 400") and tonumber(fountain) > 6 then
+                    txt = "complete chapter 3 first"
+                elseif tonumber(level) == 6 and inv:contains_item("main", "default:desert_cobble 400") then
+                    txt = "upgrade fountain to lv.4 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 6 and upgrade then
+                if (tonumber(level)) < 7 and upgrade then
                     Battleground(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Battleground.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -10911,6 +11620,9 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 minetest.show_formspec(player:get_player_name(), "", "")
             elseif v == "Start Chapter 3" then
                 get_fight(3,player)
+                minetest.show_formspec(player:get_player_name(), "", "")
+			elseif v == "Start Chapter 4" then
+                get_fight(4,player)
                 minetest.show_formspec(player:get_player_name(), "", "")
             elseif v == "X" then
                 minetest.show_formspec(player:get_player_name(), "", "")
@@ -11106,7 +11818,6 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 file = io.open(minetest.get_worldpath().."/SAVE/Island_Fountain.txt", "r")
 	            local fountain = file:read("*l")
                 file:close()
-
                 local txt = "not enough items"
                 local inv = player:get_inventory()
                 local upgrade = false
@@ -11114,16 +11825,15 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
                 elseif tonumber(level) == 0 then
                     txt = "complete chapter 3 first"
-                elseif tonumber(level) == 1 and tonumber(chapter) > 2 then
+                elseif tonumber(level) == 1 and tonumber(chapter) > 4 then
                     upgrade = true
                 elseif tonumber(level) == 1 then
-                    --txt = "complete chapter 2 first"
-                
+                    txt = "complete chapter 4 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 1 and upgrade then
+                if (tonumber(level)) < 2 and upgrade then
                     Sandmine(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Sandmine.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -11211,6 +11921,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
                 elseif tonumber(level) == 1 then
                     txt = "complete chapter 3 first"
+				elseif tonumber(level) == 2 and tonumber(chapter) > 4 then
+                    upgrade = true
+                elseif tonumber(level) == 2 then
+                    txt = "complete chapter 4 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
@@ -11298,11 +12012,15 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
                 elseif tonumber(level) == 1 then
                     txt = "complete chapter 3 first"
+				elseif tonumber(level) == 2 and tonumber(chapter) > 4 then
+                    upgrade = true
+                elseif tonumber(level) == 2 then
+                    txt = "complete chapter 4 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 2 and upgrade then
+                if (tonumber(level)) < 3 and upgrade then
                     Cactusfarm(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Cactusfarm.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -11422,6 +12140,46 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		            file:close()
                 end
                 minetest.show_formspec(player:get_player_name(), "island_home1" , island_home1.get_formspec(player))
+            elseif v == "X" then
+                minetest.show_formspec(player:get_player_name(), "", "")
+            end
+        end
+	end
+	if formname == "home3" then
+        for k, v in pairs(fields) do
+            if v == "del" then
+                Home3(0,player)
+                file = io.open(minetest.get_worldpath().."/SAVE/Home3.txt", "w")
+		        file:write("0")
+		        file:close()
+                minetest.show_formspec(player:get_player_name(), "home3" , home3.get_formspec(player))
+            elseif v == "Upgrade" or v == "Build" then
+                file = io.open(minetest.get_worldpath().."/SAVE/Home3.txt", "r")
+	            local level = file:read("*l")
+                file:close()
+                file = io.open(minetest.get_worldpath().."/SAVE/Fountain.txt", "r")
+	            local fountain = file:read("*l")
+                file:close()
+                local inv = player:get_inventory()
+                local upgrade = false
+                local txt = "not enough items"
+                if tonumber(level) < 6 and inv:contains_item("main", "default:cobble 8") and inv:contains_item("main", "default:wood 10") and tonumber(fountain) > 7 then
+                    inv:remove_item("main", "default:cobble 8")
+                    inv:remove_item("main", "default:wood 10")
+                    upgrade = true
+                elseif tonumber(level) < 6 and inv:contains_item("main", "default:cobble 8") and inv:contains_item("main", "default:wood 10") then
+                    txt = "upgrade fountain to lv.5 first"
+                end
+                if upgrade == false then
+                    minetest.chat_send_player(player:get_player_name(), txt)
+                end
+                if (tonumber(level)) < 6 and upgrade then
+                    Home3(tonumber(level)+1,player)
+                    file = io.open(minetest.get_worldpath().."/SAVE/Home3.txt", "w")
+		            file:write(tonumber(level)+1)
+		            file:close()
+                end
+                minetest.show_formspec(player:get_player_name(), "home3" , home3.get_formspec(player))
             elseif v == "X" then
                 minetest.show_formspec(player:get_player_name(), "", "")
             end
