@@ -288,5 +288,61 @@ minetest.register_chatcommand("update", {
         for i=1,tonumber(level) do
             Home3(i,player)
         end
+		
+		
+		file = io.open(minetest.get_worldpath().."/SAVE/Island_Barracks.txt", "r")
+	    local level = file:read("*l")
+        file:close()
+        for i=1,tonumber(level) do
+            Island_Barracks(i,player)
+        end
+		file = io.open(minetest.get_worldpath().."/SAVE/Island_Pier.txt", "r")
+	    local level = file:read("*l")
+        file:close()
+        for i=1,tonumber(level) do
+            Island_Pier(i,player)
+        end
+		file = io.open(minetest.get_worldpath().."/SAVE/Sail1.txt", "r")
+	    local level = file:read("*l")
+        file:close()
+        for i=1,tonumber(level) do
+            Sail1(i,player)
+        end
+		file = io.open(minetest.get_worldpath().."/SAVE/Sail2.txt", "r")
+	    local level = file:read("*l")
+        file:close()
+        for i=1,tonumber(level) do
+            Sail2(i,player)
+        end
+		file = io.open(minetest.get_worldpath().."/SAVE/Ship2.txt", "r")
+	    local level = file:read("*l")
+        file:close()
+        for i=1,tonumber(level) do
+            Ship2(i,player)
+        end
+		file = io.open(minetest.get_worldpath().."/SAVE/Mountain_Smithy.txt", "r")
+	    local level = file:read("*l")
+        file:close()
+        for i=1,tonumber(level) do
+            Mountain_Smithy(i,player)
+        end
+		file = io.open(minetest.get_worldpath().."/SAVE/Farm.txt", "r")
+	    local level = file:read("*l")
+        file:close()
+        for i=1,tonumber(level) do
+            Farm(i,player)
+        end
+		file = io.open(minetest.get_worldpath().."/SAVE/Stable.txt", "r")
+	    local level = file:read("*l")
+        file:close()
+        if tonumber(level) > 0 then
+            Update_horse(player)
+        end
+		file = io.open(minetest.get_worldpath().."/SAVE/Island_Barracks.txt", "r")
+	    local level = file:read("*l")
+        file:close()
+        if tonumber(level) > 0 then
+            Update_pirates(player)
+        end
 	end,
 })
