@@ -1,0 +1,126 @@
+mgv5_np_cave2 = {
+	flags = defaults
+	lacunarity = 2
+	offset = 0
+	scale = 12
+	spread = (50,50,50)
+	seed = 10325
+	octaves = 4
+	persistence = 0.5
+}
+mgv5_np_cave1 = {
+	flags = defaults
+	lacunarity = 2
+	offset = 0
+	scale = 12
+	spread = (50,50,50)
+	seed = 52534
+	octaves = 4
+	persistence = 0.5
+}
+mgv5_np_height = {
+	flags = defaults
+	lacunarity = 2
+	offset = 0
+	scale = 10
+	spread = (250,250,250)
+	seed = 84174
+	octaves = 4
+	persistence = 0.5
+}
+mgv5_np_factor = {
+	flags = defaults
+	lacunarity = 2
+	offset = 0
+	scale = 1
+	spread = (250,250,250)
+	seed = 920381
+	octaves = 3
+	persistence = 0.45
+}
+mgv5_np_filler_depth = {
+	flags = defaults
+	lacunarity = 2
+	offset = 0
+	scale = 1
+	spread = (150,150,150)
+	seed = 261
+	octaves = 4
+	persistence = 0.7
+}
+mgv5_dungeon_ymin = -31000
+mg_flags = caves, dungeons, light, decorations, biomes
+mgv5_cave_width = 0.125
+chunksize = 5
+mgv5_np_ground = {
+	flags = eased
+	lacunarity = 2
+	offset = 0
+	scale = 40
+	spread = (80,80,80)
+	seed = 983240
+	octaves = 4
+	persistence = 0.55
+}
+mg_name = v5
+mapgen_limit = 31000
+water_level = 1
+mgv5_cavern_threshold = 0.7
+seed = 1052738021870074248
+mg_biome_np_heat = {
+	flags = defaults
+	lacunarity = 2
+	offset = 50
+	scale = 50
+	spread = (1000,1000,1000)
+	seed = 5349
+	octaves = 3
+	persistence = 0.5
+}
+mgv5_dungeon_ymax = 31000
+mgv5_spflags = caverns
+mgv5_np_cavern = {
+	flags = defaults
+	lacunarity = 2
+	offset = 0
+	scale = 1
+	spread = (384,128,384)
+	seed = 723
+	octaves = 5
+	persistence = 0.63
+}
+mg_biome_np_heat_blend = {
+	flags = defaults
+	lacunarity = 2
+	offset = 0
+	scale = 1.5
+	spread = (8,8,8)
+	seed = 13
+	octaves = 2
+	persistence = 1
+}
+mg_biome_np_humidity = {
+	flags = defaults
+	lacunarity = 2
+	offset = 50
+	scale = 50
+	spread = (1000,1000,1000)
+	seed = 842
+	octaves = 3
+	persistence = 0.5
+}
+mg_biome_np_humidity_blend = {
+	flags = defaults
+	lacunarity = 2
+	offset = 0
+	scale = 1.5
+	spread = (8,8,8)
+	seed = 90003
+	octaves = 2
+	persistence = 1
+}
+mgv5_cavern_limit = -256
+mgv5_large_cave_depth = -256
+mgv5_lava_depth = -256
+mgv5_cavern_taper = 256
+[end_of_params]
