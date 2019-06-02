@@ -6,7 +6,7 @@ minetest.register_on_joinplayer(function(player)
 		offset = {x=0, y=10},
 		alignment = {x=1, y=0},
 		number = 0xFFFFFF ,
-		text = "For Minetest 	  :  5.0.0",
+		text = "For Minetest 	  :  5.0.x",
 	})
 	player:hud_add({
 		hud_elem_type = "text",
@@ -14,7 +14,7 @@ minetest.register_on_joinplayer(function(player)
 		offset = {x=0, y=30},
 		alignment = {x=1, y=0},
 		number = 0xFFFFFF ,
-		text = "Game Version	 :  1.8.1",
+		text = "Game Version	 :  1.9.0",
 	})
     player:hud_add({ 
 		hud_elem_type = "text",
@@ -22,7 +22,7 @@ minetest.register_on_joinplayer(function(player)
 		offset = {x=0, y=50},
 		alignment = {x=1, y=0},
 		number = 0xFFFFFF ,
-		text = "Map Version	   :  10",
+		text = "Map Version	   :  11",
 	})
 end)
 function file_check(file_name)
@@ -168,12 +168,6 @@ minetest.register_on_joinplayer(function(player)
 		file:write("0")
 		file:close()
 	end
-	
-	
-	
-	
-	
-	
 	if file_check(minetest.get_worldpath().."/SAVE/Island_Barracks.txt") == true then
 	else
 		file = io.open(minetest.get_worldpath().."/SAVE/Island_Barracks.txt", "w")
@@ -228,15 +222,53 @@ minetest.register_on_joinplayer(function(player)
 		file:write("0")
 		file:close()
 	end
-	
+	if file_check(minetest.get_worldpath().."/SAVE/Camp3.txt") == true then
+	else
+		file = io.open(minetest.get_worldpath().."/SAVE/Camp3.txt", "w")
+		file:write("0")
+		file:close()
+	end
+	if file_check(minetest.get_worldpath().."/SAVE/Cannon1.txt") == true then
+	else
+		file = io.open(minetest.get_worldpath().."/SAVE/Cannon1.txt", "w")
+		file:write("0")
+		file:close()
+	end
+	if file_check(minetest.get_worldpath().."/SAVE/Cannon2.txt") == true then
+	else
+		file = io.open(minetest.get_worldpath().."/SAVE/Cannon2.txt", "w")
+		file:write("0")
+		file:close()
+	end
+	if file_check(minetest.get_worldpath().."/SAVE/Island_Battleground.txt") == true then
+	else
+		file = io.open(minetest.get_worldpath().."/SAVE/Island_Battleground.txt", "w")
+		file:write("0")
+		file:close()
+	end
+	if file_check(minetest.get_worldpath().."/SAVE/Island_Pier2.txt") == true then
+	else
+		file = io.open(minetest.get_worldpath().."/SAVE/Island_Pier2.txt", "w")
+		file:write("0")
+		file:close()
+	end
+	if file_check(minetest.get_worldpath().."/SAVE/Island_Chapter.txt") == true then
+	else
+		file = io.open(minetest.get_worldpath().."/SAVE/Island_Chapter.txt", "w")
+		file:write("1")
+		file:close()
+	end
 end)
 dofile(minetest.get_modpath("castrum").."/Chapter1.lua")
 dofile(minetest.get_modpath("castrum").."/Chapter2.lua")
 dofile(minetest.get_modpath("castrum").."/Chapter3.lua")
 dofile(minetest.get_modpath("castrum").."/Chapter4.lua")
 dofile(minetest.get_modpath("castrum").."/Chapter5.lua")
+dofile(minetest.get_modpath("castrum").."/Chapter6.lua")
 dofile(minetest.get_modpath("castrum").."/fight.lua")
+dofile(minetest.get_modpath("castrum").."/island_fight.lua")
 dofile(minetest.get_modpath("castrum").."/update.lua")
+local btimer = 1
 local timer = 0
 local timer2 = 0
 local timer3 = 0
@@ -249,13 +281,18 @@ local timer9 = 0
 local timer10 = 0
 local tree2 = 0
 local tree3 = 0
+local tree4 = 0
 local quarry2 = 0
 local quarry3 = 0
 local mine2 = 0
 local mine3 = 0
 local sandmine2 = 0
+local sandmine3 = 0
 local last = {x=-40,y=8.5,z=-5}
 minetest.register_globalstep(function(dtime)
+	if btimer > 0 then
+		btimer = btimer + dtime;
+	end
     timer = timer + dtime;
     timer2 = timer2 + dtime;
     timer3 = timer3 + dtime;
@@ -272,35 +309,60 @@ minetest.register_globalstep(function(dtime)
         file = io.open(minetest.get_worldpath().."/SAVE/Ship1.txt", "r")
 	    local ship1 = file:read("*l")
         file:close()
-        if pos.x < -9.5 and pos.x > -15.5 and pos.z > -62.5 and pos.z < -54 and tonumber(ship1) > 1 then
-            last = pos
-        elseif pos.x < -10.5 and pos.x > -14.5 and pos.z > -63.5 and pos.z < -62.5 and tonumber(ship1) > 1 then
-            last = pos
-        elseif pos.x < -11.5 and pos.x > -13.5 and pos.z > -64.5 and pos.z < -63.5 and tonumber(ship1) > 1 then
-            last = pos
-        elseif pos.x < 132.5 and pos.x > 127.5 and pos.z > 39.5 and pos.z < 48.5 then
-            last = pos
-        elseif pos.x < 131.5 and pos.x > 128.5 and pos.z > 48.5 and pos.z < 49.5 then
-            last = pos
-        elseif pos.x < 130.5 and pos.x > 129.5 and pos.z > 49.5 and pos.z < 50.5 then
-            last = pos
-		elseif pos.x < 320.5 and pos.x > 315.5 and pos.z > 39.5 and pos.z < 48.5 then
-            last = pos
-        elseif pos.x < 319.5 and pos.x > 316.5 and pos.z > 48.5 and pos.z < 49.5 then
-            last = pos
-        elseif pos.x < 318.5 and pos.x > 317.5 and pos.z > 49.5 and pos.z < 50.5 then
-            last = pos
-		elseif pos.x < 168.5 and pos.x > 161.5 and pos.z > 40.5 and pos.z < 51.5 then
-            last = pos	
-		elseif pos.x < 166.5 and pos.x > 163.5 and pos.z > 51.5 and pos.z < 53.5 then
-            last = pos	
-		elseif pos.x < 165.5 and pos.x > 164.5 and pos.z > 53.5 and pos.z < 55.5 then
-            last = pos	
-        elseif pos.y < 8 then
-            player:setpos(last)
-        elseif minetest.get_node({x=pos.x, y=(pos.y-0.5),z=pos.z}).name ~= "air" then
-            last = pos
-        end
+		if btimer == 0 then
+			if pos.x < -9.5 and pos.x > -15.5 and pos.z > -62.5 and pos.z < -54 and tonumber(ship1) > 1 then
+				last = pos
+			elseif pos.x < -10.5 and pos.x > -14.5 and pos.z > -63.5 and pos.z < -62.5 and tonumber(ship1) > 1 then
+				last = pos
+			elseif pos.x < -11.5 and pos.x > -13.5 and pos.z > -64.5 and pos.z < -63.5 and tonumber(ship1) > 1 then
+				last = pos
+			elseif pos.x < 132.5 and pos.x > 127.5 and pos.z > 39.5 and pos.z < 48.5 then
+				last = pos
+			elseif pos.x < 131.5 and pos.x > 128.5 and pos.z > 48.5 and pos.z < 49.5 then
+				last = pos
+			elseif pos.x < 130.5 and pos.x > 129.5 and pos.z > 49.5 and pos.z < 50.5 then
+				last = pos
+			elseif pos.x < 320.5 and pos.x > 315.5 and pos.z > 39.5 and pos.z < 48.5 then
+				last = pos
+			elseif pos.x < 319.5 and pos.x > 316.5 and pos.z > 48.5 and pos.z < 49.5 then
+				last = pos
+			elseif pos.x < 318.5 and pos.x > 317.5 and pos.z > 49.5 and pos.z < 50.5 then
+				last = pos
+			elseif pos.x < 168.5 and pos.x > 161.5 and pos.z > 40.5 and pos.z < 51.5 then
+				last = pos	
+			elseif pos.x < 166.5 and pos.x > 163.5 and pos.z > 51.5 and pos.z < 53.5 then
+				last = pos	
+			elseif pos.x < 165.5 and pos.x > 164.5 and pos.z > 53.5 and pos.z < 55.5 then
+				last = pos	
+			elseif minetest.get_node({x=pos.x,y=pos.y-1, z = pos.z}).name == "default:wood" then
+				last = pos
+			elseif minetest.get_node({x=pos.x,y=pos.y-1, z = pos.z}).name == "castrum:sea_fight1" then
+				last = pos
+			elseif minetest.get_node({x=pos.x,y=pos.y-1, z = pos.z}).name == "castrum:island_start_fight" then
+				last = pos
+			elseif minetest.get_node({x=pos.x,y=pos.y-1, z = pos.z}).name == "castrum:turn_ship" then
+				last = pos
+			elseif minetest.get_node({x=pos.x,y=pos.y-1, z = pos.z}).name == "castrum:fire_cannon_ready" then
+				last = pos
+			elseif minetest.get_node({x=pos.x,y=pos.y-1, z = pos.z}).name == "castrum:fire_cannon_5" then
+				last = pos
+			elseif minetest.get_node({x=pos.x,y=pos.y-1, z = pos.z}).name == "castrum:fire_cannon_4" then
+				last = pos
+			elseif minetest.get_node({x=pos.x,y=pos.y-1, z = pos.z}).name == "castrum:fire_cannon_3" then
+				last = pos
+			elseif minetest.get_node({x=pos.x,y=pos.y-1, z = pos.z}).name == "castrum:fire_cannon_2" then
+				last = pos
+			elseif minetest.get_node({x=pos.x,y=pos.y-1, z = pos.z}).name == "castrum:fire_cannon_1" then
+				last = pos
+			elseif pos.y < 8 then
+				player:setpos(last)
+			elseif minetest.get_node({x=pos.x, y=(pos.y-0.5),z=pos.z}).name ~= "air" then
+				last = pos
+			end
+		end
+		if btimer > 5 then
+			btimer = 0
+		end
         if minetest.get_node({x=-4, y=8,z=-52}).name == "default:wood" or minetest.get_node({x=-8, y=8,z=-65}).name == "default:wood" or minetest.get_node({x=121, y=8,z=38}).name == "default:wood" or minetest.get_node({x=125, y=8,z=51}).name == "default:wood" then
             file = io.open(minetest.get_worldpath().."/SAVE/Pier.txt", "r")
 	        local level = file:read("*l")
@@ -393,6 +455,9 @@ minetest.register_globalstep(function(dtime)
 		elseif tonumber(quarry) == 5 then
 			quarrytime = 1.6
             quarrynum = 3
+		elseif tonumber(quarry) == 6 then
+			quarrytime = 1.5
+            quarrynum = 3
         end
         local treetime = 0
         local treenum = 1
@@ -414,6 +479,9 @@ minetest.register_globalstep(function(dtime)
 		elseif tonumber(tree) == 6 then
             treetime = 2.7
             treenum = 3
+		elseif tonumber(tree) == 7 then
+            treetime = 2.4
+            treenum = 4
         end
         local minetime = 0
         local minenum = 1
@@ -430,7 +498,10 @@ minetest.register_globalstep(function(dtime)
             minetime = 7
             minenum = 2
 		elseif tonumber(mine) == 5 then
-            minetime = 6.5
+            minetime = 5.5
+            minenum = 3
+		elseif tonumber(mine) == 6 then
+            minetime = 4.5
             minenum = 3
         end
         local laketime = 0
@@ -457,6 +528,9 @@ minetest.register_globalstep(function(dtime)
 		elseif tonumber(sandmine) == 3 then
             sandminetime = 2
             sandminenum = 2
+		elseif tonumber(sandmine) == 4 then
+            sandminetime = 1.8
+            sandminenum = 3
         end
         local lake2time = 0
         if tonumber(lake2) == 1 then
@@ -477,6 +551,8 @@ minetest.register_globalstep(function(dtime)
             cactusfarmtime = 9
 		elseif tonumber(cactusfarm) == 4 then
             cactusfarmtime = 7
+		elseif tonumber(cactusfarm) == 5 then
+            cactusfarmtime = 5.5
         end
 		local mountain_quarrytime = 0
         if tonumber(mountain_quarry) == 0 then
@@ -517,11 +593,15 @@ minetest.register_globalstep(function(dtime)
                 if inv then
                     tree2 = tree2+1
 					tree3 = tree3+1
+					tree4 = tree4+1
                     if tree2 == 2 then
                         tree2 = 0
                     end
 					if tree3 == 3 then
                         tree3 = 0
+                    end
+					if tree4 == 4 then
+                        tree4 = 0
                     end
                     inv:add_item("main", "default:wood")
                     if treenum > 1 and tree2 == 1 then
@@ -529,6 +609,9 @@ minetest.register_globalstep(function(dtime)
                     end
 					if treenum > 2 and tree3 == 1 then
                         inv:add_item("main", "default:pine_wood")
+                    end
+					if treenum > 3 and tree4 == 1 then
+                        inv:add_item("main", "default:acacia_wood")
                     end
                 end
             end
@@ -572,12 +655,19 @@ minetest.register_globalstep(function(dtime)
 		        local inv = minetest.get_inventory({type="node", pos={x=132, y=9, z=15}})
                 if inv then
                     sandmine2 = sandmine2+1
+					sandmine3 = sandmine3+1
                     if sandmine2 == 2 then
                         sandmine2 = 0
+                    end
+					if sandmine3 == 3 then
+                        sandmine3 = 0
                     end
                     inv:add_item("main", "default:sand")
                     if sandminenum > 1 and sandmine2 == 1 then
                         inv:add_item("main", "default:desert_sand")
+                    end
+					if sandminenum > 1 and sandmine3 == 1 then
+                        inv:add_item("main", "default:silver_sand")
                     end
                 end
             end
@@ -671,47 +761,47 @@ minetest.register_on_dignode(function(pos, node, digger)
         digger:set_attribute("fightpos", minetest.pos_to_string(pos))
         if minetest.get_node({x=pos.x-1, y=9, z=pos.z}).name == "castrum:knight_lv1_dark" or minetest.get_node({x=pos.x-1, y=9, z=pos.z}).name == "castrum:knight_lv2_dark" or minetest.get_node({x=pos.x-1, y=9, z=pos.z}).name == "castrum:knight_lv3_dark" or minetest.get_node({x=pos.x-1, y=9, z=pos.z}).name == "castrum:knight_dark" then
             minetest.set_node({x=pos.x-1, y=8, z=pos.z}, {name="castrum:fight2"})
-        elseif (minetest.get_node({x=pos.x-1, y=9, z=pos.z}).name ~= "castrum:knight_lv1" or minetest.get_node({x=pos.x-1, y=9, z=pos.z}).name ~= "castrum:knight_lv2") and minetest.get_node({x=pos.x-1, y=8, z=pos.z}).name ~= "default:gravel" then
+        elseif minetest.get_node({x=pos.x-1, y=9, z=pos.z}).name ~= "castrum:knight_lv1" and minetest.get_node({x=pos.x-1, y=9, z=pos.z}).name ~= "castrum:knight_lv2" and minetest.get_node({x=pos.x-1, y=9, z=pos.z}).name ~= "castrum:knight_lv3" and minetest.get_node({x=pos.x-1, y=8, z=pos.z}).name ~= "default:gravel" then
             minetest.set_node({x=pos.x-1, y=8, z=pos.z}, {name="castrum:fight1"})
         end
         if minetest.get_node({x=pos.x-1, y=9, z=pos.z-1}).name == "castrum:knight_lv1_dark" or minetest.get_node({x=pos.x-1, y=9, z=pos.z-1}).name == "castrum:knight_lv2_dark" or minetest.get_node({x=pos.x-1, y=9, z=pos.z-1}).name == "castrum:knight_lv3_dark" or minetest.get_node({x=pos.x-1, y=9, z=pos.z-1}).name == "castrum:knight_dark" then
             minetest.set_node({x=pos.x-1, y=8, z=pos.z-1}, {name="castrum:fight2"})
-        elseif (minetest.get_node({x=pos.x-1, y=9, z=pos.z-1}).name ~= "castrum:knight_lv1" or minetest.get_node({x=pos.x-1, y=9, z=pos.z-1}).name ~= "castrum:knight_lv2" or minetest.get_node({x=pos.x-1, y=9, z=pos.z-1}).name ~= "castrum:knight_lv3") and minetest.get_node({x=pos.x-1, y=8, z=pos.z-1}).name ~= "default:gravel" then
+        elseif minetest.get_node({x=pos.x-1, y=9, z=pos.z-1}).name ~= "castrum:knight_lv1" and minetest.get_node({x=pos.x-1, y=9, z=pos.z-1}).name ~= "castrum:knight_lv2" and minetest.get_node({x=pos.x-1, y=9, z=pos.z-1}).name ~= "castrum:knight_lv3" and minetest.get_node({x=pos.x-1, y=8, z=pos.z-1}).name ~= "default:gravel" then
             minetest.set_node({x=pos.x-1, y=8, z=pos.z-1}, {name="castrum:fight1"})
         end
         if minetest.get_node({x=pos.x-1, y=9, z=pos.z+1}).name == "castrum:knight_lv1_dark" or minetest.get_node({x=pos.x-1, y=9, z=pos.z+1}).name == "castrum:knight_lv2_dark" or minetest.get_node({x=pos.x-1, y=9, z=pos.z+1}).name == "castrum:knight_lv3_dark" or minetest.get_node({x=pos.x-1, y=9, z=pos.z+1}).name == "castrum:knight_dark" then
             minetest.set_node({x=pos.x-1, y=8, z=pos.z+1}, {name="castrum:fight2"})
-        elseif (minetest.get_node({x=pos.x-1, y=9, z=pos.z+1}).name ~= "castrum:knight_lv1" or minetest.get_node({x=pos.x-1, y=9, z=pos.z+1}).name ~= "castrum:knight_lv2"or minetest.get_node({x=pos.x-1, y=9, z=pos.z+1}).name ~= "castrum:knight_lv3") and minetest.get_node({x=pos.x-1, y=8, z=pos.z+1}).name ~= "default:gravel" then
+        elseif minetest.get_node({x=pos.x-1, y=9, z=pos.z+1}).name ~= "castrum:knight_lv1" and minetest.get_node({x=pos.x-1, y=9, z=pos.z+1}).name ~= "castrum:knight_lv2"and minetest.get_node({x=pos.x-1, y=9, z=pos.z+1}).name ~= "castrum:knight_lv3" and minetest.get_node({x=pos.x-1, y=8, z=pos.z+1}).name ~= "default:gravel" then
             minetest.set_node({x=pos.x-1, y=8, z=pos.z+1}, {name="castrum:fight1"})
         end
         if minetest.get_node({x=pos.x, y=9, z=pos.z}).name == "castrum:knight_lv1_dark" or minetest.get_node({x=pos.x, y=9, z=pos.z}).name == "castrum:knight_lv2_dark" or minetest.get_node({x=pos.x, y=9, z=pos.z}).name == "castrum:knight_lv3_dark" or minetest.get_node({x=pos.x, y=9, z=pos.z}).name == "castrum:knight_dark" then
             minetest.set_node({x=pos.x, y=8, z=pos.z}, {name="castrum:fight2"})
-        elseif (minetest.get_node({x=pos.x, y=9, z=pos.z}).name ~= "castrum:knight_lv1" or minetest.get_node({x=pos.x, y=9, z=pos.z}).name ~= "castrum:knight_lv2" or minetest.get_node({x=pos.x, y=9, z=pos.z}).name ~= "castrum:knight_lv3") and minetest.get_node({x=pos.x, y=8, z=pos.z}).name ~= "default:gravel" then
+        elseif minetest.get_node({x=pos.x, y=9, z=pos.z}).name ~= "castrum:knight_lv1" and minetest.get_node({x=pos.x, y=9, z=pos.z}).name ~= "castrum:knight_lv2" and minetest.get_node({x=pos.x, y=9, z=pos.z}).name ~= "castrum:knight_lv3" and minetest.get_node({x=pos.x, y=8, z=pos.z}).name ~= "default:gravel" then
             minetest.set_node({x=pos.x, y=8, z=pos.z}, {name="castrum:fight1"})
         end
         if minetest.get_node({x=pos.x, y=9, z=pos.z-1}).name == "castrum:knight_lv1_dark" or minetest.get_node({x=pos.x, y=9, z=pos.z-1}).name == "castrum:knight_lv2_dark" or minetest.get_node({x=pos.x, y=9, z=pos.z-1}).name == "castrum:knight_lv3_dark" or minetest.get_node({x=pos.x, y=9, z=pos.z-1}).name == "castrum:knight_dark" then
             minetest.set_node({x=pos.x, y=8, z=pos.z-1}, {name="castrum:fight2"})
-        elseif (minetest.get_node({x=pos.x, y=9, z=pos.z-1}).name ~= "castrum:knight_lv1" or minetest.get_node({x=pos.x, y=9, z=pos.z-1}).name ~= "castrum:knight_lv2" or minetest.get_node({x=pos.x, y=9, z=pos.z-1}).name ~= "castrum:knight_lv3") and minetest.get_node({x=pos.x, y=8, z=pos.z-1}).name ~= "default:gravel" then
+        elseif minetest.get_node({x=pos.x, y=9, z=pos.z-1}).name ~= "castrum:knight_lv1" and minetest.get_node({x=pos.x, y=9, z=pos.z-1}).name ~= "castrum:knight_lv2" and minetest.get_node({x=pos.x, y=9, z=pos.z-1}).name ~= "castrum:knight_lv3" and minetest.get_node({x=pos.x, y=8, z=pos.z-1}).name ~= "default:gravel" then
             minetest.set_node({x=pos.x, y=8, z=pos.z-1}, {name="castrum:fight1"})
         end
         if minetest.get_node({x=pos.x, y=9, z=pos.z+1}).name == "castrum:knight_lv1_dark" or minetest.get_node({x=pos.x, y=9, z=pos.z+1}).name == "castrum:knight_lv2_dark" or minetest.get_node({x=pos.x, y=9, z=pos.z+1}).name == "castrum:knight_lv3_dark" or minetest.get_node({x=pos.x, y=9, z=pos.z+1}).name == "castrum:knight_dark" then
             minetest.set_node({x=pos.x, y=8, z=pos.z+1}, {name="castrum:fight2"})
-        elseif (minetest.get_node({x=pos.x, y=9, z=pos.z+1}).name ~= "castrum:knight_lv1" or minetest.get_node({x=pos.x, y=9, z=pos.z+1}).name ~= "castrum:knight_lv2" or minetest.get_node({x=pos.x, y=9, z=pos.z+1}).name ~= "castrum:knight_lv3") and minetest.get_node({x=pos.x, y=8, z=pos.z+1}).name ~= "default:gravel" then
+        elseif minetest.get_node({x=pos.x, y=9, z=pos.z+1}).name ~= "castrum:knight_lv1" and minetest.get_node({x=pos.x, y=9, z=pos.z+1}).name ~= "castrum:knight_lv2" and minetest.get_node({x=pos.x, y=9, z=pos.z+1}).name ~= "castrum:knight_lv3" and minetest.get_node({x=pos.x, y=8, z=pos.z+1}).name ~= "default:gravel" then
             minetest.set_node({x=pos.x, y=8, z=pos.z+1}, {name="castrum:fight1"})
         end
         if minetest.get_node({x=pos.x+1, y=9, z=pos.z}).name == "castrum:knight_lv1_dark" or minetest.get_node({x=pos.x+1, y=9, z=pos.z}).name == "castrum:knight_lv2_dark" or minetest.get_node({x=pos.x+1, y=9, z=pos.z}).name == "castrum:knight_lv3_dark" or minetest.get_node({x=pos.x+1, y=9, z=pos.z}).name == "castrum:knight_dark" then
             minetest.set_node({x=pos.x+1, y=8, z=pos.z}, {name="castrum:fight2"})
-        elseif (minetest.get_node({x=pos.x+1, y=9, z=pos.z}).name ~= "castrum:knight_lv1" or minetest.get_node({x=pos.x+1, y=9, z=pos.z}).name ~= "castrum:knight_lv2" or minetest.get_node({x=pos.x+1, y=9, z=pos.z}).name ~= "castrum:knight_lv3") and minetest.get_node({x=pos.x+1, y=8, z=pos.z}).name ~= "default:gravel" then
+        elseif minetest.get_node({x=pos.x+1, y=9, z=pos.z}).name ~= "castrum:knight_lv1" and minetest.get_node({x=pos.x+1, y=9, z=pos.z}).name ~= "castrum:knight_lv2" and minetest.get_node({x=pos.x+1, y=9, z=pos.z}).name ~= "castrum:knight_lv3" and minetest.get_node({x=pos.x+1, y=8, z=pos.z}).name ~= "default:gravel" then
             minetest.set_node({x=pos.x+1, y=8, z=pos.z}, {name="castrum:fight1"})
         end
         if minetest.get_node({x=pos.x+1, y=9, z=pos.z-1}).name == "castrum:knight_lv1_dark" or minetest.get_node({x=pos.x+1, y=9, z=pos.z-1}).name == "castrum:knight_lv2_dark" or minetest.get_node({x=pos.x+1, y=9, z=pos.z-1}).name == "castrum:knight_lv3_dark" or minetest.get_node({x=pos.x+1, y=9, z=pos.z-1}).name == "castrum:knight_dark" then
             minetest.set_node({x=pos.x+1, y=8, z=pos.z-1}, {name="castrum:fight2"})
-        elseif (minetest.get_node({x=pos.x+1, y=9, z=pos.z-1}).name ~= "castrum:knight_lv1" or minetest.get_node({x=pos.x+1, y=9, z=pos.z-1}).name ~= "castrum:knight_lv2" or minetest.get_node({x=pos.x+1, y=9, z=pos.z-1}).name ~= "castrum:knight_lv3") and minetest.get_node({x=pos.x+1, y=8, z=pos.z-1}).name ~= "default:gravel" then
+        elseif minetest.get_node({x=pos.x+1, y=9, z=pos.z-1}).name ~= "castrum:knight_lv1" and minetest.get_node({x=pos.x+1, y=9, z=pos.z-1}).name ~= "castrum:knight_lv2" and minetest.get_node({x=pos.x+1, y=9, z=pos.z-1}).name ~= "castrum:knight_lv3" and minetest.get_node({x=pos.x+1, y=8, z=pos.z-1}).name ~= "default:gravel" then
             minetest.set_node({x=pos.x+1, y=8, z=pos.z-1}, {name="castrum:fight1"})
         end
         if minetest.get_node({x=pos.x+1, y=9, z=pos.z+1}).name == "castrum:knight_lv1_dark" or minetest.get_node({x=pos.x+1, y=9, z=pos.z+1}).name == "castrum:knight_lv2_dark" or minetest.get_node({x=pos.x+1, y=9, z=pos.z+1}).name == "castrum:knight_lv3_dark" or minetest.get_node({x=pos.x+1, y=9, z=pos.z+1}).name == "castrum:knight_dark" then
             minetest.set_node({x=pos.x+1, y=8, z=pos.z+1}, {name="castrum:fight2"})
-        elseif (minetest.get_node({x=pos.x+1, y=9, z=pos.z+1}).name ~= "castrum:knight_lv1" or minetest.get_node({x=pos.x+1, y=9, z=pos.z+1}).name ~= "castrum:knight_lv2" or minetest.get_node({x=pos.x+1, y=9, z=pos.z+1}).name ~= "castrum:knight_lv3") and minetest.get_node({x=pos.x+1, y=8, z=pos.z+1}).name ~= "default:gravel" then
+        elseif minetest.get_node({x=pos.x+1, y=9, z=pos.z+1}).name ~= "castrum:knight_lv1" and minetest.get_node({x=pos.x+1, y=9, z=pos.z+1}).name ~= "castrum:knight_lv2" and minetest.get_node({x=pos.x+1, y=9, z=pos.z+1}).name ~= "castrum:knight_lv3" and minetest.get_node({x=pos.x+1, y=8, z=pos.z+1}).name ~= "default:gravel" then
             minetest.set_node({x=pos.x+1, y=8, z=pos.z+1}, {name="castrum:fight1"})
         end
         if node.name == "castrum:knight_lv1" then
@@ -832,15 +922,15 @@ minetest.register_on_dignode(function(pos, node, digger)
         end
     end
 end)
-
 function minetest.handle_node_drops(pos, drops, digger)
 end
 minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack, pointed_thing)
+
     if minetest.get_node({x=pos.x, y=pos.y-1, z=pos.z}).name == "castrum:fight1" and newnode.name == "castrum:knight_lv1" then
         minetest.set_node(pos, {name="castrum:knight_lv1"})
         screwdriver_handler(placer, {type="node", under=pos, above=pos}, 1)
         local inv = placer:get_inventory()
-        inv:remove_item("main", "castrum:knight_lv1")
+        Item_Remove2(player, "main", "castrum:knight_lv1")
         local fight = placer:get_attribute("fight")
         placer:set_attribute("fightdig", "false")
         if fight == "true" then
@@ -855,7 +945,7 @@ minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack
         minetest.set_node(pos, {name="castrum:knight_lv2"})
         screwdriver_handler(placer, {type="node", under=pos, above=pos}, 1)
         local inv = placer:get_inventory()
-        inv:remove_item("main", "castrum:knight_lv2")
+        Item_Remove2(player, "main", "castrum:knight_lv2")
         local fight = placer:get_attribute("fight")
         placer:set_attribute("fightdig", "false")
         if fight == "true" then
@@ -870,7 +960,7 @@ minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack
         minetest.set_node(pos, {name="castrum:knight_lv3"})
         screwdriver_handler(placer, {type="node", under=pos, above=pos}, 1)
         local inv = placer:get_inventory()
-        inv:remove_item("main", "castrum:knight_lv3")
+        Item_Remove2(player, "main", "castrum:knight_lv3")
         local fight = placer:get_attribute("fight")
         placer:set_attribute("fightdig", "false")
         if fight == "true" then
@@ -881,6 +971,14 @@ minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack
             end
             fight_step2(placer)
         end
+	elseif minetest.get_node({x=pos.x, y=pos.y-1, z=pos.z}).name == "castrum:sea_fight1" and newnode.name == "castrum:pirate_lv1" then
+		minetest.set_node(pos, {name="castrum:pirate_lv1"})
+		minetest.set_node({x=pos.x, y=pos.y-1, z=pos.z}, {name="default:wood"})
+		if pos.z == -24 then
+			screwdriver_handler(placer, {type="node", under=pos, above=pos}, 1)
+			screwdriver_handler(placer, {type="node", under=pos, above=pos}, 1)
+		end
+	
     else
         minetest.set_node(pos, {name=oldnode.name})
         return itemstack
@@ -965,6 +1063,16 @@ function Home1(v,player)
                 for k=9,14 do
                     if minetest.get_node({x=i*(-1), y=k, z=j*(-1)}).name == "default:junglewood" then
                         minetest.set_node({x=i*(-1), y=k, z=j*(-1)}, {name="default:pine_wood"})
+                    end
+                end
+            end
+        end
+	elseif v+0 == 9 then
+        for i=26,32 do
+            for j=19,25 do
+                for k=9,14 do
+                    if minetest.get_node({x=i*(-1), y=k, z=j*(-1)}).name == "default:pine_wood" then
+                        minetest.set_node({x=i*(-1), y=k, z=j*(-1)}, {name="default:acacia_wood"})
                     end
                 end
             end
@@ -6097,13 +6205,26 @@ function Mine(v,player)
         minetest.set_node({x=-11, y=11, z=-7}, {name="default:stone_with_iron"})
 		minetest.set_node({x=-12, y=9, z=-9}, {name="default:stone_with_tin"})
 		minetest.set_node({x=-16, y=9, z=-11}, {name="default:stone_with_tin"})
-		
 		minetest.set_node({x=-12, y=9, z=-6}, {name="default:stone_with_copper"})
-		
 		minetest.set_node({x=-13, y=9, z=-10}, {name="default:stone_with_copper"})
 		minetest.set_node({x=-11, y=9, z=-13}, {name="default:stone_with_copper"})
 		minetest.set_node({x=-18, y=9, z=-6}, {name="default:stone_with_copper"})
 		minetest.set_node({x=-18, y=9, z=-14}, {name="default:stone_with_copper"})
+	elseif v+0 == 6 then
+		minetest.set_node({x=-12, y=10, z=-9}, {name="default:stone_with_tin"})
+		minetest.set_node({x=-16, y=10, z=-11}, {name="default:stone_with_tin"})
+		minetest.set_node({x=-12, y=10, z=-6}, {name="default:stone_with_copper"})
+		minetest.set_node({x=-13, y=10, z=-10}, {name="default:stone_with_copper"})
+		minetest.set_node({x=-11, y=10, z=-13}, {name="default:stone_with_copper"})
+		minetest.set_node({x=-18, y=10, z=-6}, {name="default:stone_with_copper"})
+		minetest.set_node({x=-18, y=10, z=-14}, {name="default:stone_with_copper"})
+		minetest.set_node({x=-11, y=9, z=-14}, {name="default:stone_with_copper"})
+		minetest.set_node({x=-17, y=9, z=-6}, {name="default:stone_with_copper"})
+		minetest.set_node({x=-19, y=9, z=-6}, {name="default:stone_with_copper"})
+		minetest.set_node({x=-19, y=9, z=-14}, {name="default:stone_with_copper"})
+		minetest.set_node({x=-16, y=9, z=-10}, {name="default:stone_with_tin"})
+		minetest.set_node({x=-16, y=9, z=-12}, {name="default:stone_with_tin"})
+		minetest.set_node({x=-17, y=9, z=-11}, {name="default:stone_with_tin"})
     elseif v+0 == 0 then 
         for j=11,19 do
             for i=6,14 do
@@ -6226,6 +6347,14 @@ function Quarry(v,player)
 		minetest.set_node({x=-17, y=9, z=7}, {name="default:obsidian"})
 		minetest.set_node({x=-19, y=9, z=7}, {name="default:obsidian"})
 		minetest.set_node({x=-19, y=9, z=-1}, {name="default:obsidian"})
+	elseif v+0 == 6 then
+		minetest.set_node({x=-12, y=11, z=7}, {name="default:obsidian"})
+		minetest.set_node({x=-12, y=11, z=4}, {name="default:obsidian"})
+		minetest.set_node({x=-11, y=11, z=0}, {name="default:obsidian"})
+		minetest.set_node({x=-13, y=11, z=3}, {name="default:obsidian"})
+		minetest.set_node({x=-16, y=11, z=2}, {name="default:obsidian"})
+		minetest.set_node({x=-18, y=11, z=7}, {name="default:obsidian"})
+		minetest.set_node({x=-18, y=11, z=-1}, {name="default:obsidian"})
     elseif v+0 == 0 then
         for j=11,19 do
             for i=0,7 do
@@ -6372,6 +6501,39 @@ function Tree(v,player)
 		minetest.set_node({x=-12, y=9, z=12}, {name="air"})
 		minetest.set_node({x=-11, y=9, z=13}, {name="air"})
 		minetest.set_node({x=-13, y=9, z=13}, {name="air"})
+	elseif v+0 == 7 then
+		minetest.set_node({x=-12, y=12, z=13}, {name="default:pine_tree"})
+		minetest.set_node({x=-12, y=11, z=14}, {name="air"})
+		minetest.set_node({x=-12, y=11, z=12}, {name="air"})
+		minetest.set_node({x=-11, y=11, z=14}, {name="air"})
+		minetest.set_node({x=-11, y=11, z=13}, {name="air"})
+		minetest.set_node({x=-11, y=11, z=12}, {name="air"})
+		minetest.set_node({x=-13, y=11, z=14}, {name="air"})
+		minetest.set_node({x=-13, y=11, z=13}, {name="air"})
+		minetest.set_node({x=-13, y=11, z=12}, {name="air"})
+		minetest.set_node({x=-13, y=12, z=14}, {name="default:pine_needles"})
+		minetest.set_node({x=-11, y=12, z=14}, {name="default:pine_needles"})
+		minetest.set_node({x=-11, y=12, z=12}, {name="default:pine_needles"})
+		minetest.set_node({x=-13, y=12, z=12}, {name="default:pine_needles"})
+		minetest.set_node({x=-12, y=12, z=14}, {name="default:pine_needles"})
+		minetest.set_node({x=-12, y=12, z=12}, {name="default:pine_needles"})
+		minetest.set_node({x=-11, y=12, z=13}, {name="default:pine_needles"})
+		minetest.set_node({x=-13, y=12, z=13}, {name="default:pine_needles"})
+		minetest.set_node({x=-12, y=13, z=13}, {name="default:pine_needles"})
+		minetest.set_node({x=-11, y=13, z=13}, {name="default:pine_needles"})
+		minetest.set_node({x=-13, y=13, z=13}, {name="default:pine_needles"})
+		minetest.set_node({x=-12, y=13, z=12}, {name="default:pine_needles"})
+		minetest.set_node({x=-12, y=13, z=14}, {name="default:pine_needles"})
+		minetest.set_node({x=-12, y=12, z=15}, {name="default:pine_needles"})
+		minetest.set_node({x=-14, y=12, z=13}, {name="default:pine_needles"})
+		
+		
+		minetest.set_node({x=-18, y=9, z=19}, {name="default:acacia_tree"})
+		minetest.set_node({x=-18, y=9, z=20}, {name="default:acacia_leaves"})
+		minetest.set_node({x=-18, y=9, z=18}, {name="default:acacia_leaves"})
+		minetest.set_node({x=-17, y=9, z=19}, {name="default:acacia_leaves"})
+		minetest.set_node({x=-19, y=9, z=19}, {name="default:acacia_leaves"})
+		minetest.set_node({x=-18, y=10, z=19}, {name="default:acacia_leaves"})
     elseif v+0 == 0 then
         for j=11,19 do
             for i=12,20 do
@@ -6841,12 +7003,12 @@ function Ship2(v,player)
 		minetest.set_node({x=165, y=7, z=44}, {name="castrum:sail1"})
 		minetest.set_node({x=165, y=7, z=50}, {name="castrum:sail2"})
 		
-		minetest.set_node({x=168, y=7, z=42}, {name="castrum:comming_soon"})
+		minetest.set_node({x=168, y=7, z=42}, {name="castrum:cannon1"})
 		minetest.set_node({x=168, y=7, z=46}, {name="castrum:comming_soon"})
 		minetest.set_node({x=168, y=7, z=48}, {name="castrum:comming_soon"})
 		minetest.set_node({x=168, y=7, z=50}, {name="castrum:comming_soon"})
 		
-		minetest.set_node({x=162, y=7, z=42}, {name="castrum:comming_soon"})
+		minetest.set_node({x=162, y=7, z=42}, {name="castrum:cannon2"})
 		minetest.set_node({x=162, y=7, z=44}, {name="castrum:comming_soon"})
 		minetest.set_node({x=162, y=7, z=46}, {name="castrum:comming_soon"})
 		minetest.set_node({x=162, y=7, z=48}, {name="castrum:comming_soon"})
@@ -7040,6 +7202,19 @@ function Camp2(v,player)
     elseif v+0 == 0 then 
         for j=59,67 do
             for i=66,74 do
+                for k=9,9 do
+                    minetest.set_node({x=j*(-1), y=k, z=i*(-1)}, {name="air"})
+                end
+            end
+        end
+    end
+end
+function Camp3(v,player)
+    if v+0 == 1 then
+        minetest.set_node({x=-85, y=9, z=-57}, {name="castrum:fire"})
+    elseif v+0 == 0 then 
+        for j=81,89 do
+            for i=53,61 do
                 for k=9,9 do
                     minetest.set_node({x=j*(-1), y=k, z=i*(-1)}, {name="air"})
                 end
@@ -7553,6 +7728,23 @@ function Sandmine(v,player)
 		minetest.set_node({x=130, y=9, z=12}, {name="default:desert_sandstone"})
 		minetest.set_node({x=131, y=9, z=13}, {name="default:desert_sandstone"})
 		minetest.set_node({x=131, y=9, z=11}, {name="default:desert_sandstone"})
+	elseif v+0 == 4 then
+		minetest.set_node({x=131, y=11, z=12}, {name="default:desert_sandstone"})
+        minetest.set_node({x=130, y=11, z=8}, {name="default:desert_sandstone"})
+        minetest.set_node({x=127, y=11, z=9}, {name="default:desert_sandstone"})
+        minetest.set_node({x=127, y=11, z=13}, {name="default:desert_sandstone"})
+        minetest.set_node({x=126, y=11, z=6}, {name="default:desert_sandstone"})
+        minetest.set_node({x=124, y=11, z=12}, {name="default:desert_sandstone"})
+        minetest.set_node({x=123, y=11, z=7}, {name="default:desert_sandstone"})
+		
+		minetest.set_node({x=123, y=9, z=13}, {name="default:silver_sandstone"}) 
+		minetest.set_node({x=123, y=9, z=13}, {name="default:silver_sandstone"})
+		minetest.set_node({x=124, y=9, z=6}, {name="default:silver_sandstone"})
+		minetest.set_node({x=124, y=9, z=9}, {name="default:silver_sandstone"})
+		minetest.set_node({x=125, y=9, z=10}, {name="default:silver_sandstone"})
+		minetest.set_node({x=128, y=9, z=11}, {name="default:silver_sandstone"})
+		minetest.set_node({x=130, y=9, z=6}, {name="default:silver_sandstone"})
+		minetest.set_node({x=130, y=9, z=14}, {name="default:silver_sandstone"})
     elseif v+0 == 0 then
         for j=123,131 do
             for i=6,14 do
@@ -7671,11 +7863,77 @@ function Battleground(v,player)
                 end
             end
         end
+	elseif v+0 == 9 then 
+        minetest.set_node({x=-72, y=11, z=-80}, {name="default:desert_stone_block"})
+        minetest.set_node({x=-72, y=11, z=-82}, {name="default:desert_stone_block"})
+        minetest.set_node({x=-72, y=11, z=-84}, {name="default:desert_stone_block"})
+        minetest.set_node({x=-74, y=11, z=-84}, {name="default:desert_stone_block"})
+        minetest.set_node({x=-76, y=11, z=-84}, {name="default:desert_stone_block"})
+        minetest.set_node({x=-76, y=11, z=-82}, {name="default:desert_stone_block"})
+        minetest.set_node({x=-76, y=11, z=-80}, {name="default:desert_stone_block"})
+        minetest.set_node({x=-72, y=9, z=-80}, {name="default:desert_stone_block"})
+        minetest.set_node({x=-72, y=9, z=-82}, {name="default:desert_stone_block"})
+        minetest.set_node({x=-72, y=9, z=-84}, {name="default:desert_stone_block"})
+        minetest.set_node({x=-74, y=9, z=-84}, {name="default:desert_stone_block"})
+        minetest.set_node({x=-76, y=9, z=-84}, {name="default:desert_stone_block"})
+        minetest.set_node({x=-76, y=9, z=-82}, {name="default:desert_stone_block"})
+        minetest.set_node({x=-76, y=9, z=-80}, {name="default:desert_stone_block"})
+        minetest.set_node({x=-74, y=9, z=-80}, {name="default:desert_stone_block"})
+        minetest.set_node({x=-73, y=10, z=-80}, {name="default:desert_stone_block"})
+        minetest.set_node({x=-75, y=10, z=-80}, {name="default:desert_stone_block"})
+        minetest.set_node({x=-76, y=10, z=-81}, {name="default:desert_stone_block"})
+        minetest.set_node({x=-76, y=10, z=-83}, {name="default:desert_stone_block"})
+        minetest.set_node({x=-72, y=10, z=-81}, {name="default:desert_stone_block"})
+        minetest.set_node({x=-72, y=10, z=-83}, {name="default:desert_stone_block"})
+        minetest.set_node({x=-73, y=10, z=-84}, {name="default:desert_stone_block"})
+        minetest.set_node({x=-75, y=10, z=-84}, {name="default:desert_stone_block"})
     elseif v+0 == 0 then 
         for j=72,76 do
             for i=80,84 do
                 for k=9,12 do
                     minetest.set_node({x=j*(-1), y=k, z=i*(-1)}, {name="air"})
+                end
+            end
+        end
+    end
+end
+function Island_Battleground(v,player)
+    if v+0 == 1 then
+        for j=180,184 do
+            for i=42,46 do
+                minetest.set_node({x=j, y=9, z=i}, {name="default:sandstone"})
+            end
+        end
+    elseif v+0 == 2 then
+        for j=180,184 do
+            for i=42,46 do
+                minetest.set_node({x=j, y=10, z=i}, {name="default:sandstone"})
+            end
+        end
+        minetest.set_node({x=180, y=10, z=44}, {name="air"})
+    elseif v+0 == 3 then
+        minetest.set_node({x=180, y=11, z=46}, {name="default:sandstone"})
+        minetest.set_node({x=182, y=11, z=46}, {name="default:sandstone"})
+        minetest.set_node({x=184, y=11, z=46}, {name="default:sandstone"})
+        minetest.set_node({x=184, y=11, z=44}, {name="default:sandstone"})
+        minetest.set_node({x=184, y=11, z=42}, {name="default:sandstone"})
+        minetest.set_node({x=182, y=11, z=42}, {name="default:sandstone"})
+        minetest.set_node({x=180, y=11, z=42}, {name="default:sandstone"})
+    elseif v+0 == 4 then
+        minetest.set_node({x=180, y=12, z=46}, {name="castrum:fire"})
+        minetest.set_node({x=182, y=12, z=46}, {name="castrum:fire"})
+        minetest.set_node({x=184, y=12, z=46}, {name="castrum:fire"})
+        minetest.set_node({x=184, y=12, z=44}, {name="castrum:fire"})
+        minetest.set_node({x=184, y=12, z=42}, {name="castrum:fire"})
+        minetest.set_node({x=182, y=12, z=42}, {name="castrum:fire"})
+        minetest.set_node({x=180, y=12, z=42}, {name="castrum:fire"})
+        minetest.set_node({x=182, y=11, z=44}, {name="castrum:skeleton_captain"})
+        screwdriver_handler(player, {type="node", under={x=182, y=11, z=44}, above={x=182, y=11, z=44}}, 1)
+    elseif v+0 == 0 then 
+        for j=180,184 do
+            for i=42,46 do
+                for k=9,12 do
+                    minetest.set_node({x=j, y=k, z=i}, {name="air"})
                 end
             end
         end
@@ -7798,10 +8056,20 @@ function Cactusfarm(v,player)
 		minetest.set_node({x=125, y=12, z=-4}, {name="castrum:cactus"})
 		minetest.set_node({x=127, y=12, z=-6}, {name="castrum:cactus"})
 		minetest.set_node({x=127, y=13, z=-4}, {name="castrum:cactus"})
+	elseif v+0 == 5 then
+		minetest.set_node({x=129, y=13, z=-4}, {name="castrum:cactus"})
+		minetest.set_node({x=127, y=13, z=-2}, {name="castrum:cactus"})
+		minetest.set_node({x=125, y=13, z=-4}, {name="castrum:cactus"})
+		minetest.set_node({x=127, y=13, z=-6}, {name="castrum:cactus"})
+		minetest.set_node({x=127, y=14, z=-4}, {name="castrum:cactus"})
+		minetest.set_node({x=130, y=12, z=-7}, {name="castrum:cactus"})
+        minetest.set_node({x=130, y=12, z=-1}, {name="castrum:cactus"})
+        minetest.set_node({x=124, y=12, z=-1}, {name="castrum:cactus"})
+        minetest.set_node({x=124, y=12, z=-7}, {name="castrum:cactus"})
     elseif v+0 == 0 then
         for j=123,131 do
             for i=0,8 do
-                for k=9,13 do
+                for k=9,14 do
                     minetest.set_node({x=j, y=k, z=i*(-1)}, {name="air"})
                 end
             end
@@ -8192,6 +8460,49 @@ function Island_Pier(v,player)
         end
     end
 end
+function Island_Pier2(v,player)
+    if v+0 == 1 then
+        for j=176,178 do
+            for i=42,46 do
+                minetest.set_node({x=j, y=8, z=i}, {name="default:wood"})
+            end
+        end
+        minetest.set_node({x=178, y=7, z=42}, {name="default:wood"})
+        minetest.set_node({x=178, y=6, z=42}, {name="default:wood"})
+        minetest.set_node({x=178, y=7, z=46}, {name="default:wood"})
+        minetest.set_node({x=178, y=6, z=46}, {name="default:wood"})
+    elseif v+0 == 2 then
+        for j=179,181 do
+            for i=42,46 do
+                minetest.set_node({x=j, y=8, z=i}, {name="default:wood"})
+            end
+        end
+        minetest.set_node({x=181, y=7, z=42}, {name="default:wood"})
+        minetest.set_node({x=181, y=6, z=42}, {name="default:wood"})
+        minetest.set_node({x=181, y=7, z=46}, {name="default:wood"})
+        minetest.set_node({x=181, y=6, z=46}, {name="default:wood"})
+    elseif v+0 == 3 then
+        for j=182,184 do
+            for i=42,46 do
+                minetest.set_node({x=j, y=8, z=i}, {name="default:wood"})
+            end
+        end
+        minetest.set_node({x=184, y=7, z=42}, {name="default:wood"})
+        minetest.set_node({x=184, y=6, z=42}, {name="default:wood"})
+        minetest.set_node({x=184, y=7, z=46}, {name="default:wood"})
+        minetest.set_node({x=184, y=6, z=46}, {name="default:wood"})
+		minetest.set_node({x=179, y=8, z=44}, {name="castrum:comming_soon"})
+    elseif v+0 == 0 then
+        for j=176,184 do
+            for i=42,46 do
+                for k=6,7 do
+                    minetest.set_node({x=j, y=k, z=i}, {name="default:water_source"})
+                end
+                minetest.set_node({x=j, y=8, z=i}, {name="air"})
+            end
+        end
+    end
+end
 function Island_Barracks(v,player)
     if v+0 == 1 then
         for j=165,173 do
@@ -8312,6 +8623,24 @@ function Sail2(v,player)
 			minetest.set_node({x=j, y=12, z=51}, {name="air"})
 			minetest.set_node({x=j, y=11, z=50}, {name="air"})
         end
+    end
+end
+function Cannon1(v,player)
+    if v+0 == 1 then
+		minetest.set_node({x=169, y=9, z=42}, {name="castrum:cannon_1_1"})
+		screwdriver_handler(player, {type="node", under={x=169, y=9, z=42}, above={x=169, y=9, z=42}}, 1)
+    elseif v+0 == 0 then 
+        minetest.set_node({x=169, y=9, z=42}, {name="air"})
+    end
+end
+function Cannon2(v,player)
+    if v+0 == 1 then
+		minetest.set_node({x=161, y=9, z=42}, {name="castrum:cannon_1_1"})
+		screwdriver_handler(player, {type="node", under={x=161, y=9, z=42}, above={x=161, y=9, z=42}}, 1)
+		screwdriver_handler(player, {type="node", under={x=161, y=9, z=42}, above={x=161, y=9, z=42}}, 1)
+		screwdriver_handler(player, {type="node", under={x=161, y=9, z=42}, above={x=161, y=9, z=42}}, 1)
+    elseif v+0 == 0 then 
+        minetest.set_node({x=161, y=9, z=42}, {name="air"})
     end
 end
 function Bridge_Status(player)
@@ -8472,6 +8801,9 @@ local knight_pos = {
 	{37, -66, -71, 3},
 	{38, -66, -70, 3},
 	{39, -66, -69, 3},
+	{40, -66, -68, 3},
+	{41, -83, -54, 0},
+	{42, -84, -54, 0},
 	
 }
 function Update_knight(player)
@@ -8505,6 +8837,20 @@ function Update_knight(player)
         end
         minetest.set_node({x=-63, y=9, z=-70}, {name="castrum:fire"})
     end
+	file = io.open(minetest.get_worldpath().."/SAVE/Camp3.txt", "r")
+	local camp3 = file:read("*l")
+    file:close()
+    if tonumber(camp3) > 0 then
+        for j=59,67 do
+            for i=81,89 do
+                for k=9,9 do
+                    minetest.set_node({x=j*(-1), y=k, z=i*(-1)}, {name="air"})
+                end
+            end
+        end
+        minetest.set_node({x=-85, y=9, z=-57}, {name="castrum:fire"})
+    end
+	
 	for i=1,tonumber(knight3) do
 		print (i)
         minetest.set_node({x=knight_pos[i][2], y=9, z=knight_pos[i][3]}, {name="castrum:knight_lv3_sit"})
@@ -8603,6 +8949,19 @@ function Item_Remove(player,item,num)
 	local num4 = num-num3
 	local test2 = player:get_inventory():remove_item("main", item.." "..num4):get_count()
 end
+function Item_Remove2(player,list,item)
+	items = {}
+	for i in item:gmatch("%S+") do 
+		table.insert(items, i) 
+	end
+	local num2 = math.floor(tonumber(items[2])/99)
+	for i=1,num2 do
+		local test = player:get_inventory():remove_item(list, items[1].." 99"):get_count()
+	end
+	local num3 = num2*99
+	local num4 = tonumber(items[2])-num3
+	local test2 = player:get_inventory():remove_item(list, items[1].." "..num4):get_count()
+end
 function nextrange(x, max)
 	x = x + 1
 	if x > max then
@@ -8666,19 +9025,25 @@ home1.get_formspec = function(player, pos)
         need2 = "10 Wooden Planks"
         need3 = "Fountain lv.1"
     elseif tonumber(level) == 6 then
-        label = (level-5).."/3"
+        label = (level-5).."/4"
         label2 = "Upgrade"
         need1 = "64 Cobblestone"
         need2 = "80 Jungle Wood Planks"
         need3 = "Fountain lv.2"
 	elseif tonumber(level) == 7 then
-        label = (level-5).."/3"
+        label = (level-5).."/4"
         label2 = "Upgrade"
         need1 = "128 Cobblestone"
         need2 = "160 Pine Wood Planks"
         need3 = "Fountain lv.4"
+	elseif tonumber(level) == 8 then
+        label = (level-5).."/4"
+        label2 = "Upgrade"
+        need1 = "256 Cobblestone"
+        need2 = "320 Acacia Wood Planks"
+        need3 = "Fountain lv.6"
     else
-        label = (level-5).."/3"
+        label = (level-5).."/4"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -9809,23 +10174,27 @@ mine.get_formspec = function(player, pos)
         label2 = "Build"
         need1 = "Fountain lv.3"
     elseif tonumber(level) == 1 then
-        label = (level).."/5"
+        label = (level).."/6"
         label2 = "Upgrade"
         need1 = "Completed chapter 2"
     elseif tonumber(level) == 2 then
-        label = (level).."/5"
+        label = (level).."/6"
         label2 = "Upgrade"
         need1 = "Completed chapter 3"
 	elseif tonumber(level) == 3 then
-        label = (level).."/5"
+        label = (level).."/6"
         label2 = "Upgrade"
         need1 = "Completed chapter 4"
 	elseif tonumber(level) == 4 then
-        label = (level).."/5"
+        label = (level).."/6"
         label2 = "Upgrade"
         need1 = "Completed chapter 5"
+	elseif tonumber(level) == 5 then
+        label = (level).."/6"
+        label2 = "Upgrade"
+        need1 = "Completed chapter 6"
     else
-        label = (level).."/5"
+        label = (level).."/6"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -9857,27 +10226,31 @@ quarry.get_formspec = function(player, pos)
     local need3 = ""
     local need4 = ""
     if tonumber(level) == 0 then
-        label = (level+1).."/6"
+        label = (level+1).."/7"
         label2 = "Upgrade"
         need1 = "Completed chapter 1"
     elseif tonumber(level) == 1 then
-        label = (level+1).."/6"
+        label = (level+1).."/7"
         label2 = "Upgrade"
         need1 = "Completed chapter 2"
 	elseif tonumber(level) == 2 then
-        label = (level+1).."/6"
+        label = (level+1).."/7"
         label2 = "Upgrade"
         need1 = "Completed chapter 3"
 	elseif tonumber(level) == 3 then
-        label = (level+1).."/6"
+        label = (level+1).."/7"
         label2 = "Upgrade"
         need1 = "Completed chapter 4"
 	elseif tonumber(level) == 4 then
-        label = (level+1).."/6"
+        label = (level+1).."/7"
         label2 = "Upgrade"
         need1 = "Completed chapter 5"
+	elseif tonumber(level) == 5 then
+        label = (level+1).."/7"
+        label2 = "Upgrade"
+        need1 = "Completed chapter 6"
     else
-        label = (level+1).."/6"
+        label = (level+1).."/7"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -9914,27 +10287,31 @@ tree.get_formspec = function(player, pos)
         label2 = "Build"
         need1 = "Fountain lv.1"
     elseif tonumber(level) == 1 then
-        label = (level).."/6"
+        label = (level).."/7"
         label2 = "Upgrade"
         need1 = "Completed chapter 1"
     elseif tonumber(level) == 2 then
-        label = (level).."/6"
+        label = (level).."/7"
         label2 = "Upgrade"
         need1 = "Completed chapter 2"
 	elseif tonumber(level) == 3 then
-        label = (level).."/6"
+        label = (level).."/7"
         label2 = "Upgrade"
         need1 = "Completed chapter 3"
 	elseif tonumber(level) == 4 then
-        label = (level).."/6"
+        label = (level).."/7"
         label2 = "Upgrade"
         need1 = "Completed chapter 4"
 	elseif tonumber(level) == 5 then
-        label = (level).."/6"
+        label = (level).."/7"
         label2 = "Upgrade"
         need1 = "Completed chapter 5"
+	elseif tonumber(level) == 6 then
+        label = (level).."/7"
+        label2 = "Upgrade"
+        need1 = "Completed chapter 6"
     else
-        label = (level).."/6"
+        label = (level).."/7"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -10325,6 +10702,44 @@ camp2.get_formspec = function(player, pos)
         .."image_button[4.5,-0.3;0.8,0.8;;esc;X]"
 	return formspec			
 end
+local camp3 = {}
+camp3.get_formspec = function(player, pos)
+	if player == nil then
+        return
+    end
+	file = io.open(minetest.get_worldpath().."/SAVE/Camp3.txt", "r")
+	local level = file:read("*l")
+    file:close()
+    local label = ""
+    local label2 = ""
+    local need1 = ""
+    local need2 = ""
+    local need3 = ""
+    local need4 = ""
+    if tonumber(level) < 1 then
+        label = "not build yet ("..math.floor((level/1)*100).."%)"
+        label2 = "Build"
+        need1 = "Home 3 lv.1"
+        need2 = "Camp 2 lv.1"
+    else
+        label = (level).."/1"
+        label2 = "Upgrade (comming soon)"
+    end
+	formspec = "size[5,6.5]"
+        .."background[5,6.5;1,1;gui_formbg.png;true]"
+        .."listcolors[#00000069;#5A5A5A;#141318;#30434C;#FFF]"
+        .."bgcolor[#080808BB;true]"
+        .."label[0,0;Level:     "..label.."]"
+        .."label[0,0.5;You need:]"
+        .."label[0,0.8;"..need1.."]"
+        .."label[0,1.1;"..need2.."]"
+        .."label[0,1.4;"..need3.."]"
+        .."label[0,1.7;"..need4.."]"
+        .."button[0,2;5,1;;"..label2.."]"
+        --.."button[0,3;5,1;;del]"
+        .."image_button[4.5,-0.3;0.8,0.8;;esc;X]"
+	return formspec			
+end
 local knight = {}
 knight.get_formspec = function(player, pos)
 	if player == nil then
@@ -10354,6 +10769,8 @@ knight.get_formspec = function(player, pos)
         max1 = max1+11
 	elseif tonumber(home1) == 8 then
         max1 = max1+14
+	elseif tonumber(home1) == 9 then
+        max1 = max1+17
     end
     if tonumber(home2) == 6 then
         max1 = max1+8
@@ -10373,10 +10790,16 @@ knight.get_formspec = function(player, pos)
     file = io.open(minetest.get_worldpath().."/SAVE/Camp2.txt", "r")
 	local camp2 = file:read("*l")
     file:close()
+	file = io.open(minetest.get_worldpath().."/SAVE/Camp3.txt", "r")
+	local camp3 = file:read("*l")
+    file:close()
     if tonumber(camp1) == 1 then
         max2 = max2+20
     end
     if tonumber(camp2) == 1 then
+        max2 = max2+20
+    end
+	if tonumber(camp3) == 1 then
         max2 = max2+20
     end
     if max1 > max2 then
@@ -10448,31 +10871,37 @@ battleground.get_formspec = function(player, pos)
 		need1 = "4 Cobblestone"
         need2 = "Fountain lv.1"
     elseif tonumber(level) == 4 then
-        label = (level-3).."/5"
+        label = (level-3).."/6"
         label2 = "Upgrade"
         need1 = "Completed chapter 1"
         need2 = "40 Cobblestone"
 		need3 = "Fountain lv.2"
     elseif tonumber(level) == 5 then
-        label = (level-3).."/5"
+        label = (level-3).."/6"
         label2 = "Upgrade"
         need1 = "Completed chapter 2"
         need2 = "200 Cobblestone"
 		need3 = "Fountain lv.3"
 	elseif tonumber(level) == 6 then
-        label = (level-3).."/5"
+        label = (level-3).."/6"
         label2 = "Upgrade"
         need1 = "Completed chapter 3"
         need2 = "200 Desert Cobblestone"
 		need3 = "Fountain lv.4"
 	elseif tonumber(level) == 7 then
-        label = (level-3).."/5"
+        label = (level-3).."/6"
         label2 = "Upgrade"
         need1 = "Completed chapter 4"
         need2 = "400 Desert Cobblestone"
 		need3 = "Fountain lv.5"
+	elseif tonumber(level) == 8 then
+        label = (level-3).."/6"
+        label2 = "Upgrade"
+        need1 = "Completed chapter 5"
+        need2 = "600 Desert Cobblestone"
+		need3 = "Fountain lv.6"
     else
-        label = (level-3).."/5"
+        label = (level-3).."/6"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -10504,6 +10933,56 @@ battleground.get_formspec = function(player, pos)
             formspec = formspec.."button[0,3;5,1;;Start Chapter 5]"
 		elseif tonumber(chapter) == 5 then
             formspec = formspec.."button[0,3;5,1;;Start Chapter 5 (battleground lv.5 needed)]"	
+		elseif tonumber(chapter) == 6 and tonumber(level) > 8 then
+            formspec = formspec.."button[0,3;5,1;;Start Chapter 6]"
+		elseif tonumber(chapter) == 6 then
+            formspec = formspec.."button[0,3;5,1;;Start Chapter 6 (battleground lv.6 needed)]"	
+        end
+        formspec = formspec--.."button[0,4;5,1;;del]"
+        .."image_button[4.5,-0.3;0.8,0.8;;esc;X]"
+	return formspec			
+end
+local island_battleground = {}
+island_battleground.get_formspec = function(player, pos)
+	if player == nil then
+        return
+    end
+	file = io.open(minetest.get_worldpath().."/SAVE/Island_Battleground.txt", "r")
+	local level = file:read("*l")
+    file:close()
+    file = io.open(minetest.get_worldpath().."/SAVE/Island_Chapter.txt", "r")
+	local chapter = file:read("*l")
+    file:close()
+    local label = ""
+    local label2 = ""
+    local need1 = ""
+    local need2 = ""
+    local need3 = ""
+    local need4 = ""
+    if tonumber(level) < 4 then
+        label = "not build yet ("..math.floor((level/4)*100).."%)"
+        label2 = "Build"
+		need1 = "400 Sand"
+        need2 = "Island Fountain lv.1"
+    else
+        label = (level-3).."/1"
+        label2 = "Upgrade (comming soon)"
+    end
+	formspec = "size[5,6.5]"
+        .."background[5,6.5;1,1;gui_formbg.png;true]"
+        .."listcolors[#00000069;#5A5A5A;#141318;#30434C;#FFF]"
+        .."bgcolor[#080808BB;true]"
+        .."label[0,0;Level:     "..label.."]"
+        .."label[0,0.5;You need:]"
+        .."label[0,0.8;"..need1.."]"
+        .."label[0,1.1;"..need2.."]"
+        .."label[0,1.4;"..need3.."]"
+        .."label[0,1.7;"..need4.."]"
+        .."button[0,2;5,1;;"..label2.."]"
+        if tonumber(chapter) == 1 and tonumber(level) > 3 then
+            formspec = formspec.."button[0,3;5,1;;Start Island Chapter 1]"
+		elseif tonumber(chapter) == 2 and tonumber(level) > 3 then
+			formspec = formspec.."button[0,3;5,1;;Start Island Chapter 2 (comming soon)]"
         end
         formspec = formspec--.."button[0,4;5,1;;del]"
         .."image_button[4.5,-0.3;0.8,0.8;;esc;X]"
@@ -10790,6 +11269,80 @@ sail2.get_formspec = function(player, pos)
         .."image_button[4.5,-0.3;0.8,0.8;;esc;X]"
 	return formspec			
 end
+local cannon1 = {}
+cannon1.get_formspec = function(player, pos)
+	if player == nil then
+        return
+    end
+	file = io.open(minetest.get_worldpath().."/SAVE/Cannon1.txt", "r")
+	local level = file:read("*l")
+    file:close()
+    local label = ""
+    local label2 = ""
+    local need1 = ""
+    local need2 = ""
+    local need3 = ""
+    local need4 = ""
+    if tonumber(level) < 1 then
+        label = "not build yet ("..math.floor((level/1)*100).."%)"
+        label2 = "Build"
+		need1 = "25 Steel Ingot"
+    else
+        label = (level).."/1"
+        label2 = "Upgrade (comming soon)"
+    end
+	formspec = "size[5,6.5]"
+        .."background[5,6.5;1,1;gui_formbg.png;true]"
+        .."listcolors[#00000069;#5A5A5A;#141318;#30434C;#FFF]"
+        .."bgcolor[#080808BB;true]"
+        .."label[0,0;Level:     "..label.."]"
+        .."label[0,0.5;You need:]"
+        .."label[0,0.8;"..need1.."]"
+        .."label[0,1.1;"..need2.."]"
+        .."label[0,1.4;"..need3.."]"
+        .."label[0,1.7;"..need4.."]"
+        .."button[0,2;5,1;;"..label2.."]"
+        --.."button[0,3;5,1;;del]"
+        .."image_button[4.5,-0.3;0.8,0.8;;esc;X]"
+	return formspec			
+end
+local cannon2 = {}
+cannon2.get_formspec = function(player, pos)
+	if player == nil then
+        return
+    end
+	file = io.open(minetest.get_worldpath().."/SAVE/Cannon2.txt", "r")
+	local level = file:read("*l")
+    file:close()
+    local label = ""
+    local label2 = ""
+    local need1 = ""
+    local need2 = ""
+    local need3 = ""
+    local need4 = ""
+    if tonumber(level) < 1 then
+        label = "not build yet ("..math.floor((level/1)*100).."%)"
+        label2 = "Build"
+		need1 = "25 Steel Ingot"
+    else
+        label = (level).."/1"
+        label2 = "Upgrade (comming soon)"
+    end
+	formspec = "size[5,6.5]"
+        .."background[5,6.5;1,1;gui_formbg.png;true]"
+        .."listcolors[#00000069;#5A5A5A;#141318;#30434C;#FFF]"
+        .."bgcolor[#080808BB;true]"
+        .."label[0,0;Level:     "..label.."]"
+        .."label[0,0.5;You need:]"
+        .."label[0,0.8;"..need1.."]"
+        .."label[0,1.1;"..need2.."]"
+        .."label[0,1.4;"..need3.."]"
+        .."label[0,1.7;"..need4.."]"
+        .."button[0,2;5,1;;"..label2.."]"
+        --.."button[0,3;5,1;;del]"
+        .."image_button[4.5,-0.3;0.8,0.8;;esc;X]"
+	return formspec			
+end
 local island_fountain = {}
 island_fountain.get_formspec = function(player, pos)
 	if player == nil then
@@ -10926,19 +11479,23 @@ sandmine.get_formspec = function(player, pos)
     local need3 = ""
     local need4 = ""
     if tonumber(level) == 0 then
-        label = (level+1).."/4"
+        label = (level+1).."/5"
         label2 = "Upgrade"
         need1 = "Completed chapter 3"
     elseif tonumber(level) == 1 then
-        label = (level+1).."/4"
+        label = (level+1).."/5"
         label2 = "Upgrade"
         need1 = "Completed chapter 4"
 	elseif tonumber(level) == 2 then
-        label = (level+1).."/4"
+        label = (level+1).."/5"
         label2 = "Upgrade"
         need1 = "Completed chapter 5"
+	elseif tonumber(level) == 3 then
+        label = (level+1).."/5"
+        label2 = "Upgrade"
+        need1 = "Completed chapter 6"
     else
-        label = (level+1).."/4"
+        label = (level+1).."/5"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -10975,19 +11532,23 @@ cactusfarm.get_formspec = function(player, pos)
         label2 = "Build"
         need1 = "Island Fountain lv.1"
     elseif tonumber(level) == 1 then
-        label = (level).."/4"
+        label = (level).."/5"
         label2 = "Upgrade"
         need1 = "Completed chapter 3"
 	elseif tonumber(level) == 2 then
-        label = (level).."/4"
+        label = (level).."/5"
         label2 = "Upgrade"
         need1 = "Completed chapter 4"
 	elseif tonumber(level) == 3 then
-        label = (level).."/4"
+        label = (level).."/5"
         label2 = "Upgrade"
         need1 = "Completed chapter 5"
+	elseif tonumber(level) == 4 then
+        label = (level).."/5"
+        label2 = "Upgrade"
+        need1 = "Completed chapter 6"
     else
-        label = (level).."/4"
+        label = (level).."/5"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -11025,6 +11586,43 @@ island_pier.get_formspec = function(player, pos)
         need1 = "100 Wooden Planks"
 	else
         label = (level-6).."/1"
+        label2 = "Upgrade (comming soon)"
+    end
+	formspec = "size[5,6.5]"
+        .."background[5,6.5;1,1;gui_formbg.png;true]"
+        .."listcolors[#00000069;#5A5A5A;#141318;#30434C;#FFF]"
+        .."bgcolor[#080808BB;true]"
+        .."label[0,0;Level:     "..label.."]"
+        .."label[0,0.5;You need:]"
+        .."label[0,0.8;"..need1.."]"
+        .."label[0,1.1;"..need2.."]"
+        .."label[0,1.4;"..need3.."]"
+        .."label[0,1.7;"..need4.."]"
+        .."button[0,2;5,1;;"..label2.."]"
+        --.."button[0,3;5,1;;del]"
+        .."image_button[4.5,-0.3;0.8,0.8;;esc;X]"
+	return formspec			
+end
+local island_pier2 = {}
+island_pier2.get_formspec = function(player, pos)
+	if player == nil then
+        return
+    end
+	file = io.open(minetest.get_worldpath().."/SAVE/Island_Pier2.txt", "r")
+	local level = file:read("*l")
+    file:close()
+    local label = ""
+    local label2 = ""
+    local need1 = ""
+    local need2 = ""
+    local need3 = ""
+    local need4 = ""
+    if tonumber(level) < 3 then
+        label = "not build yet ("..math.floor((level/3)*100).."%)"
+        label2 = "Build"
+        need1 = "100 Wooden Planks"
+	else
+        label = (level-2).."/1"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -11649,6 +12247,14 @@ minetest.register_node("castrum:camp2",{
         minetest.show_formspec(player:get_player_name(), "camp2" , camp2.get_formspec(player))
     end,
 })
+minetest.register_node("castrum:camp3",{
+	tiles  = {"default_diamond_block.png"},
+	description = "Configurate Camp 3",
+    --groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
+    on_punch = function(pos, node, player, pointed_thing)
+        minetest.show_formspec(player:get_player_name(), "camp3" , camp3.get_formspec(player))
+    end,
+})
 minetest.register_node("castrum:island_walle",{
 	tiles  = {"default_diamond_block.png"},
 	description = "Configurate Island Walle",
@@ -11729,6 +12335,14 @@ minetest.register_node("castrum:island_pier",{
         minetest.show_formspec(player:get_player_name(), "island_pier" , island_pier.get_formspec(player))
     end,
 })
+minetest.register_node("castrum:island_pier2",{
+	tiles  = {"default_diamond_block.png"},
+	description = "Configurate Island Pier 2",
+    --groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
+    on_punch = function(pos, node, player, pointed_thing)
+        minetest.show_formspec(player:get_player_name(), "island_pier2" , island_pier2.get_formspec(player))
+    end,
+})
 minetest.register_node("castrum:island_barracks",{
 	tiles  = {"default_diamond_block.png"},
 	description = "Configurate Island Barracks",
@@ -11743,6 +12357,14 @@ minetest.register_node("castrum:battleground",{
     --groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
     on_punch = function(pos, node, player, pointed_thing)
         minetest.show_formspec(player:get_player_name(), "battleground" , battleground.get_formspec(player))
+    end,
+})
+minetest.register_node("castrum:island_battleground",{
+	tiles  = {"default_diamond_block.png"},
+	description = "Configurate Island Battleground",
+    --groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
+    on_punch = function(pos, node, player, pointed_thing)
+        minetest.show_formspec(player:get_player_name(), "island_battleground" , island_battleground.get_formspec(player))
     end,
 })
 minetest.register_node("castrum:bridge_status",{
@@ -11817,6 +12439,22 @@ minetest.register_node("castrum:sail2",{
         minetest.show_formspec(player:get_player_name(), "sail2" , sail2.get_formspec(player))
     end,
 })
+minetest.register_node("castrum:cannon1",{
+	tiles  = {"default_diamond_block.png"},
+	description = "Configurate Cannon 1",
+    --groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
+    on_punch = function(pos, node, player, pointed_thing)
+        minetest.show_formspec(player:get_player_name(), "cannon1" , cannon1.get_formspec(player))
+    end,
+})
+minetest.register_node("castrum:cannon2",{
+	tiles  = {"default_diamond_block.png"},
+	description = "Configurate Cannon 2",
+    --groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
+    on_punch = function(pos, node, player, pointed_thing)
+        minetest.show_formspec(player:get_player_name(), "cannon2" , cannon2.get_formspec(player))
+    end,
+})
 minetest.register_node("castrum:fight1",{
 	tiles  = {"castrum_fight1.png"},
 	description = "Fight 1",
@@ -11827,7 +12465,19 @@ minetest.register_node("castrum:fight2",{
 	description = "Fight 2",
     --groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
 })
-
+minetest.register_node("castrum:sea_fight1",{
+	tiles  = {"castrum_fight1.png"},
+	description = "Sea Fight 1",
+    --groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
+})
+minetest.register_node("castrum:test",{
+	tiles  = {"castrum_bridge_status.png"},
+	description = "Test",
+    groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
+    on_punch = function(pos, node, player, pointed_thing)
+        Chapter_Ship1_2(player)
+    end,
+})
 minetest.register_craftitem("castrum:soul", {
 	description = "Soul",
 	inventory_image = "castrum_soul.png",
@@ -11921,7 +12571,7 @@ minetest.register_craftitem("castrum:horse1_item_1", {
 			minetest.set_node({x=pos.x,y=pos.y+2,z=pos.z}, {name="castrum:knight_lv1_sit"})
 			screwdriver_handler(placer, {type="node", under={x=pos.x,y=pos.y+2,z=pos.z}, above={x=pos.x,y=pos.y+2,z=pos.z}}, 1)
 			local inv = placer:get_inventory()
-			inv:remove_item("main", "castrum:knight_lv2")
+			Item_Remove2(player, "main", "castrum:knight_lv2")
 			local fight = placer:get_attribute("fight")
 			placer:set_attribute("fightdig", "false")
 			if fight == "true" then
@@ -11947,7 +12597,7 @@ minetest.register_craftitem("castrum:horse1_item_2", {
 			minetest.set_node({x=pos.x,y=pos.y+2,z=pos.z}, {name="castrum:knight_lv2_sit"})
 			screwdriver_handler(placer, {type="node", under={x=pos.x,y=pos.y+2,z=pos.z}, above={x=pos.x,y=pos.y+2,z=pos.z}}, 1)
 			local inv = placer:get_inventory()
-			inv:remove_item("main", "castrum:knight_lv2")
+			Item_Remove2(player, "main", "castrum:knight_lv2")
 			local fight = placer:get_attribute("fight")
 			placer:set_attribute("fightdig", "false")
 			if fight == "true" then
@@ -11973,7 +12623,7 @@ minetest.register_craftitem("castrum:horse1_item_3", {
 			minetest.set_node({x=pos.x,y=pos.y+2,z=pos.z}, {name="castrum:knight_lv3_sit"})
 			screwdriver_handler(placer, {type="node", under={x=pos.x,y=pos.y+2,z=pos.z}, above={x=pos.x,y=pos.y+2,z=pos.z}}, 1)
 			local inv = placer:get_inventory()
-			inv:remove_item("main", "castrum:knight_lv3")
+			Item_Remove2(player, "main", "castrum:knight_lv3")
 			local fight = placer:get_attribute("fight")
 			placer:set_attribute("fightdig", "false")
 			if fight == "true" then
@@ -11991,7 +12641,7 @@ minetest.register_craftitem("castrum:horse1_item_3", {
 stairs.register_stair_and_slab(
 	"castrum_wood",
 	"default:wood",
-	{},
+	{cracky = 3},
 	{"default_wood.png"},
 	"Wooden Stair",
 	"Wooden Slab",
@@ -12319,28 +12969,34 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 6 and inv:contains_item("main", "default:cobble 8") and inv:contains_item("main", "default:wood 10") and tonumber(fountain) > 3 then
-                    inv:remove_item("main", "default:cobble 8")
-                    inv:remove_item("main", "default:wood 10")
+                    Item_Remove2(player, "main", "default:cobble 8")
+                    Item_Remove2(player, "main", "default:wood 10")
                     upgrade = true
                 elseif tonumber(level) < 6 and inv:contains_item("main", "default:cobble 8") and inv:contains_item("main", "default:wood 10") then
                     txt = "build fountain first"
                 elseif tonumber(level) == 6 and inv:contains_item("main", "default:cobble 64") and inv:contains_item("main", "default:junglewood 80") and tonumber(fountain) > 4 then
-                    inv:remove_item("main", "default:junglewood 80")
-                    inv:remove_item("main", "default:cobble 64")
+                    Item_Remove2(player, "main", "default:junglewood 80")
+                    Item_Remove2(player, "main", "default:cobble 64")
                     upgrade = true
                 elseif tonumber(level) == 6 and inv:contains_item("main", "default:cobble 64") and inv:contains_item("main", "default:junglewood 80") then
                     txt = "upgrade fountain to lv.2 first"
 				elseif tonumber(level) == 7 and inv:contains_item("main", "default:cobble 128") and inv:contains_item("main", "default:pine_wood 160") and tonumber(fountain) > 6 then
-                    inv:remove_item("main", "default:pine_wood 160")
-					inv:remove_item("main", "default:cobble 128")
+                    Item_Remove2(player, "main", "default:pine_wood 160")
+					Item_Remove2(player, "main", "default:cobble 128")
                     upgrade = true
                 elseif tonumber(level) == 7 and inv:contains_item("main", "default:cobble 128") and inv:contains_item("main", "default:pine_wood 160") then
                     txt = "upgrade fountain to lv.4 first"
+				elseif tonumber(level) == 8 and inv:contains_item("main", "default:cobble 256") and inv:contains_item("main", "default:acacia_wood 320") and tonumber(fountain) > 8 then
+                    Item_Remove2(player, "main", "default:acacia_wood 320")
+					Item_Remove2(player, "main", "default:cobble 256")
+                    upgrade = true
+                elseif tonumber(level) == 8 and inv:contains_item("main", "default:cobble 256") and inv:contains_item("main", "default:acacia_wood 320") then
+                    txt = "upgrade fountain to lv.6 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 8 and upgrade then
+                if (tonumber(level)) < 9 and upgrade then
                     Home1(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Home1.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -12371,20 +13027,20 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 6 and inv:contains_item("main", "default:cobble 8") and inv:contains_item("main", "default:wood 10") and tonumber(fountain) > 5 then
-                    inv:remove_item("main", "default:cobble 8")
-                    inv:remove_item("main", "default:wood 10")
+                    Item_Remove2(player, "main", "default:cobble 8")
+                    Item_Remove2(player, "main", "default:wood 10")
                     upgrade = true
                 elseif tonumber(level) < 6 and inv:contains_item("main", "default:cobble 8") and inv:contains_item("main", "default:wood 10") then
                     txt = "upgrade fountain to lv.3 first"
                 elseif tonumber(level) == 6 and inv:contains_item("main", "default:cobble 64") and inv:contains_item("main", "default:junglewood 80") and tonumber(fountain) > 6 then
-                    inv:remove_item("main", "default:junglewood 80")
-                    inv:remove_item("main", "default:cobble 64")
+                    Item_Remove2(player, "main", "default:junglewood 80")
+                    Item_Remove2(player, "main", "default:cobble 64")
                     upgrade = true
                 elseif tonumber(level) == 6 and inv:contains_item("main", "default:cobble 64") and inv:contains_item("main", "default:junglewood 80") then
                     txt = "upgrade fountain to lv.4 first"
 				elseif tonumber(level) == 7 and inv:contains_item("main", "default:cobble 128") and inv:contains_item("main", "default:pine_wood 160") and tonumber(fountain) > 8 then
-                    inv:remove_item("main", "default:pine_wood 160")
-					inv:remove_item("main", "default:cobble 128")
+                    Item_Remove2(player, "main", "default:pine_wood 160")
+					Item_Remove2(player, "main", "default:cobble 128")
                     upgrade = true
                 elseif tonumber(level) == 7 and inv:contains_item("main", "default:cobble 128") and inv:contains_item("main", "default:pine_wood 160") then
                     txt = "upgrade fountain to lv.6 first"
@@ -12424,17 +13080,17 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
 				local txt = "not enough items"
                 if tonumber(level) < 9 and inv:contains_item("main", "default:wood 3") and tonumber(fountain) > 3 then
-                    inv:remove_item("main", "default:wood 3")
+                    Item_Remove2(player, "main", "default:wood 3")
                     upgrade = true
 				elseif tonumber(level) < 9 and inv:contains_item("main", "default:wood 3") then
                     txt = "build fountain first"
                 elseif tonumber(level) == 9 and inv:contains_item("main", "default:junglewood 27") and tonumber(fountain) > 5 then
-                    inv:remove_item("main", "default:junglewood 27")
+                    Item_Remove2(player, "main", "default:junglewood 27")
                     upgrade = true
 				elseif tonumber(level) == 9 and inv:contains_item("main", "default:junglewood 27") then
                     txt = "upgrade fountain to lv.3 first"
 				elseif tonumber(level) == 10 and inv:contains_item("main", "default:pine_wood 108") and tonumber(fountain) > 7 then
-                    inv:remove_item("main", "default:pine_wood 108")
+                    Item_Remove2(player, "main", "default:pine_wood 108")
                     upgrade = true
 				elseif tonumber(level) == 10 and inv:contains_item("main", "default:pine_wood 108") then
                     txt = "upgrade fountain to lv.5 first"
@@ -12473,12 +13129,12 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
 				local txt = "not enough items"
                 if tonumber(level) == 9 and inv:contains_item("main", "default:junglewood 27") and tonumber(fountain) > 5 then
-                    inv:remove_item("main", "default:junglewood 27")
+                    Item_Remove2(player, "main", "default:junglewood 27")
                     upgrade = true
 				elseif tonumber(level) == 9 and inv:contains_item("main", "default:junglewood 27") then
                     txt = "upgrade fountain to lv.3 first"
 				elseif tonumber(level) == 10 and inv:contains_item("main", "default:pine_wood 108") and tonumber(fountain) > 7 then
-					inv:remove_item("main", "default:pine_wood 108")
+					Item_Remove2(player, "main", "default:pine_wood 108")
                     upgrade = true
 				elseif tonumber(level) == 10 and inv:contains_item("main", "default:pine_wood 108") then
                     txt = "upgrade fountain to lv.5 first"
@@ -12517,19 +13173,19 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 9 and inv:contains_item("main", "castrum:shovel_stone 3") and tonumber(bridge) > 8 then
-                    inv:remove_item("main", "castrum:shovel_stone 3")
+                    Item_Remove2(player, "main", "castrum:shovel_stone 3")
                     upgrade = true
                 elseif tonumber(level) < 9 and inv:contains_item("main", "castrum:shovel_stone 3") then
                     txt = "build bridge first"
                 elseif tonumber(level) == 9 and inv:contains_item("main", "castrum:shovel_steel 27") and inv:contains_item("main", "castrum:bucket_water 30") and tonumber(bridge) > 9 then
-                    inv:remove_item("main", "castrum:shovel_steel 27")
-					inv:remove_item("main", "castrum:bucket_water 30")
+                    Item_Remove2(player, "main", "castrum:shovel_steel 27")
+					Item_Remove2(player, "main", "castrum:bucket_water 30")
                     upgrade = true
                 elseif tonumber(level) == 9 and inv:contains_item("main", "castrum:shovel_steel 27") and inv:contains_item("main", "castrum:bucket_water 30") then
                     txt = "upgrade bridge to lv.2 first"
 				elseif tonumber(level) == 10 and inv:contains_item("main", "castrum:shovel_bronze 54") and inv:contains_item("main", "castrum:bucket_water 60") and tonumber(bridge) > 10 then
-                    inv:remove_item("main", "castrum:shovel_bronze 54")
-					inv:remove_item("main", "castrum:bucket_water 60")
+                    Item_Remove2(player, "main", "castrum:shovel_bronze 54")
+					Item_Remove2(player, "main", "castrum:bucket_water 60")
                     upgrade = true
                 elseif tonumber(level) == 10 and inv:contains_item("main", "castrum:shovel_bronze 54") and inv:contains_item("main", "castrum:bucket_water 60") then
                     txt = "upgrade bridge to lv.3 first"
@@ -12568,35 +13224,35 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 14 and inv:contains_item("main", "default:cobble 3") then
-                    inv:remove_item("main", "default:cobble 3")
+                    Item_Remove2(player, "main", "default:cobble 3")
                     upgrade = true
                 elseif tonumber(level) == 14 and inv:contains_item("main", "default:cobble 10") and inv:contains_item("main", "castrum:sword_stone 3") and tonumber(fountain) > 3 then
-                    inv:remove_item("main", "default:cobble 10")
-                    inv:remove_item("main", "castrum:sword_stone 3")
+                    Item_Remove2(player, "main", "default:cobble 10")
+                    Item_Remove2(player, "main", "castrum:sword_stone 3")
                     upgrade = true
                 elseif tonumber(level) == 14 and inv:contains_item("main", "default:cobble 10") and inv:contains_item("main", "castrum:sword_stone 3") then
                     txt = "build fountain first"
                 elseif tonumber(level) == 15 and inv:contains_item("main", "default:cobble 40") and inv:contains_item("main", "castrum:sword_stone 12") and tonumber(fountain) > 4 then
-                    inv:remove_item("main", "default:cobble 40")
-                    inv:remove_item("main", "castrum:sword_stone 12")
+                    Item_Remove2(player, "main", "default:cobble 40")
+                    Item_Remove2(player, "main", "castrum:sword_stone 12")
                     upgrade = true
                 elseif tonumber(level) == 15 and inv:contains_item("main", "default:cobble 40") and inv:contains_item("main", "castrum:sword_stone 12") then
                     txt = "upgrade fountain to lv.2 first"
                 elseif tonumber(level) == 16 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") and tonumber(fountain) > 5 then
-                    inv:remove_item("main", "default:desert_cobble 40")
-                    inv:remove_item("main", "castrum:sword_steel 12")
+                    Item_Remove2(player, "main", "default:desert_cobble 40")
+                    Item_Remove2(player, "main", "castrum:sword_steel 12")
                     upgrade = true
                 elseif tonumber(level) == 16 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") then
                     txt = "upgrade fountain to lv.3 first"
 				elseif tonumber(level) == 17 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") and tonumber(fountain) > 6 then
-                    inv:remove_item("main", "default:desert_cobble 160")
-                    inv:remove_item("main", "castrum:sword_steel 48")
+                    Item_Remove2(player, "main", "default:desert_cobble 160")
+                    Item_Remove2(player, "main", "castrum:sword_steel 48")
                     upgrade = true
                 elseif tonumber(level) == 17 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") then
                     txt = "upgrade fountain to lv.4 first"
 				elseif tonumber(level) == 18 and inv:contains_item("main", "default:desert_cobble 320") and inv:contains_item("main", "castrum:sword_bronze 48") and tonumber(fountain) > 7 then
                     Item_Remove(player,"default:desert_cobble",320)
-                    inv:remove_item("main", "castrum:sword_bronze 48")
+                    Item_Remove2(player, "main", "castrum:sword_bronze 48")
                     upgrade = true
                 elseif tonumber(level) == 18 and inv:contains_item("main", "default:desert_cobble 320") and inv:contains_item("main", "castrum:sword_bronze 48") then
                     txt = "upgrade fountain to lv.5 first"
@@ -12670,13 +13326,13 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 4 and inv:contains_item("main", "default:cobble 10") and tonumber(tower1) > 17 and tonumber(tower2) > 17 and tonumber(tower3) > 17 and tonumber(tower4) > 17 and tonumber(walle) > 13 and tonumber(wallw) > 13 and tonumber(walln) > 13 and tonumber(walls) > 13 then
-                    inv:remove_item("main", "default:cobble 10")
+                    Item_Remove2(player, "main", "default:cobble 10")
                     upgrade = true
 				elseif tonumber(level) < 4 and inv:contains_item("main", "default:cobble 10") then
                     txt = "build walls and towers first"
                 elseif tonumber(level) == 4 and inv:contains_item("main", "default:cobble 25") and inv:contains_item("main", "castrum:pick_stone 8") and tonumber(tower1) > 18 and tonumber(tower2) > 18 and tonumber(tower3) > 18 and tonumber(tower4) > 18 and tonumber(walle) > 14 and tonumber(wallw) > 14 and tonumber(walln) > 14 and tonumber(walls) > 14 and tonumber(moate) > 8 and tonumber(moatw) > 8 and tonumber(moats) > 8 and tonumber(moatn) > 8 then
-                    inv:remove_item("main", "default:cobble 25")
-                    inv:remove_item("main", "castrum:pick_stone 8")
+                    Item_Remove2(player, "main", "default:cobble 25")
+                    Item_Remove2(player, "main", "castrum:pick_stone 8")
                     upgrade = true
 				elseif tonumber(level) == 4 and inv:contains_item("main", "default:cobble 25") and inv:contains_item("main", "castrum:pick_stone 8") and tonumber(tower1) > 18 and tonumber(tower2) > 18 and tonumber(tower3) > 18 and tonumber(tower4) > 18 and tonumber(walle) > 14 and tonumber(wallw) > 14 and tonumber(walln) > 14 and tonumber(walls) > 14 then
                     txt = "upgrade moats to lv.1 first"
@@ -12684,14 +13340,14 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     txt = "upgrade walls and towers to lv.2 first"
 					
                 elseif tonumber(level) == 5 and inv:contains_item("main", "default:cobble 100") and inv:contains_item("main", "castrum:pick_stone 32") and tonumber(tower1) > 19 and tonumber(tower2) > 19 and tonumber(tower3) > 19 and tonumber(tower4) > 19 and tonumber(walle) > 15 and tonumber(wallw) > 15 and tonumber(walln) > 15 and tonumber(walls) > 15 then
-                    inv:remove_item("main", "default:cobble 100")
-                    inv:remove_item("main", "castrum:pick_stone 32")
+                    Item_Remove2(player, "main", "default:cobble 100")
+                    Item_Remove2(player, "main", "castrum:pick_stone 32")
                     upgrade = true
                 elseif tonumber(level) == 5 and inv:contains_item("main", "default:cobble 100") and inv:contains_item("main", "castrum:pick_stone 32") then
                     txt = "upgrade walls and towers to lv.3 first"
                 elseif tonumber(level) == 6 and inv:contains_item("main", "default:desert_cobble 100") and inv:contains_item("main", "castrum:pick_steel 32") and tonumber(tower1) > 20 and tonumber(tower2) > 20 and tonumber(tower3) > 20 and tonumber(tower4) > 20 and tonumber(walle) > 16 and tonumber(wallw) > 16 and tonumber(walln) > 16 and tonumber(walls) > 16 and tonumber(moate) > 9 and tonumber(moatw) > 9 and tonumber(moats) > 9 and tonumber(moatn) > 9 then
-                    inv:remove_item("main", "default:desert_cobble 100")
-                    inv:remove_item("main", "castrum:pick_steel 32")
+                    Item_Remove2(player, "main", "default:desert_cobble 100")
+                    Item_Remove2(player, "main", "castrum:pick_steel 32")
                     upgrade = true
                 elseif tonumber(level) == 6 and inv:contains_item("main", "default:desert_cobble 100") and inv:contains_item("main", "castrum:pick_steel 32") and tonumber(tower1) > 20 and tonumber(tower2) > 20 and tonumber(tower3) > 20 and tonumber(tower4) > 20 and tonumber(walle) > 16 and tonumber(wallw) > 16 and tonumber(walln) > 16 and tonumber(walls) > 16 then
                     txt = "upgrade moats to lv.2 first"
@@ -12700,13 +13356,13 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 				
 				elseif tonumber(level) == 7 and inv:contains_item("main", "default:desert_cobble 400") and inv:contains_item("main", "castrum:pick_steel 64") and tonumber(tower1) > 21 and tonumber(tower2) > 21 and tonumber(tower3) > 21 and tonumber(tower4) > 21 and tonumber(walle) > 17 and tonumber(wallw) > 17 and tonumber(walln) > 17 and tonumber(walls) > 17 then
 					Item_Remove(player,"default:desert_cobble",400)
-                    inv:remove_item("main", "castrum:pick_steel 64")
+                    Item_Remove2(player, "main", "castrum:pick_steel 64")
                     upgrade = true
                 elseif tonumber(level) == 7 and inv:contains_item("main", "default:desert_cobble 400") and inv:contains_item("main", "castrum:pick_steel 64") then
                     txt = "upgrade walls and towers to lv.5 first"
 				elseif tonumber(level) == 8 and inv:contains_item("main", "default:desert_cobble 600") and inv:contains_item("main", "castrum:pick_bronze 64") and tonumber(tower1) > 22 and tonumber(tower2) > 22 and tonumber(tower3) > 22 and tonumber(tower4) > 22 and tonumber(walle) > 18 and tonumber(wallw) > 18 and tonumber(walln) > 18 and tonumber(walls) > 18 and tonumber(moate) > 10 and tonumber(moatw) > 10 and tonumber(moats) > 10 and tonumber(moatn) > 10 then
-                    inv:remove_item("main", "default:desert_cobble 600")
-                    inv:remove_item("main", "castrum:pick_bronze 64")
+                    Item_Remove2(player, "main", "default:desert_cobble 600")
+                    Item_Remove2(player, "main", "castrum:pick_bronze 64")
                     upgrade = true
                 elseif tonumber(level) == 8 and inv:contains_item("main", "default:desert_cobble 600") and inv:contains_item("main", "castrum:pick_bronze 64") and tonumber(tower1) > 22 and tonumber(tower2) > 22 and tonumber(tower3) > 22 and tonumber(tower4) > 22 and tonumber(walle) > 18 and tonumber(wallw) > 18 and tonumber(walln) > 18 and tonumber(walls) > 18 then
                     txt = "upgrade moats to lv.3 first"
@@ -12747,35 +13403,35 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 18 and inv:contains_item("main", "default:cobble 3") then
-                    inv:remove_item("main", "default:cobble 3")
+                    Item_Remove2(player, "main", "default:cobble 3")
                     upgrade = true
                 elseif tonumber(level) == 18 and inv:contains_item("main", "default:cobble 10") and inv:contains_item("main", "castrum:sword_stone 3") and tonumber(fountain) > 3 then
-                    inv:remove_item("main", "default:cobble 10")
-                    inv:remove_item("main", "castrum:sword_stone 3")
+                    Item_Remove2(player, "main", "default:cobble 10")
+                    Item_Remove2(player, "main", "castrum:sword_stone 3")
                     upgrade = true
                 elseif tonumber(level) == 18 and inv:contains_item("main", "default:cobble 10") and inv:contains_item("main", "castrum:sword_stone 3") then
                     txt = "build fountain first"
                 elseif tonumber(level) == 19 and inv:contains_item("main", "default:cobble 40") and inv:contains_item("main", "castrum:sword_stone 12") and tonumber(fountain) > 4 then
-                    inv:remove_item("main", "default:cobble 40")
-                    inv:remove_item("main", "castrum:sword_stone 12")
+                    Item_Remove2(player, "main", "default:cobble 40")
+                    Item_Remove2(player, "main", "castrum:sword_stone 12")
                     upgrade = true
                 elseif tonumber(level) == 19 and inv:contains_item("main", "default:cobble 40") and inv:contains_item("main", "castrum:sword_stone 12") then
                     txt = "upgrade fountain to lv.2 first"
                 elseif tonumber(level) == 20 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") and tonumber(fountain) > 5 then
-                    inv:remove_item("main", "default:desert_cobble 40")
-                    inv:remove_item("main", "castrum:sword_steel 12")
+                    Item_Remove2(player, "main", "default:desert_cobble 40")
+                    Item_Remove2(player, "main", "castrum:sword_steel 12")
                     upgrade = true
                 elseif tonumber(level) == 20 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") then
                     txt = "upgrade fountain to lv.3 first"
 				elseif tonumber(level) == 21 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") and tonumber(fountain) > 6 then
-                    inv:remove_item("main", "default:desert_cobble 160")
-                    inv:remove_item("main", "castrum:sword_steel 48")
+                    Item_Remove2(player, "main", "default:desert_cobble 160")
+                    Item_Remove2(player, "main", "castrum:sword_steel 48")
                     upgrade = true
                 elseif tonumber(level) == 21 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") then
                     txt = "upgrade fountain to lv.4 first"
 				elseif tonumber(level) == 22 and inv:contains_item("main", "default:desert_cobble 320") and inv:contains_item("main", "castrum:sword_bronze 48") and tonumber(fountain) > 7 then
                     Item_Remove(player,"default:desert_cobble",320)
-                    inv:remove_item("main", "castrum:sword_bronze 48")
+                    Item_Remove2(player, "main", "castrum:sword_bronze 48")
                     upgrade = true
                 elseif tonumber(level) == 22 and inv:contains_item("main", "default:desert_cobble 320") and inv:contains_item("main", "castrum:sword_bronze 48") then
                     txt = "upgrade fountain to lv.5 first"
@@ -12814,35 +13470,35 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 14 and inv:contains_item("main", "default:cobble 3") then
-                    inv:remove_item("main", "default:cobble 3")
+                    Item_Remove2(player, "main", "default:cobble 3")
                     upgrade = true
                 elseif tonumber(level) == 14 and inv:contains_item("main", "default:cobble 10") and inv:contains_item("main", "castrum:sword_stone 3") and tonumber(fountain) > 3 then
-                    inv:remove_item("main", "default:cobble 10")
-                    inv:remove_item("main", "castrum:sword_stone 3")
+                    Item_Remove2(player, "main", "default:cobble 10")
+                    Item_Remove2(player, "main", "castrum:sword_stone 3")
                     upgrade = true
                 elseif tonumber(level) == 14 and inv:contains_item("main", "default:cobble 10") and inv:contains_item("main", "castrum:sword_stone 3") then
                     txt = "build fountain first"
                 elseif tonumber(level) == 15 and inv:contains_item("main", "default:cobble 40") and inv:contains_item("main", "castrum:sword_stone 12") and tonumber(fountain) > 4 then
-                    inv:remove_item("main", "default:cobble 40")
-                    inv:remove_item("main", "castrum:sword_stone 12")
+                    Item_Remove2(player, "main", "default:cobble 40")
+                    Item_Remove2(player, "main", "castrum:sword_stone 12")
                     upgrade = true
                 elseif tonumber(level) == 15 and inv:contains_item("main", "default:cobble 40") and inv:contains_item("main", "castrum:sword_stone 12") then
                     txt = "upgrade fountain to lv.2 first"
                 elseif tonumber(level) == 16 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") and tonumber(fountain) > 5 then
-                    inv:remove_item("main", "default:desert_cobble 40")
-                    inv:remove_item("main", "castrum:sword_steel 12")
+                    Item_Remove2(player, "main", "default:desert_cobble 40")
+                    Item_Remove2(player, "main", "castrum:sword_steel 12")
                     upgrade = true
                 elseif tonumber(level) == 16 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") then
                     txt = "upgrade fountain to lv.3 first"
 				elseif tonumber(level) == 17 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") and tonumber(fountain) > 6 then
-                    inv:remove_item("main", "default:desert_cobble 160")
-                    inv:remove_item("main", "castrum:sword_steel 48")
+                    Item_Remove2(player, "main", "default:desert_cobble 160")
+                    Item_Remove2(player, "main", "castrum:sword_steel 48")
                     upgrade = true
                 elseif tonumber(level) == 17 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") then
                     txt = "upgrade fountain to lv.4 first"
 				elseif tonumber(level) == 18 and inv:contains_item("main", "default:desert_cobble 320") and inv:contains_item("main", "castrum:sword_bronze 48") and tonumber(fountain) > 7 then
                     Item_Remove(player,"default:desert_cobble",320)
-                    inv:remove_item("main", "castrum:sword_bronze 48")
+                    Item_Remove2(player, "main", "castrum:sword_bronze 48")
                     upgrade = true
                 elseif tonumber(level) == 18 and inv:contains_item("main", "default:desert_cobble 320") and inv:contains_item("main", "castrum:sword_bronze 48") then
                     txt = "upgrade fountain to lv.5 first"
@@ -12881,35 +13537,35 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 18 and inv:contains_item("main", "default:cobble 3") then
-                    inv:remove_item("main", "default:cobble 3")
+                    Item_Remove2(player, "main", "default:cobble 3")
                     upgrade = true
                 elseif tonumber(level) == 18 and inv:contains_item("main", "default:cobble 10") and inv:contains_item("main", "castrum:sword_stone 3") and tonumber(fountain) > 3 then
-                    inv:remove_item("main", "default:cobble 10")
-                    inv:remove_item("main", "castrum:sword_stone 3")
+                    Item_Remove2(player, "main", "default:cobble 10")
+                    Item_Remove2(player, "main", "castrum:sword_stone 3")
                     upgrade = true
                 elseif tonumber(level) == 18 and inv:contains_item("main", "default:cobble 10") and inv:contains_item("main", "castrum:sword_stone 3") then
                     txt = "build fountain first"
                 elseif tonumber(level) == 19 and inv:contains_item("main", "default:cobble 40") and inv:contains_item("main", "castrum:sword_stone 12") and tonumber(fountain) > 4 then
-                    inv:remove_item("main", "default:cobble 40")
-                    inv:remove_item("main", "castrum:sword_stone 12")
+                    Item_Remove2(player, "main", "default:cobble 40")
+                    Item_Remove2(player, "main", "castrum:sword_stone 12")
                     upgrade = true
                 elseif tonumber(level) == 19 and inv:contains_item("main", "default:cobble 40") and inv:contains_item("main", "castrum:sword_stone 12") then
                     txt = "upgrade fountain to lv.2 first"
                 elseif tonumber(level) == 20 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") and tonumber(fountain) > 5 then
-                    inv:remove_item("main", "default:desert_cobble 40")
-                    inv:remove_item("main", "castrum:sword_steel 12")
+                    Item_Remove2(player, "main", "default:desert_cobble 40")
+                    Item_Remove2(player, "main", "castrum:sword_steel 12")
                     upgrade = true
                 elseif tonumber(level) == 20 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") then
                     txt = "upgrade fountain to lv.3 first"
 				elseif tonumber(level) == 21 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") and tonumber(fountain) > 6 then
-                    inv:remove_item("main", "default:desert_cobble 160")
-                    inv:remove_item("main", "castrum:sword_steel 48")
+                    Item_Remove2(player, "main", "default:desert_cobble 160")
+                    Item_Remove2(player, "main", "castrum:sword_steel 48")
                     upgrade = true
                 elseif tonumber(level) == 21 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") then
                     txt = "upgrade fountain to lv.4 first"
 				elseif tonumber(level) == 22 and inv:contains_item("main", "default:desert_cobble 320") and inv:contains_item("main", "castrum:sword_bronze 48") and tonumber(fountain) > 7 then
                     Item_Remove(player,"default:desert_cobble",320)
-                    inv:remove_item("main", "castrum:sword_bronze 48")
+                    Item_Remove2(player, "main", "castrum:sword_bronze 48")
                     upgrade = true
                 elseif tonumber(level) == 22 and inv:contains_item("main", "default:desert_cobble 320") and inv:contains_item("main", "castrum:sword_bronze 48") then
                     txt = "upgrade fountain to lv.5 first"
@@ -12948,35 +13604,35 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 14 and inv:contains_item("main", "default:cobble 3") then
-                    inv:remove_item("main", "default:cobble 3")
+                    Item_Remove2(player, "main", "default:cobble 3")
                     upgrade = true
                 elseif tonumber(level) == 14 and inv:contains_item("main", "default:cobble 10") and inv:contains_item("main", "castrum:sword_stone 3") and tonumber(fountain) > 3 then
-                    inv:remove_item("main", "default:cobble 10")
-                    inv:remove_item("main", "castrum:sword_stone 3")
+                    Item_Remove2(player, "main", "default:cobble 10")
+                    Item_Remove2(player, "main", "castrum:sword_stone 3")
                     upgrade = true
                 elseif tonumber(level) == 14 and inv:contains_item("main", "default:cobble 10") and inv:contains_item("main", "castrum:sword_stone 3") then
                     txt = "build fountain first"
                 elseif tonumber(level) == 15 and inv:contains_item("main", "default:cobble 40") and inv:contains_item("main", "castrum:sword_stone 12") and tonumber(fountain) > 4 then
-                    inv:remove_item("main", "default:cobble 40")
-                    inv:remove_item("main", "castrum:sword_stone 12")
+                    Item_Remove2(player, "main", "default:cobble 40")
+                    Item_Remove2(player, "main", "castrum:sword_stone 12")
                     upgrade = true
                 elseif tonumber(level) == 15 and inv:contains_item("main", "default:cobble 40") and inv:contains_item("main", "castrum:sword_stone 12") then
                     txt = "upgrade fountain to lv.2 first"
                 elseif tonumber(level) == 16 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") and tonumber(fountain) > 5 then
-                    inv:remove_item("main", "default:desert_cobble 40")
-                    inv:remove_item("main", "castrum:sword_steel 12")
+                    Item_Remove2(player, "main", "default:desert_cobble 40")
+                    Item_Remove2(player, "main", "castrum:sword_steel 12")
                     upgrade = true
                 elseif tonumber(level) == 16 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") then
                     txt = "upgrade fountain to lv.3 first"
 				elseif tonumber(level) == 17 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") and tonumber(fountain) > 6 then
-                    inv:remove_item("main", "default:desert_cobble 160")
-                    inv:remove_item("main", "castrum:sword_steel 48")
+                    Item_Remove2(player, "main", "default:desert_cobble 160")
+                    Item_Remove2(player, "main", "castrum:sword_steel 48")
                     upgrade = true
                 elseif tonumber(level) == 17 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") then
                     txt = "upgrade fountain to lv.4 first"
 				elseif tonumber(level) == 18 and inv:contains_item("main", "default:desert_cobble 320") and inv:contains_item("main", "castrum:sword_bronze 48") and tonumber(fountain) > 7 then
                     Item_Remove(player,"default:desert_cobble",320)
-                    inv:remove_item("main", "castrum:sword_bronze 48")
+                    Item_Remove2(player, "main", "castrum:sword_bronze 48")
                     upgrade = true
                 elseif tonumber(level) == 18 and inv:contains_item("main", "default:desert_cobble 320") and inv:contains_item("main", "castrum:sword_bronze 48") then
                     txt = "upgrade fountain to lv.5 first"
@@ -13015,35 +13671,35 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 14 and inv:contains_item("main", "default:cobble 3") then
-                    inv:remove_item("main", "default:cobble 3")
+                    Item_Remove2(player, "main", "default:cobble 3")
                     upgrade = true
                 elseif tonumber(level) == 14 and inv:contains_item("main", "default:cobble 10") and inv:contains_item("main", "castrum:sword_stone 3") and tonumber(fountain) > 3 then
-                    inv:remove_item("main", "default:cobble 10")
-                    inv:remove_item("main", "castrum:sword_stone 3")
+                    Item_Remove2(player, "main", "default:cobble 10")
+                    Item_Remove2(player, "main", "castrum:sword_stone 3")
                     upgrade = true
                 elseif tonumber(level) == 14 and inv:contains_item("main", "default:cobble 10") and inv:contains_item("main", "castrum:sword_stone 3") then
                     txt = "build fountain first"
                 elseif tonumber(level) == 15 and inv:contains_item("main", "default:cobble 40") and inv:contains_item("main", "castrum:sword_stone 12") and tonumber(fountain) > 4 then
-                    inv:remove_item("main", "default:cobble 40")
-                    inv:remove_item("main", "castrum:sword_stone 12")
+                    Item_Remove2(player, "main", "default:cobble 40")
+                    Item_Remove2(player, "main", "castrum:sword_stone 12")
                     upgrade = true
                 elseif tonumber(level) == 15 and inv:contains_item("main", "default:cobble 40") and inv:contains_item("main", "castrum:sword_stone 12") then
                     txt = "upgrade fountain to lv.2 first"
                 elseif tonumber(level) == 16 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") and tonumber(fountain) > 5 then
-                    inv:remove_item("main", "default:desert_cobble 40")
-                    inv:remove_item("main", "castrum:sword_steel 12")
+                    Item_Remove2(player, "main", "default:desert_cobble 40")
+                    Item_Remove2(player, "main", "castrum:sword_steel 12")
                     upgrade = true
                 elseif tonumber(level) == 16 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") then
                     txt = "upgrade fountain to lv.3 first"
 				elseif tonumber(level) == 17 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") and tonumber(fountain) > 6 then
-                    inv:remove_item("main", "default:desert_cobble 160")
-                    inv:remove_item("main", "castrum:sword_steel 48")
+                    Item_Remove2(player, "main", "default:desert_cobble 160")
+                    Item_Remove2(player, "main", "castrum:sword_steel 48")
                     upgrade = true
                 elseif tonumber(level) == 17 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") then
                     txt = "upgrade fountain to lv.4 first"
 				elseif tonumber(level) == 18 and inv:contains_item("main", "default:desert_cobble 320") and inv:contains_item("main", "castrum:sword_bronze 48") and tonumber(fountain) > 7 then
                     Item_Remove(player,"default:desert_cobble",320)
-                    inv:remove_item("main", "castrum:sword_bronze 48")
+                    Item_Remove2(player, "main", "castrum:sword_bronze 48")
                     upgrade = true
                 elseif tonumber(level) == 18 and inv:contains_item("main", "default:desert_cobble 320") and inv:contains_item("main", "castrum:sword_bronze 48") then
                     txt = "upgrade fountain to lv.5 first"
@@ -13082,19 +13738,19 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
 				if tonumber(level) < 9 and inv:contains_item("main", "castrum:shovel_stone 3") and tonumber(bridge) > 8 then
-                    inv:remove_item("main", "castrum:shovel_stone 3")
+                    Item_Remove2(player, "main", "castrum:shovel_stone 3")
                     upgrade = true
                 elseif tonumber(level) < 9 and inv:contains_item("main", "castrum:shovel_stone 3") then
                     txt = "build bridge first"
                 elseif tonumber(level) == 9 and inv:contains_item("main", "castrum:shovel_steel 27") and inv:contains_item("main", "castrum:bucket_water 30") and tonumber(bridge) > 9 then
-                    inv:remove_item("main", "castrum:shovel_steel 27")
-					inv:remove_item("main", "castrum:bucket_water 30")
+                    Item_Remove2(player, "main", "castrum:shovel_steel 27")
+					Item_Remove2(player, "main", "castrum:bucket_water 30")
                     upgrade = true
                 elseif tonumber(level) == 9 and inv:contains_item("main", "castrum:shovel_steel 27") and inv:contains_item("main", "castrum:bucket_water 30") then
                     txt = "upgrade bridge to lv.2 first"
 				elseif tonumber(level) == 10 and inv:contains_item("main", "castrum:shovel_bronze 54") and inv:contains_item("main", "castrum:bucket_water 60") and tonumber(bridge) > 10 then
-                    inv:remove_item("main", "castrum:shovel_bronze 54")
-					inv:remove_item("main", "castrum:bucket_water 60")
+                    Item_Remove2(player, "main", "castrum:shovel_bronze 54")
+					Item_Remove2(player, "main", "castrum:bucket_water 60")
                     upgrade = true
                 elseif tonumber(level) == 10 and inv:contains_item("main", "castrum:shovel_bronze 54") and inv:contains_item("main", "castrum:bucket_water 60") then
                     txt = "upgrade bridge to lv.3 first"
@@ -13133,35 +13789,35 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 18 and inv:contains_item("main", "default:cobble 3") then
-                    inv:remove_item("main", "default:cobble 3")
+                    Item_Remove2(player, "main", "default:cobble 3")
                     upgrade = true
                 elseif tonumber(level) == 18 and inv:contains_item("main", "default:cobble 10") and inv:contains_item("main", "castrum:sword_stone 3") and tonumber(fountain) > 3 then
-                    inv:remove_item("main", "default:cobble 10")
-                    inv:remove_item("main", "castrum:sword_stone 3")
+                    Item_Remove2(player, "main", "default:cobble 10")
+                    Item_Remove2(player, "main", "castrum:sword_stone 3")
                     upgrade = true
                 elseif tonumber(level) == 18 and inv:contains_item("main", "default:cobble 10") and inv:contains_item("main", "castrum:sword_stone 3") then
                     txt = "build fountain first"
                 elseif tonumber(level) == 19 and inv:contains_item("main", "default:cobble 40") and inv:contains_item("main", "castrum:sword_stone 12") and tonumber(fountain) > 4 then
-                    inv:remove_item("main", "default:cobble 40")
-                    inv:remove_item("main", "castrum:sword_stone 12")
+                    Item_Remove2(player, "main", "default:cobble 40")
+                    Item_Remove2(player, "main", "castrum:sword_stone 12")
                     upgrade = true
                 elseif tonumber(level) == 19 and inv:contains_item("main", "default:cobble 40") and inv:contains_item("main", "castrum:sword_stone 12") then
                     txt = "upgrade fountain to lv.2 first"
                 elseif tonumber(level) == 20 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") and tonumber(fountain) > 5 then
-                    inv:remove_item("main", "default:desert_cobble 40")
-                    inv:remove_item("main", "castrum:sword_steel 12")
+                    Item_Remove2(player, "main", "default:desert_cobble 40")
+                    Item_Remove2(player, "main", "castrum:sword_steel 12")
                     upgrade = true
                 elseif tonumber(level) == 20 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") then
                     txt = "upgrade fountain to lv.3 first"
 				elseif tonumber(level) == 21 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") and tonumber(fountain) > 6 then
-                    inv:remove_item("main", "default:desert_cobble 160")
-                    inv:remove_item("main", "castrum:sword_steel 48")
+                    Item_Remove2(player, "main", "default:desert_cobble 160")
+                    Item_Remove2(player, "main", "castrum:sword_steel 48")
                     upgrade = true
                 elseif tonumber(level) == 21 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") then
                     txt = "upgrade fountain to lv.4 first"
 				elseif tonumber(level) == 22 and inv:contains_item("main", "default:desert_cobble 320") and inv:contains_item("main", "castrum:sword_bronze 48") and tonumber(fountain) > 7 then
                     Item_Remove(player,"default:desert_cobble",320)
-                    inv:remove_item("main", "castrum:sword_bronze 48")
+                    Item_Remove2(player, "main", "castrum:sword_bronze 48")
                     upgrade = true
                 elseif tonumber(level) == 22 and inv:contains_item("main", "default:desert_cobble 320") and inv:contains_item("main", "castrum:sword_bronze 48") then
                     txt = "upgrade fountain to lv.5 first"
@@ -13200,19 +13856,19 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 9 and inv:contains_item("main", "castrum:shovel_stone 3") and tonumber(bridge) > 8 then
-                    inv:remove_item("main", "castrum:shovel_stone 3")
+                    Item_Remove2(player, "main", "castrum:shovel_stone 3")
                     upgrade = true
                 elseif tonumber(level) < 9 and inv:contains_item("main", "castrum:shovel_stone 3") then
                     txt = "build bridge first"
                 elseif tonumber(level) == 9 and inv:contains_item("main", "castrum:shovel_steel 27") and inv:contains_item("main", "castrum:bucket_water 30") and tonumber(bridge) > 9 then
-                    inv:remove_item("main", "castrum:shovel_steel 27")
-					inv:remove_item("main", "castrum:bucket_water 30")
+                    Item_Remove2(player, "main", "castrum:shovel_steel 27")
+					Item_Remove2(player, "main", "castrum:bucket_water 30")
                     upgrade = true
                 elseif tonumber(level) == 9 and inv:contains_item("main", "castrum:shovel_steel 27") and inv:contains_item("main", "castrum:bucket_water 30") then
                     txt = "upgrade bridge to lv.2 first"
 				elseif tonumber(level) == 10 and inv:contains_item("main", "castrum:shovel_bronze 54") and inv:contains_item("main", "castrum:bucket_water 60") and tonumber(bridge) > 10 then
-                    inv:remove_item("main", "castrum:shovel_bronze 54")
-					inv:remove_item("main", "castrum:bucket_water 60")
+                    Item_Remove2(player, "main", "castrum:shovel_bronze 54")
+					Item_Remove2(player, "main", "castrum:bucket_water 60")
                     upgrade = true
                 elseif tonumber(level) == 10 and inv:contains_item("main", "castrum:shovel_bronze 54") and inv:contains_item("main", "castrum:bucket_water 60") then
                     txt = "upgrade bridge to lv.3 first"
@@ -13251,19 +13907,19 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 9 and inv:contains_item("main", "castrum:shovel_stone 3") and tonumber(bridge) > 8 then
-                    inv:remove_item("main", "castrum:shovel_stone 3")
+                    Item_Remove2(player, "main", "castrum:shovel_stone 3")
                     upgrade = true
                 elseif tonumber(level) < 9 and inv:contains_item("main", "castrum:shovel_stone 3") then
                     txt = "build bridge first"
                 elseif tonumber(level) == 9 and inv:contains_item("main", "castrum:shovel_steel 27") and inv:contains_item("main", "castrum:bucket_water 30") and tonumber(bridge) > 9 then
-                    inv:remove_item("main", "castrum:shovel_steel 27")
-					inv:remove_item("main", "castrum:bucket_water 30")
+                    Item_Remove2(player, "main", "castrum:shovel_steel 27")
+					Item_Remove2(player, "main", "castrum:bucket_water 30")
                     upgrade = true
                 elseif tonumber(level) == 9 and inv:contains_item("main", "castrum:shovel_steel 27") and inv:contains_item("main", "castrum:bucket_water 30") then
                     txt = "upgrade bridge to lv.2 first"
 				elseif tonumber(level) == 10 and inv:contains_item("main", "castrum:shovel_bronze 54") and inv:contains_item("main", "castrum:bucket_water 60") and tonumber(bridge) > 10 then
-                    inv:remove_item("main", "castrum:shovel_bronze 54")
-					inv:remove_item("main", "castrum:bucket_water 60")
+                    Item_Remove2(player, "main", "castrum:shovel_bronze 54")
+					Item_Remove2(player, "main", "castrum:bucket_water 60")
                     upgrade = true
                 elseif tonumber(level) == 10 and inv:contains_item("main", "castrum:shovel_bronze 54") and inv:contains_item("main", "castrum:bucket_water 60") then
                     txt = "upgrade bridge to lv.3 first"
@@ -13302,35 +13958,35 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 18 and inv:contains_item("main", "default:cobble 3") then
-                    inv:remove_item("main", "default:cobble 3")
+                    Item_Remove2(player, "main", "default:cobble 3")
                     upgrade = true
                 elseif tonumber(level) == 18 and inv:contains_item("main", "default:cobble 10") and inv:contains_item("main", "castrum:sword_stone 3") and tonumber(fountain) > 3 then
-                    inv:remove_item("main", "default:cobble 10")
-                    inv:remove_item("main", "castrum:sword_stone 3")
+                    Item_Remove2(player, "main", "default:cobble 10")
+                    Item_Remove2(player, "main", "castrum:sword_stone 3")
                     upgrade = true
                 elseif tonumber(level) == 18 and inv:contains_item("main", "default:cobble 10") and inv:contains_item("main", "castrum:sword_stone 3") then
                     txt = "build fountain first"
                 elseif tonumber(level) == 19 and inv:contains_item("main", "default:cobble 40") and inv:contains_item("main", "castrum:sword_stone 12") and tonumber(fountain) > 4 then
-                    inv:remove_item("main", "default:cobble 40")
-                    inv:remove_item("main", "castrum:sword_stone 12")
+                    Item_Remove2(player, "main", "default:cobble 40")
+                    Item_Remove2(player, "main", "castrum:sword_stone 12")
                     upgrade = true
                 elseif tonumber(level) == 19 and inv:contains_item("main", "default:cobble 40") and inv:contains_item("main", "castrum:sword_stone 12") then
                     txt = "upgrade fountain to lv.2 first"
                 elseif tonumber(level) == 20 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") and tonumber(fountain) > 5 then
-                    inv:remove_item("main", "default:desert_cobble 40")
-                    inv:remove_item("main", "castrum:sword_steel 12")
+                    Item_Remove2(player, "main", "default:desert_cobble 40")
+                    Item_Remove2(player, "main", "castrum:sword_steel 12")
                     upgrade = true
                 elseif tonumber(level) == 20 and inv:contains_item("main", "default:desert_cobble 40") and inv:contains_item("main", "castrum:sword_steel 12") then
                     txt = "upgrade fountain to lv.3 first"
 				elseif tonumber(level) == 21 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") and tonumber(fountain) > 6 then
-                    inv:remove_item("main", "default:desert_cobble 160")
-                    inv:remove_item("main", "castrum:sword_steel 48")
+                    Item_Remove2(player, "main", "default:desert_cobble 160")
+                    Item_Remove2(player, "main", "castrum:sword_steel 48")
                     upgrade = true
                 elseif tonumber(level) == 21 and inv:contains_item("main", "default:desert_cobble 160") and inv:contains_item("main", "castrum:sword_steel 48") then
                     txt = "upgrade fountain to lv.4 first"
 				elseif tonumber(level) == 22 and inv:contains_item("main", "default:desert_cobble 320") and inv:contains_item("main", "castrum:sword_bronze 48") and tonumber(fountain) > 7 then
                     Item_Remove(player,"default:desert_cobble",320)
-                    inv:remove_item("main", "castrum:sword_bronze 48")
+                    Item_Remove2(player, "main", "castrum:sword_bronze 48")
                     upgrade = true
                 elseif tonumber(level) == 22 and inv:contains_item("main", "default:desert_cobble 320") and inv:contains_item("main", "castrum:sword_bronze 48") then
                     txt = "upgrade fountain to lv.5 first"
@@ -13369,16 +14025,16 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 6 and inv:contains_item("main", "default:cobble 8") and inv:contains_item("main", "default:wood 6") and tonumber(fountain) > 3 then
-                    inv:remove_item("main", "default:cobble 8")
-                    inv:remove_item("main", "default:wood 6")
+                    Item_Remove2(player, "main", "default:cobble 8")
+                    Item_Remove2(player, "main", "default:wood 6")
                     upgrade = true
                 elseif tonumber(level) == 6 and inv:contains_item("main", "default:cobble 80") and inv:contains_item("main", "default:wood 60") and tonumber(fountain) > 5 then
-                    inv:remove_item("main", "default:cobble 80")
-                    inv:remove_item("main", "default:wood 60")
+                    Item_Remove2(player, "main", "default:cobble 80")
+                    Item_Remove2(player, "main", "default:wood 60")
                     upgrade = true
 				elseif tonumber(level) == 7 and inv:contains_item("main", "default:desert_cobble 80") and inv:contains_item("main", "default:junglewood 60") and tonumber(fountain) > 5 then
-                    inv:remove_item("main", "default:desert_cobble 80")
-                    inv:remove_item("main", "default:junglewood 60")
+                    Item_Remove2(player, "main", "default:desert_cobble 80")
+                    Item_Remove2(player, "main", "default:junglewood 60")
                     upgrade = true
 				elseif tonumber(level) < 6 and inv:contains_item("main", "default:cobble 8") and inv:contains_item("main", "default:wood 6") then
                     txt = "build fountain first"
@@ -13423,14 +14079,14 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 7 and inv:contains_item("main", "default:wood 100") and inv:contains_item("main", "castrum:bucket_river_water 25") and tonumber(fountain) > 6 then
-                    inv:remove_item("main", "default:wood 100")
-                    inv:remove_item("main", "castrum:bucket_river_water 25")
+                    Item_Remove2(player, "main", "default:wood 100")
+                    Item_Remove2(player, "main", "castrum:bucket_river_water 25")
                     upgrade = true
                 elseif tonumber(level) < 7 and inv:contains_item("main", "default:wood 100") and inv:contains_item("main", "castrum:bucket_river_water 25") then
                     txt = "upgrade fountain to lv.4 first"
 				elseif tonumber(level) == 7 and inv:contains_item("main", "default:junglewood 400") and inv:contains_item("main", "castrum:bucket_river_water 100") and tonumber(fountain) > 8 then
-                    inv:remove_item("main", "default:junglewood 400")
-                    inv:remove_item("main", "castrum:bucket_river_water 100")
+                    Item_Remove2(player, "main", "default:junglewood 400")
+                    Item_Remove2(player, "main", "castrum:bucket_river_water 100")
                     upgrade = true
                 elseif tonumber(level) == 7 and inv:contains_item("main", "default:junglewood 400") and inv:contains_item("main", "castrum:bucket_river_water 100") then
                     txt = "upgrade fountain to lv.6 first"
@@ -13525,6 +14181,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
 				elseif tonumber(level) == 4 and tonumber(chapter) > 5 then
                     upgrade = true
+				elseif tonumber(level) == 5 and tonumber(chapter) > 6 then
+                    upgrade = true
                 elseif tonumber(level) == 1 then
                     txt = "complete chapter 2 first"
                 elseif tonumber(level) == 2 then
@@ -13533,11 +14191,13 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     txt = "complete chapter 4 first"
 				elseif tonumber(level) == 4 then
                     txt = "complete chapter 5 first"
+				elseif tonumber(level) == 5 then
+                    txt = "complete chapter 6 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 5 and upgrade then
+                if (tonumber(level)) < 6 and upgrade then
                     Mine(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Mine.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -13580,6 +14240,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
 				elseif tonumber(level) == 4 and tonumber(chapter) > 5 then
                     upgrade = true
+				elseif tonumber(level) == 5 and tonumber(chapter) > 6 then
+                    upgrade = true
                 elseif tonumber(level) == 0 then
                     txt = "complete chapter 1 first"
                 elseif tonumber(level) == 1 then
@@ -13590,11 +14252,13 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     txt = "complete chapter 4 first"
 				elseif tonumber(level) == 4 then
                     txt = "complete chapter 5 first"
+				elseif tonumber(level) == 5 then
+                    txt = "complete chapter 6 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 5 and upgrade then
+                if (tonumber(level)) < 6 and upgrade then
                     Quarry(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Quarry.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -13641,6 +14305,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
 				elseif tonumber(level) == 5 and tonumber(chapter) > 5 then
                     upgrade = true
+				elseif tonumber(level) == 6 and tonumber(chapter) > 6 then
+                    upgrade = true
                 elseif tonumber(level) == 1 then
                     txt = "complete chapter 1 first"
                 elseif tonumber(level) == 2 then
@@ -13651,11 +14317,13 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     txt = "complete chapter 4 first"
 				elseif tonumber(level) == 5 then
                     txt = "complete chapter 5 first"
+				elseif tonumber(level) == 6 then
+                    txt = "complete chapter 6 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 6 and upgrade then
+                if (tonumber(level)) < 7 and upgrade then
                     Tree(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Tree.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -13683,13 +14351,13 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 5 and inv:contains_item("main", "default:wood 5") then
-                    inv:remove_item("main", "default:wood 5")
+                    Item_Remove2(player, "main", "default:wood 5")
                     upgrade = true
                 elseif tonumber(level) == 5 and inv:contains_item("main", "default:junglewood 25") then
-                    inv:remove_item("main", "default:junglewood 25")
+                    Item_Remove2(player, "main", "default:junglewood 25")
                     upgrade = true
 				elseif tonumber(level) == 6 and inv:contains_item("main", "default:pine_wood 100") then
-                    inv:remove_item("main", "default:pine_wood 100")
+                    Item_Remove2(player, "main", "default:pine_wood 100")
                     upgrade = true
                 end
                 if upgrade == false then
@@ -13726,12 +14394,12 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 5 and inv:contains_item("main", "default:wood 10") and tonumber(fountain) > 4 then
-                    inv:remove_item("main", "default:wood 10")
+                    Item_Remove2(player, "main", "default:wood 10")
                     upgrade = true
                 elseif tonumber(level) < 5 and inv:contains_item("main", "default:wood 10") then
                     txt = "upgrade fountain to lv.2 first"
                 elseif tonumber(level) == 5 and inv:contains_item("main", "default:junglewood 50") and tonumber(fountain) > 6 then
-                    inv:remove_item("main", "default:junglewood 50")
+                    Item_Remove2(player, "main", "default:junglewood 50")
                     upgrade = true
                 elseif tonumber(level) == 5 and inv:contains_item("main", "default:junglewood 50") then
                     txt = "upgrade fountain to lv.4 first"
@@ -13760,7 +14428,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
     if formname == "craft" then
         for k, v in pairs(fields) do
             if v == "Craft" then
-                if player:get_attribute("need3string") then
+                if player:get_attribute("need1string") then
                     if player:get_inventory():contains_item("main", player:get_attribute("need1string")) and player:get_inventory():contains_item("main", player:get_attribute("need2string")) and player:get_inventory():contains_item("main", player:get_attribute("need3string")) then
                         player:get_inventory():remove_item("main", player:get_attribute("need1string"))
                         player:get_inventory():remove_item("main", player:get_attribute("need2string"))
@@ -13975,18 +14643,18 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 6 and inv:contains_item("main", "default:wood 20") and inv:contains_item("main", "default:cobble 20") and tonumber(fountain) > 3 then
-                    inv:remove_item("main", "default:wood 20")
-                    inv:remove_item("main", "default:cobble 20")
+                    Item_Remove2(player, "main", "default:wood 20")
+                    Item_Remove2(player, "main", "default:cobble 20")
                     upgrade = true
                 elseif tonumber(level) == 6 and inv:contains_item("main", "default:wood 200") and inv:contains_item("main", "default:cobble 200") and inv:contains_item("main", "castrum:bucket_water 50") and tonumber(fountain) > 5 then
                     Item_Remove(player,"default:wood",200)
 					Item_Remove(player,"default:cobble",200)
-                    inv:remove_item("main", "castrum:bucket_water 50")
+                    Item_Remove2(player, "main", "castrum:bucket_water 50")
                     upgrade = true
 				elseif tonumber(level) == 7 and inv:contains_item("main", "default:junglewood 400") and inv:contains_item("main", "default:desert_cobble 400") and inv:contains_item("main", "castrum:bucket_river_water 50") and tonumber(fountain) > 7 then
 					Item_Remove(player,"default:junglewood",400)
 					Item_Remove(player,"default:desert_cobble",400)
-                    inv:remove_item("main", "castrum:bucket_river_water 50")
+                    Item_Remove2(player, "main", "castrum:bucket_river_water 50")
                     upgrade = true
 				elseif tonumber(level) < 6 and inv:contains_item("main", "default:wood 20") and inv:contains_item("main", "default:cobble 20") then
                     txt = "build fountain first"
@@ -14093,6 +14761,49 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
             end
         end
 	end
+	if formname == "camp3" then
+        for k, v in pairs(fields) do
+            if v == "del" then
+                Camp3(0,player)
+                file = io.open(minetest.get_worldpath().."/SAVE/Camp3.txt", "w")
+		        file:write("0")
+		        file:close()
+                minetest.show_formspec(player:get_player_name(), "camp3" , camp3.get_formspec(player))
+            elseif v == "Upgrade" or v == "Build" then
+                file = io.open(minetest.get_worldpath().."/SAVE/Camp3.txt", "r")
+	            local level = file:read("*l")
+                file:close()
+                local inv = player:get_inventory()
+                local upgrade = false
+                file = io.open(minetest.get_worldpath().."/SAVE/Home3.txt", "r")
+	            local home3 = file:read("*l")
+                file:close()
+                file = io.open(minetest.get_worldpath().."/SAVE/Camp2.txt", "r")
+	            local camp2 = file:read("*l")
+                file:close()
+                local txt = "not enough items"
+                if tonumber(level) < 1 and tonumber(home3) > 5 and tonumber(camp2) > 0 then
+                    upgrade = true
+                elseif tonumber(level) < 1 and tonumber(home3) > 5 then
+                    txt = "build camp 2 first"
+                elseif tonumber(level) < 1 then
+                    txt = "build home 3 first"
+                end
+                if upgrade == false then
+                    minetest.chat_send_player(player:get_player_name(), txt)
+                end
+                if (tonumber(level)) < 1 and upgrade then
+                    Camp3(tonumber(level)+1,player)
+                    file = io.open(minetest.get_worldpath().."/SAVE/Camp3.txt", "w")
+		            file:write(tonumber(level)+1)
+		            file:close()
+                end
+                minetest.show_formspec(player:get_player_name(), "camp3" , camp3.get_formspec(player))
+            elseif v == "X" then
+                minetest.show_formspec(player:get_player_name(), "", "")
+            end
+        end
+	end
     if formname == "knight" then
         for k, v in pairs(fields) do
             if v == "Get Knight" then
@@ -14114,6 +14825,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     max1 = max1+11
 				elseif tonumber(home1) == 8 then
                     max1 = max1+14
+				elseif tonumber(home1) == 9 then
+                    max1 = max1+17
                 end
                 if tonumber(home2) == 6 then
                     max1 = max1+8
@@ -14133,10 +14846,16 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 file = io.open(minetest.get_worldpath().."/SAVE/Camp2.txt", "r")
 	            local camp2 = file:read("*l")
                 file:close()
+				file = io.open(minetest.get_worldpath().."/SAVE/Camp3.txt", "r")
+	            local camp3 = file:read("*l")
+                file:close()
                 if tonumber(camp1) == 1 then
                     max2 = max2+20
                 end
                 if tonumber(camp2) == 1 then
+                    max2 = max2+20
+                end
+				if tonumber(camp3) == 1 then
                     max2 = max2+20
                 end
                 if max1 > max2 then
@@ -14157,9 +14876,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 file:close()
                 if (tonumber(knight_1)+tonumber(knight_2)+tonumber(knight_3)) < max then
                     if player:get_attribute("2need1string") then
-                        if player:get_inventory():contains_item("main", player:get_attribute("2need1string")) and player:get_inventory():contains_item("main", player:get_attribute("2need2string")) then
+                        if player:get_inventory():contains_item("main", player:get_attribute("2need1string")) then
                             player:get_inventory():remove_item("main", player:get_attribute("2need1string"))
-                            player:get_inventory():remove_item("main", player:get_attribute("2need2string"))
                             Add_knight(player,player:get_attribute("knightlv"),true)
                         else
                             minetest.chat_send_player(player:get_player_name(), "not enough items")
@@ -14225,12 +14943,12 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local txt = "not enough items"
                 if tonumber(level) < 4 and tonumber(fountain) > 3 and inv:contains_item("main", "default:cobble 4") then
                     upgrade = true
-                    inv:remove_item("main", "default:cobble 4")
+                    Item_Remove2(player, "main", "default:cobble 4")
                 elseif tonumber(level) < 4 and inv:contains_item("main", "default:cobble 4") then
                     txt = "build fountain first"
                 elseif tonumber(level) == 4 and tonumber(fountain) > 4 and inv:contains_item("main", "default:cobble 40") and tonumber(chapter) > 1 then
                     upgrade = true
-                    inv:remove_item("main", "default:cobble 40")
+                    Item_Remove2(player, "main", "default:cobble 40")
                 elseif tonumber(level) == 4 and inv:contains_item("main", "default:cobble 40") and tonumber(fountain) > 4 then
                     txt = "complete chapter 1 first"
                 elseif tonumber(level) == 4 and inv:contains_item("main", "default:cobble 40") then
@@ -14256,11 +14974,18 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     txt = "complete chapter 4 first"
                 elseif tonumber(level) == 7 and inv:contains_item("main", "default:desert_cobble 400") then
                     txt = "upgrade fountain to lv.5 first"
+				elseif tonumber(level) == 8 and tonumber(fountain) > 8 and inv:contains_item("main", "default:desert_cobble 600") and tonumber(chapter) > 5 then
+                    upgrade = true
+					Item_Remove(player,"default:desert_cobble",600)
+                elseif tonumber(level) == 8 and inv:contains_item("main", "default:desert_cobble 600") and tonumber(fountain) > 8 then
+                    txt = "complete chapter 5 first"
+                elseif tonumber(level) == 8 and inv:contains_item("main", "default:desert_cobble 600") then
+                    txt = "upgrade fountain to lv.6 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 8 and upgrade then
+                if (tonumber(level)) < 9 and upgrade then
                     Battleground(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Battleground.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -14282,6 +15007,54 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 minetest.show_formspec(player:get_player_name(), "", "")
 			elseif v == "Start Chapter 5" then
                 get_fight(5,player)
+                minetest.show_formspec(player:get_player_name(), "", "")
+			elseif v == "Start Chapter 6" then
+                get_fight(6,player)
+                minetest.show_formspec(player:get_player_name(), "", "")
+            elseif v == "X" then
+                minetest.show_formspec(player:get_player_name(), "", "")
+            end
+        end
+	end
+	if formname == "island_battleground" then
+        for k, v in pairs(fields) do
+            if v == "del" then
+                Island_Battleground(0,player)
+                file = io.open(minetest.get_worldpath().."/SAVE/Island_Battleground.txt", "w")
+		        file:write("0")
+		        file:close()
+                minetest.show_formspec(player:get_player_name(), "island_battleground" , island_battleground.get_formspec(player))
+            elseif v == "Upgrade" or v == "Build" then
+                file = io.open(minetest.get_worldpath().."/SAVE/Island_Battleground.txt", "r")
+	            local level = file:read("*l")
+                file:close()
+                local inv = player:get_inventory()
+                local upgrade = false
+                file = io.open(minetest.get_worldpath().."/SAVE/Island_Fountain.txt", "r")
+	            local fountain = file:read("*l")
+                file:close()
+                file = io.open(minetest.get_worldpath().."/SAVE/Island_Chapter.txt", "r")
+	            local chapter = file:read("*l")
+                file:close()
+                local txt = "not enough items"
+                if tonumber(level) < 4 and tonumber(fountain) > 3 and inv:contains_item("main", "default:sand 400") then
+                    upgrade = true
+                    Item_Remove2(player, "main", "default:sand 400")
+                elseif tonumber(level) < 4 and inv:contains_item("main", "default:sand 400") then
+                    txt = "build island fountain first"
+                end
+                if upgrade == false then
+                    minetest.chat_send_player(player:get_player_name(), txt)
+                end
+                if (tonumber(level)) < 4 and upgrade then
+                    Island_Battleground(tonumber(level)+1,player)
+                    file = io.open(minetest.get_worldpath().."/SAVE/Island_Battleground.txt", "w")
+		            file:write(tonumber(level)+1)
+		            file:close()
+                end
+                minetest.show_formspec(player:get_player_name(), "island_battleground" , island_battleground.get_formspec(player))
+            elseif v == "Start Island Chapter 1" then
+                set_sea_fight(1,player)
                 minetest.show_formspec(player:get_player_name(), "", "")
             elseif v == "X" then
                 minetest.show_formspec(player:get_player_name(), "", "")
@@ -14307,10 +15080,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 7 and inv:contains_item("main", "default:sand 3") then
-                    inv:remove_item("main", "default:sand 3")
+                    Item_Remove2(player, "main", "default:sand 3")
                     upgrade = true
 				elseif tonumber(level) == 7 and inv:contains_item("main", "default:desert_sand 21") and tonumber(fountain) > 3 then
-                    inv:remove_item("main", "default:desert_sand 21")
+                    Item_Remove2(player, "main", "default:desert_sand 21")
                     upgrade = true
 				elseif tonumber(level) == 7 and inv:contains_item("main", "default:desert_sand 21")  then
                     txt = "build island fountain first"
@@ -14349,10 +15122,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 7 and inv:contains_item("main", "default:sand 3") then
-                    inv:remove_item("main", "default:sand 3")
+                    Item_Remove2(player, "main", "default:sand 3")
                     upgrade = true
 				elseif tonumber(level) == 7 and inv:contains_item("main", "default:desert_sand 21") and tonumber(fountain) > 3 then
-                    inv:remove_item("main", "default:desert_sand 21")
+                    Item_Remove2(player, "main", "default:desert_sand 21")
                     upgrade = true
 				elseif tonumber(level) == 7 and inv:contains_item("main", "default:desert_sand 21")  then
                     txt = "build island fountain first"
@@ -14391,10 +15164,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 7 and inv:contains_item("main", "default:sand 3") then
-                    inv:remove_item("main", "default:sand 3")
+                    Item_Remove2(player, "main", "default:sand 3")
                     upgrade = true
 				elseif tonumber(level) == 7 and inv:contains_item("main", "default:desert_sand 21") and tonumber(fountain) > 3 then
-                    inv:remove_item("main", "default:desert_sand 21")
+                    Item_Remove2(player, "main", "default:desert_sand 21")
                     upgrade = true
 				elseif tonumber(level) == 7 and inv:contains_item("main", "default:desert_sand 21")  then
                     txt = "build island fountain first"
@@ -14433,10 +15206,10 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 7 and inv:contains_item("main", "default:sand 3") then
-                    inv:remove_item("main", "default:sand 3")
+                    Item_Remove2(player, "main", "default:sand 3")
                     upgrade = true
 				elseif tonumber(level) == 7 and inv:contains_item("main", "default:desert_sand 21") and tonumber(fountain) > 3 then
-                    inv:remove_item("main", "default:desert_sand 21")
+                    Item_Remove2(player, "main", "default:desert_sand 21")
                     upgrade = true
 				elseif tonumber(level) == 7 and inv:contains_item("main", "default:desert_sand 21")  then
                     txt = "build island fountain first"
@@ -14484,12 +15257,12 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
 				if tonumber(level) < 4 and inv:contains_item("main", "default:sand 10") and tonumber(island_walle) > 6 and tonumber(island_wallw) > 6 and tonumber(island_walln) > 6 and tonumber(island_walls) > 6 then
-                    inv:remove_item("main", "default:sand 10")
+                    Item_Remove2(player, "main", "default:sand 10")
                     upgrade = true
 				elseif tonumber(level) < 4 and inv:contains_item("main", "default:sand 10") then
                     txt = "build island walls first"
 				elseif tonumber(level) == 4 and inv:contains_item("main", "default:desert_sand 100") and tonumber(island_walle) > 7 and tonumber(island_wallw) > 7 and tonumber(island_walln) > 7 and tonumber(island_walls) > 7 then
-                    inv:remove_item("main", "default:desert_sand 100")
+                    Item_Remove2(player, "main", "default:desert_sand 100")
                     upgrade = true
 				elseif tonumber(level) == 4 and inv:contains_item("main", "default:desert_sand 100") then
                     txt = "upgrade island walls to lv.2 first"
@@ -14543,11 +15316,15 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
                 elseif tonumber(level) == 2 then
                     txt = "complete chapter 5 first"
+				elseif tonumber(level) == 3 and tonumber(chapter) > 6 then
+                    upgrade = true
+                elseif tonumber(level) == 3 then
+                    txt = "complete chapter 6 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 3 and upgrade then
+                if (tonumber(level)) < 4 and upgrade then
                     Sandmine(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Sandmine.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -14578,12 +15355,12 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 5 and inv:contains_item("main", "default:wood 10") and tonumber(fountain) > 4 then
-                    inv:remove_item("main", "default:wood 10")
+                    Item_Remove2(player, "main", "default:wood 10")
                     upgrade = true
                 elseif tonumber(level) < 5 and inv:contains_item("main", "default:wood 10") then
                     txt = "upgrade fountain to lv.2 first"
                 elseif tonumber(level) == 5 and inv:contains_item("main", "default:junglewood 50") and tonumber(fountain) > 6 then
-                    inv:remove_item("main", "default:junglewood 50")
+                    Item_Remove2(player, "main", "default:junglewood 50")
                     upgrade = true
                 elseif tonumber(level) == 5 and inv:contains_item("main", "default:junglewood 50") then
                     txt = "upgrade fountain to lv.4 first"
@@ -14678,8 +15455,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 6 and inv:contains_item("main", "default:sand 80") and inv:contains_item("main", "default:wood 60") and tonumber(fountain) > 3 then
-                    inv:remove_item("main", "default:sand 80")
-                    inv:remove_item("main", "default:wood 60")
+                    Item_Remove2(player, "main", "default:sand 80")
+                    Item_Remove2(player, "main", "default:wood 60")
                     upgrade = true
 				elseif tonumber(level) < 6 and inv:contains_item("main", "default:sand 80") and inv:contains_item("main", "default:wood 60") then
                     txt = "build island fountain first"
@@ -14738,11 +15515,15 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
                 elseif tonumber(level) == 3 then
                     txt = "complete chapter 5 first"
+				elseif tonumber(level) == 4 and tonumber(chapter) > 6 then
+                    upgrade = true
+                elseif tonumber(level) == 4 then
+                    txt = "complete chapter 6 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 4 and upgrade then
+                if (tonumber(level)) < 5 and upgrade then
                     Cactusfarm(tonumber(level)+1,player)
                     file = io.open(minetest.get_worldpath().."/SAVE/Cactusfarm.txt", "w")
 		            file:write(tonumber(level)+1)
@@ -14853,7 +15634,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 3 and inv:contains_item("main", "default:mossycobble 50") then
-                    inv:remove_item("main", "default:mossycobble 50")
+                    Item_Remove2(player, "main", "default:mossycobble 50")
                     upgrade = true
                 end
                 if upgrade == false then
@@ -14931,8 +15712,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 5 and inv:contains_item("main", "default:sand 80") and inv:contains_item("main", "default:glass 10") and tonumber(fountain) > 3 then
-                    inv:remove_item("main", "default:sand 80")
-					inv:remove_item("main", "default:glass 10")
+                    Item_Remove2(player, "main", "default:sand 80")
+					Item_Remove2(player, "main", "default:glass 10")
                     upgrade = true
 				elseif tonumber(level) < 5 and inv:contains_item("main", "default:sand 80") and inv:contains_item("main", "default:glass 10") then
                     txt = "build island fountain first"
@@ -14971,14 +15752,14 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 6 and inv:contains_item("main", "default:cobble 8") and inv:contains_item("main", "default:wood 10") and tonumber(fountain) > 7 then
-                    inv:remove_item("main", "default:cobble 8")
-                    inv:remove_item("main", "default:wood 10")
+                    Item_Remove2(player, "main", "default:cobble 8")
+                    Item_Remove2(player, "main", "default:wood 10")
                     upgrade = true
                 elseif tonumber(level) < 6 and inv:contains_item("main", "default:cobble 8") and inv:contains_item("main", "default:wood 10") then
                     txt = "upgrade fountain to lv.5 first"
 				elseif tonumber(level) == 6 and inv:contains_item("main", "default:cobble 64") and inv:contains_item("main", "default:junglewood 80") and tonumber(fountain) > 8 then
-                    inv:remove_item("main", "default:junglewood 80")
-                    inv:remove_item("main", "default:cobble 64")
+                    Item_Remove2(player, "main", "default:junglewood 80")
+                    Item_Remove2(player, "main", "default:cobble 64")
                     upgrade = true
                 elseif tonumber(level) == 6 and inv:contains_item("main", "default:cobble 64") and inv:contains_item("main", "default:junglewood 80") then
                     txt = "upgrade fountain to lv.6 first"
@@ -15014,7 +15795,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 7 and inv:contains_item("main", "default:wood 100") then
-                    inv:remove_item("main", "default:wood 100")
+                    Item_Remove2(player, "main", "default:wood 100")
                     upgrade = true
                 end
                 if upgrade == false then
@@ -15027,6 +15808,40 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		            file:close()
                 end
                 minetest.show_formspec(player:get_player_name(), "island_pier" , island_pier.get_formspec(player))
+            elseif v == "X" then
+                minetest.show_formspec(player:get_player_name(), "", "")
+            end
+        end
+	end
+	if formname == "island_pier2" then
+        for k, v in pairs(fields) do
+            if v == "del" then
+                Island_Pier2(0,player)
+                file = io.open(minetest.get_worldpath().."/SAVE/Island_Pier2.txt", "w")
+		        file:write("0")
+		        file:close()
+                minetest.show_formspec(player:get_player_name(), "island_pier2" , island_pier2.get_formspec(player))
+            elseif v == "Upgrade" or v == "Build" then
+                file = io.open(minetest.get_worldpath().."/SAVE/Island_Pier2.txt", "r")
+	            local level = file:read("*l")
+                file:close()
+                local inv = player:get_inventory()
+                local upgrade = false
+                local txt = "not enough items"
+                if tonumber(level) < 3 and inv:contains_item("main", "default:wood 100") then
+                    Item_Remove2(player, "main", "default:wood 100")
+                    upgrade = true
+                end
+                if upgrade == false then
+                    minetest.chat_send_player(player:get_player_name(), txt)
+                end
+                if (tonumber(level)) < 3 and upgrade then
+                    Island_Pier2(tonumber(level)+1,player)
+                    file = io.open(minetest.get_worldpath().."/SAVE/Island_Pier2.txt", "w")
+		            file:write(tonumber(level)+1)
+		            file:close()
+                end
+                minetest.show_formspec(player:get_player_name(), "island_pier2" , island_pier2.get_formspec(player))
             elseif v == "X" then
                 minetest.show_formspec(player:get_player_name(), "", "")
             end
@@ -15052,7 +15867,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local txt = "not enough items"
                 if tonumber(level) < 6 and inv:contains_item("main", "default:sand 200") and inv:contains_item("main", "default:cactus 80") and tonumber(fountain) > 4 then
 					Item_Remove(player,"default:sand",200)
-                    inv:remove_item("main", "default:cactus 80")
+                    Item_Remove2(player, "main", "default:cactus 80")
                     upgrade = true
 				elseif tonumber(level) < 6 and inv:contains_item("main", "default:sand 200") and inv:contains_item("main", "default:cactus 80") then
                     txt = "upgrade island fountain to lv.2 first"
@@ -15140,7 +15955,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 14 and inv:contains_item("main", "default:wood 80") and tonumber(fountain) > 4 then
-                    inv:remove_item("main", "default:wood 80")
+                    Item_Remove2(player, "main", "default:wood 80")
                     upgrade = true
                 elseif tonumber(level) < 14 and inv:contains_item("main", "default:wood 80") then
                     txt = "upgrade island fountain to lv.2 first"
@@ -15247,7 +16062,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 1 and inv:contains_item("main", "wool:white 9") then
-                    inv:remove_item("main", "wool:white 9")
+                    Item_Remove2(player, "main", "wool:white 9")
 					upgrade = true
                 end
                 if upgrade == false then
@@ -15281,7 +16096,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local upgrade = false
                 local txt = "not enough items"
                 if tonumber(level) < 1 and inv:contains_item("main", "wool:white 4") then
-                    inv:remove_item("main", "wool:white 4")
+                    Item_Remove2(player, "main", "wool:white 4")
 					upgrade = true
                 end
                 if upgrade == false then
@@ -15294,6 +16109,74 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		            file:close()
                 end
                 minetest.show_formspec(player:get_player_name(), "sail2" , sail2.get_formspec(player))
+            elseif v == "X" then
+                minetest.show_formspec(player:get_player_name(), "", "")
+            end
+        end
+	end
+	if formname == "cannon1" then
+        for k, v in pairs(fields) do
+            if v == "del" then
+                Cannon1(0,player)
+                file = io.open(minetest.get_worldpath().."/SAVE/Cannon1.txt", "w")
+		        file:write("0")
+		        file:close()
+                minetest.show_formspec(player:get_player_name(), "cannon1" , cannon1.get_formspec(player))
+            elseif v == "Upgrade" or v == "Build" then
+                file = io.open(minetest.get_worldpath().."/SAVE/Cannon1.txt", "r")
+	            local level = file:read("*l")
+                file:close()
+                local inv = player:get_inventory()
+                local upgrade = false
+                local txt = "not enough items"
+                if tonumber(level) < 1 and inv:contains_item("main", "default:steel_ingot 25") then
+                    Item_Remove2(player, "main", "default:steel_ingot 25")
+					upgrade = true
+                end
+                if upgrade == false then
+                    minetest.chat_send_player(player:get_player_name(), txt)
+                end
+                if (tonumber(level)) < 1 and upgrade then
+                    Cannon1(tonumber(level)+1,player)
+                    file = io.open(minetest.get_worldpath().."/SAVE/Cannon1.txt", "w")
+		            file:write(tonumber(level)+1)
+		            file:close()
+                end
+                minetest.show_formspec(player:get_player_name(), "cannon1" , cannon1.get_formspec(player))
+            elseif v == "X" then
+                minetest.show_formspec(player:get_player_name(), "", "")
+            end
+        end
+	end
+	if formname == "cannon2" then
+        for k, v in pairs(fields) do
+            if v == "del" then
+                Cannon2(0,player)
+                file = io.open(minetest.get_worldpath().."/SAVE/Cannon2.txt", "w")
+		        file:write("0")
+		        file:close()
+                minetest.show_formspec(player:get_player_name(), "cannon2" , cannon2.get_formspec(player))
+            elseif v == "Upgrade" or v == "Build" then
+                file = io.open(minetest.get_worldpath().."/SAVE/Cannon2.txt", "r")
+	            local level = file:read("*l")
+                file:close()
+                local inv = player:get_inventory()
+                local upgrade = false
+                local txt = "not enough items"
+                if tonumber(level) < 1 and inv:contains_item("main", "default:steel_ingot 25") then
+                    Item_Remove2(player, "main", "default:steel_ingot 25")
+					upgrade = true
+                end
+                if upgrade == false then
+                    minetest.chat_send_player(player:get_player_name(), txt)
+                end
+                if (tonumber(level)) < 1 and upgrade then
+                    Cannon2(tonumber(level)+1,player)
+                    file = io.open(minetest.get_worldpath().."/SAVE/Cannon2.txt", "w")
+		            file:write(tonumber(level)+1)
+		            file:close()
+                end
+                minetest.show_formspec(player:get_player_name(), "cannon2" , cannon2.get_formspec(player))
             elseif v == "X" then
                 minetest.show_formspec(player:get_player_name(), "", "")
             end

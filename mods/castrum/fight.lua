@@ -406,6 +406,76 @@ function set_fight(player,level)
         turn(player,{x=-174, y=9, z=-72},3)
 		minetest.set_node({x=-174, y=9, z=-60}, {name="castrum:knight_lv3_dark"})
         turn(player,{x=-174, y=9, z=-60},3)
+	elseif level == 6 then
+        minetest.set_node({x=-173, y=9, z=-65}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-173, y=9, z=-65},3)
+        minetest.set_node({x=-173, y=9, z=-67}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-173, y=9, z=-67},3)
+		minetest.set_node({x=-174, y=9, z=-64}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-174, y=9, z=-64},3)
+		minetest.set_node({x=-174, y=9, z=-68}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-174, y=9, z=-68},3)
+		minetest.set_node({x=-172, y=9, z=-66}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-172, y=9, z=-66},3)
+        minetest.set_node({x=-173, y=9, z=-62}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-173, y=9, z=-62},3)
+        minetest.set_node({x=-173, y=9, z=-70}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-173, y=9, z=-70},3)
+        minetest.set_node({x=-171, y=9, z=-69}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-171, y=9, z=-69},3)
+        minetest.set_node({x=-171, y=9, z=-63}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-171, y=9, z=-63},3)
+        minetest.set_node({x=-170, y=9, z=-65}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-170, y=9, z=-65},3)
+        minetest.set_node({x=-170, y=9, z=-67}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-170, y=9, z=-67},3)
+        minetest.set_node({x=-170, y=9, z=-70}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-170, y=9, z=-70},3)
+        minetest.set_node({x=-169, y=9, z=-68}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-169, y=9, z=-68},3)
+		minetest.set_node({x=-169, y=9, z=-64}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-169, y=9, z=-64},3)
+        minetest.set_node({x=-168, y=9, z=-66}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-168, y=9, z=-66},3)
+        minetest.set_node({x=-170, y=9, z=-62}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-170, y=9, z=-62},3)
+        minetest.set_node({x=-172, y=9, z=-71}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-172, y=9, z=-71},3)
+		minetest.set_node({x=-172, y=9, z=-61}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-172, y=9, z=-61},3)
+		minetest.set_node({x=-174, y=9, z=-72}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-174, y=9, z=-72},3)
+		minetest.set_node({x=-174, y=9, z=-60}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-174, y=9, z=-60},3)
+		minetest.set_node({x=-174, y=9, z=-67}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-174, y=9, z=-67},3)
+		minetest.set_node({x=-174, y=9, z=-65}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-174, y=9, z=-65},3)
+		minetest.set_node({x=-174, y=9, z=-59}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-174, y=9, z=-59},3)
+		minetest.set_node({x=-174, y=9, z=-73}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-174, y=9, z=-73},3)
+		minetest.set_node({x=-172, y=9, z=-60}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-172, y=9, z=-60},3)
+		minetest.set_node({x=-172, y=9, z=-72}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-172, y=9, z=-72},3)
+		minetest.set_node({x=-174, y=9, z=-65}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-174, y=9, z=-65},3)
+        minetest.set_node({x=-174, y=9, z=-67}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-174, y=9, z=-67},3)
+        minetest.set_node({x=-174, y=9, z=-62}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-174, y=9, z=-62},3)
+        minetest.set_node({x=-174, y=9, z=-70}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-174, y=9, z=-70},3)
+        minetest.set_node({x=-172, y=9, z=-69}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-172, y=9, z=-69},3)
+        minetest.set_node({x=-172, y=9, z=-63}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-172, y=9, z=-63},3)
+        minetest.set_node({x=-171, y=9, z=-65}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-171, y=9, z=-65},3)
+        minetest.set_node({x=-171, y=9, z=-67}, {name="castrum:knight_lv3_dark"})
+        turn(player,{x=-171, y=9, z=-67},3)
+		
     end
     player:set_attribute("fightlv", ""..level)
 end
@@ -443,134 +513,127 @@ function fight_step1(player)
     end
 end
 function fight_step3(player,num2,num,dignum,m,j,i)
+	local d = 0
 	if minetest.get_node({x=j*(-1), y=9, z=i*(-1)}).name == "castrum:knight_lv"..num2.."_dark" and dignum < m then
 		if minetest.get_node({x=j*(-1)+1, y=9, z=i*(-1)}).name == "castrum:knight_lv"..num or minetest.get_node({x=j*(-1)+1, y=10, z=i*(-1)}).name == "castrum:knight_lv"..num.."_sit" then
 			player:set_attribute("fightkill"..num, ""..(player:get_attribute("fightkill"..num)+1))
-			dd = 1
 			if minetest.get_node({x=j*(-1)+1, y=9, z=i*(-1)}).name == "castrum:horse1" then
 				player:set_attribute("fighthkill1", ""..(player:get_attribute("fighthkill1")+1))
 			end
 			minetest.set_node({x=j*(-1)+1, y=9, z=i*(-1)}, {name="air"})
 			minetest.set_node({x=j*(-1)+1, y=10, z=i*(-1)}, {name="air"})
+			d = 1
 		end
-		if minetest.get_node({x=j*(-1)-1, y=9, z=i*(-1)}).name == "castrum:knight_lv"..num or minetest.get_node({x=j*(-1)-1, y=10, z=i*(-1)}).name == "castrum:knight_lv"..num.."_sit" then
+		if (minetest.get_node({x=j*(-1)-1, y=9, z=i*(-1)}).name == "castrum:knight_lv"..num or minetest.get_node({x=j*(-1)-1, y=10, z=i*(-1)}).name == "castrum:knight_lv"..num.."_sit") and d == 0 then
 			player:set_attribute("fightkill"..num, ""..(player:get_attribute("fightkill"..num)+1))
-			dd = 1
 			if minetest.get_node({x=j*(-1)-1, y=9, z=i*(-1)}).name == "castrum:horse1" then
 				player:set_attribute("fighthkill1", ""..(player:get_attribute("fighthkill1")+1))
 			end
 			minetest.set_node({x=j*(-1)-1, y=9, z=i*(-1)}, {name="air"})
 			minetest.set_node({x=j*(-1)-1, y=10, z=i*(-1)}, {name="air"})
+			d = 1
 		end
-		if minetest.get_node({x=j*(-1), y=9, z=i*(-1)}).name == "castrum:knight_lv"..num or minetest.get_node({x=j*(-1), y=10, z=i*(-1)}).name == "castrum:knight_lv"..num.."_sit" then
+		if (minetest.get_node({x=j*(-1), y=9, z=i*(-1)}).name == "castrum:knight_lv"..num or minetest.get_node({x=j*(-1), y=10, z=i*(-1)}).name == "castrum:knight_lv"..num.."_sit") and d == 0 then
 			player:set_attribute("fightkill"..num, ""..(player:get_attribute("fightkill"..num)+1))
-			dd = 1
 			if minetest.get_node({x=j*(-1), y=9, z=i*(-1)}).name == "castrum:horse1" then
 				player:set_attribute("fighthkill1", ""..(player:get_attribute("fighthkill1")+1))
 			end
 			minetest.set_node({x=j*(-1), y=9, z=i*(-1)}, {name="air"})
 			minetest.set_node({x=j*(-1), y=10, z=i*(-1)}, {name="air"})
+			d = 1
 		end
-		if minetest.get_node({x=j*(-1)+1, y=9, z=i*(-1)-1}).name == "castrum:knight_lv"..num or minetest.get_node({x=j*(-1)+1, y=10, z=i*(-1)-1}).name == "castrum:knight_lv"..num.."_sit" then
+		if (minetest.get_node({x=j*(-1)+1, y=9, z=i*(-1)-1}).name == "castrum:knight_lv"..num or minetest.get_node({x=j*(-1)+1, y=10, z=i*(-1)-1}).name == "castrum:knight_lv"..num.."_sit") and d == 0 then
 			player:set_attribute("fightkill"..num, ""..(player:get_attribute("fightkill"..num)+1))
-			dd = 1
 			if minetest.get_node({x=j*(-1)+1, y=9, z=i*(-1)-1}).name == "castrum:horse1" then
 				player:set_attribute("fighthkill1", ""..(player:get_attribute("fighthkill1")+1))
 			end
 			minetest.set_node({x=j*(-1)+1, y=9, z=i*(-1)-1}, {name="air"})
 			minetest.set_node({x=j*(-1)+1, y=10, z=i*(-1)-1}, {name="air"})
+			d = 1
 		end
-		if minetest.get_node({x=j*(-1)-1, y=9, z=i*(-1)-1}).name == "castrum:knight_lv"..num or minetest.get_node({x=j*(-1)-1, y=10, z=i*(-1)-1}).name == "castrum:knight_lv"..num.."_sit" then
+		if (minetest.get_node({x=j*(-1)-1, y=9, z=i*(-1)-1}).name == "castrum:knight_lv"..num or minetest.get_node({x=j*(-1)-1, y=10, z=i*(-1)-1}).name == "castrum:knight_lv"..num.."_sit") and d == 0 then
 			player:set_attribute("fightkill"..num, ""..(player:get_attribute("fightkill"..num)+1))
-			dd = 1
 			if minetest.get_node({x=j*(-1)-1, y=9, z=i*(-1)-1}).name == "castrum:horse1" then
 				player:set_attribute("fighthkill1", ""..(player:get_attribute("fighthkill1")+1))
 			end
 			minetest.set_node({x=j*(-1)-1, y=9, z=i*(-1)-1}, {name="air"})
 			minetest.set_node({x=j*(-1)-1, y=10, z=i*(-1)-1}, {name="air"})
+			d = 1
 		end
-		if minetest.get_node({x=j*(-1), y=9, z=i*(-1)-1}).name == "castrum:knight_lv"..num or minetest.get_node({x=j*(-1), y=10, z=i*(-1)-1}).name == "castrum:knight_lv"..num.."_sit" then
+		if (minetest.get_node({x=j*(-1), y=9, z=i*(-1)-1}).name == "castrum:knight_lv"..num or minetest.get_node({x=j*(-1), y=10, z=i*(-1)-1}).name == "castrum:knight_lv"..num.."_sit") and d == 0 then
 			player:set_attribute("fightkill"..num, ""..(player:get_attribute("fightkill"..num)+1))
-			dd = 1
 			if minetest.get_node({x=j*(-1), y=9, z=i*(-1)-1}).name == "castrum:horse1" then
 				player:set_attribute("fighthkill1", ""..(player:get_attribute("fighthkill1")+1))
 			end
 			minetest.set_node({x=j*(-1), y=9, z=i*(-1)-1}, {name="air"})
 			minetest.set_node({x=j*(-1), y=10, z=i*(-1)-1}, {name="air"})
+			d = 1
 		end
-		if minetest.get_node({x=j*(-1)-1, y=9, z=i*(-1)+1}).name == "castrum:knight_lv"..num or minetest.get_node({x=j*(-1)-1, y=10, z=i*(-1)+1}).name == "castrum:knight_lv"..num.."_sit" then
+		if (minetest.get_node({x=j*(-1)-1, y=9, z=i*(-1)+1}).name == "castrum:knight_lv"..num or minetest.get_node({x=j*(-1)-1, y=10, z=i*(-1)+1}).name == "castrum:knight_lv"..num.."_sit") and d == 0 then
 			player:set_attribute("fightkill"..num, ""..(player:get_attribute("fightkill"..num)+1))
-			dd = 1
 			if minetest.get_node({x=j*(-1)-1, y=9, z=i*(-1)+1}).name == "castrum:horse1" then
 				player:set_attribute("fighthkill1", ""..(player:get_attribute("fighthkill1")+1))
 			end
 			minetest.set_node({x=j*(-1)-1, y=9, z=i*(-1)+1}, {name="air"})
 			minetest.set_node({x=j*(-1)-1, y=10, z=i*(-1)+1}, {name="air"})
+			d = 1
 		end
-		if minetest.get_node({x=j*(-1)+1, y=9, z=i*(-1)+1}).name == "castrum:knight_lv"..num or minetest.get_node({x=j*(-1)+1, y=10, z=i*(-1)+1}).name == "castrum:knight_lv"..num.."_sit" then
+		if (minetest.get_node({x=j*(-1)+1, y=9, z=i*(-1)+1}).name == "castrum:knight_lv"..num or minetest.get_node({x=j*(-1)+1, y=10, z=i*(-1)+1}).name == "castrum:knight_lv"..num.."_sit") and d == 0 then
 			player:set_attribute("fightkill"..num, ""..(player:get_attribute("fightkill"..num)+1))
-			dd = 1
 			if minetest.get_node({x=j*(-1)+1, y=9, z=i*(-1)+1}).name == "castrum:horse1" then
 				player:set_attribute("fighthkill1", ""..(player:get_attribute("fighthkill1")+1))
 			end
 			minetest.set_node({x=j*(-1)+1, y=9, z=i*(-1)+1}, {name="air"})
 			minetest.set_node({x=j*(-1)+1, y=10, z=i*(-1)+1}, {name="air"})
+			d = 1
 		end
-		if minetest.get_node({x=j*(-1), y=9, z=i*(-1)+1}).name == "castrum:knight_lv"..num or minetest.get_node({x=j*(-1), y=10, z=i*(-1)+1}).name == "castrum:knight_lv"..num.."_sit" then
+		if (minetest.get_node({x=j*(-1), y=9, z=i*(-1)+1}).name == "castrum:knight_lv"..num or minetest.get_node({x=j*(-1), y=10, z=i*(-1)+1}).name == "castrum:knight_lv"..num.."_sit") and d == 0 then
 			player:set_attribute("fightkill"..num, ""..(player:get_attribute("fightkill"..num)+1))
-			dd = 1
 			if minetest.get_node({x=j*(-1), y=9, z=i*(-1)+1}).name == "castrum:horse1" then
 				player:set_attribute("fighthkill1", ""..(player:get_attribute("fighthkill1")+1))
 			end
 			minetest.set_node({x=j*(-1), y=9, z=i*(-1)+1}, {name="air"})
 			minetest.set_node({x=j*(-1), y=10, z=i*(-1)+1}, {name="air"})
+			d = 1
 		end
-		if minetest.get_node({x=j*(-1)+1, y=9, z=i*(-1)}).name == "castrum:castrum_knight"..num and dd == 0 then
+		if minetest.get_node({x=j*(-1)+1, y=9, z=i*(-1)}).name == "castrum:castrum_knight1" and d == 0 then
 			minetest.set_node({x=j*(-1)+1, y=9, z=i*(-1)}, {name="air"})
-			player:set_attribute("fightkill"..num, ""..(player:get_attribute("fightkill"..num)+1))
-			dd = 1
+			d = 1
 		end
-		if minetest.get_node({x=j*(-1)-1, y=9, z=i*(-1)}).name == "castrum:castrum_knight"..num and dd == 0 then
+		if minetest.get_node({x=j*(-1)-1, y=9, z=i*(-1)}).name == "castrum:castrum_knight1" and d == 0 then
 			minetest.set_node({x=j*(-1)-1, y=9, z=i*(-1)}, {name="air"})
-			player:set_attribute("fightkill"..num, ""..(player:get_attribute("fightkill"..num)+1))
-			dd = 1
+			d = 1
 		end
-		if minetest.get_node({x=j*(-1), y=9, z=i*(-1)}).name == "castrum:castrum_knight"..num and dd == 0 then
+		if minetest.get_node({x=j*(-1), y=9, z=i*(-1)}).name == "castrum:castrum_knight1" and d == 0 then
 			minetest.set_node({x=j*(-1), y=9, z=i*(-1)}, {name="air"})
-			player:set_attribute("fightkill"..num, ""..(player:get_attribute("fightkill"..num)+1))
-			dd = 1
+			d = 1
 		end
-		if minetest.get_node({x=j*(-1)+1, y=9, z=i*(-1)-1}).name == "castrum:castrum_knight"..num and dd == 0 then
+		if minetest.get_node({x=j*(-1)+1, y=9, z=i*(-1)-1}).name == "castrum:castrum_knight1" and d == 0 then
 			minetest.set_node({x=j*(-1)+1, y=9, z=i*(-1)-1}, {name="air"})
-			player:set_attribute("fightkill"..num, ""..(player:get_attribute("fightkill"..num)+1))
-			dd = 1
+			d = 1
 		end
-		if minetest.get_node({x=j*(-1)-1, y=9, z=i*(-1)-1}).name == "castrum:castrum_knight"..num and dd == 0 then
+		if minetest.get_node({x=j*(-1)-1, y=9, z=i*(-1)-1}).name == "castrum:castrum_knight1" and d == 0 then
 			minetest.set_node({x=j*(-1)-1, y=9, z=i*(-1)-1}, {name="air"})
-			player:set_attribute("fightkill"..num, ""..(player:get_attribute("fightkill"..num)+1))
-			dd = 1
+			d = 1
 		end
-		if minetest.get_node({x=j*(-1), y=9, z=i*(-1)-1}).name == "castrum:castrum_knight"..num and dd == 0 then
+		if minetest.get_node({x=j*(-1), y=9, z=i*(-1)-1}).name == "castrum:castrum_knight1" and d == 0 then
 			minetest.set_node({x=j*(-1), y=9, z=i*(-1)-1}, {name="air"})
-			player:set_attribute("fightkill"..num, ""..(player:get_attribute("fightkill"..num)+1))
-			dd = 1
+			d = 1
 		end
-		if minetest.get_node({x=j*(-1)+1, y=9, z=i*(-1)+1}).name == "castrum:castrum_knight"..num and dd == 0 then
+		if minetest.get_node({x=j*(-1)+1, y=9, z=i*(-1)+1}).name == "castrum:castrum_knight1" and d == 0 then
 			minetest.set_node({x=j*(-1)+1, y=9, z=i*(-1)+1}, {name="air"})
-			player:set_attribute("fightkill"..num, ""..(player:get_attribute("fightkill"..num)+1))
-			dd = 1
+			d = 1
 		end
-		if minetest.get_node({x=j*(-1)-1, y=9, z=i*(-1)+1}).name == "castrum:castrum_knight"..num and dd == 0 then
+		if minetest.get_node({x=j*(-1)-1, y=9, z=i*(-1)+1}).name == "castrum:castrum_knight1" and d == 0 then
 			minetest.set_node({x=j*(-1)-1, y=9, z=i*(-1)+1}, {name="air"})
-			player:set_attribute("fightkill"..num, ""..(player:get_attribute("fightkill"..num)+1))
-			dd = 1
+			d = 1
 		end
-		if minetest.get_node({x=j*(-1), y=9, z=i*(-1)+1}).name == "castrum:castrum_knight"..num and dd == 0 then
+		if minetest.get_node({x=j*(-1), y=9, z=i*(-1)+1}).name == "castrum:castrum_knight1" and d == 0 then
 			minetest.set_node({x=j*(-1), y=9, z=i*(-1)+1}, {name="air"})
-			player:set_attribute("fightkill"..num, ""..(player:get_attribute("fightkill"..num)+1))
-			dd = 1
+			d = 1
 		end
 	end
+	return d
 end
 function fight_step2(player)
     local move = tonumber(player:get_attribute("fightmove"))
@@ -588,6 +651,8 @@ function fight_step2(player)
         list = Chapter4()
 	elseif tonumber(chapter) == 5 then
         list = Chapter5()
+	elseif tonumber(chapter) == 6 then
+        list = Chapter6()
     end
     local move2 = move
     local d = 0
@@ -596,19 +661,19 @@ function fight_step2(player)
     for j=144,174 do
         for i=51,81 do
             dignum = math.random(8)
-			fight_step3(player,1,1,dignum,5,j,i)
-            fight_step3(player,1,2,dignum,3,j,i)
-			fight_step3(player,1,3,dignum,2,j,i)
-			fight_step3(player,2,1,dignum,7,j,i)
-            fight_step3(player,2,2,dignum,5,j,i)
-            fight_step3(player,2,2,dignum,3,j,i)
-            fight_step3(player,3,1,dignum,8,j,i)
-			fight_step3(player,3,2,dignum,7,j,i)
-			fight_step3(player,3,3,dignum,5,j,i)
+			d = fight_step3(player,1,1,dignum,5,j,i)
+            d = fight_step3(player,1,2,dignum,3,j,i)
+			d = fight_step3(player,1,3,dignum,2,j,i)
+			d = fight_step3(player,2,1,dignum,7,j,i)
+            d = fight_step3(player,2,2,dignum,5,j,i)
+            d = fight_step3(player,2,2,dignum,3,j,i)
+            d = fight_step3(player,3,1,dignum,8,j,i)
+			d = fight_step3(player,3,2,dignum,7,j,i)
+			d = fight_step3(player,3,3,dignum,5,j,i)
         end
     end
     while d == 0 and move2 < 167 and dd == 0 and tonumber(chapter) == 1 do
-        if minetest.get_node(list[move2][2]).name == "castrum:knight_lv1_dark" and minetest.get_node(list[move2][3]).name  == "air" then
+        if minetest.get_node(list[move2][2]).name == "castrum:knight_lv1_dark" and (minetest.get_node(list[move2][3]).name  == "air" or minetest.get_node(list[move2][3]).name  == "castrum:knight_lv1_dark") then
             minetest.set_node(list[move2][2], {name="air"})
             minetest.set_node(list[move2][3], {name="castrum:knight_lv1_dark"})
             player:set_attribute("fightmove", ""..(move2+1))
@@ -621,7 +686,7 @@ function fight_step2(player)
         end
     end
     while d == 0 and move2 < 300 and dd == 0 and tonumber(chapter) == 2 do
-        if minetest.get_node(list[move2][2]).name == "castrum:knight_lv1_dark" and minetest.get_node(list[move2][3]).name  == "air" then
+        if minetest.get_node(list[move2][2]).name == "castrum:knight_lv1_dark" and (minetest.get_node(list[move2][3]).name  == "air" or minetest.get_node(list[move2][3]).name  == "castrum:knight_lv1_dark") then
 			
             minetest.set_node(list[move2][2], {name="air"})
             minetest.set_node(list[move2][3], {name="castrum:knight_lv1_dark"})
@@ -635,7 +700,7 @@ function fight_step2(player)
         end
     end
     while d == 0 and move2 < 300 and dd == 0 and tonumber(chapter) == 3 do
-        if minetest.get_node(list[move2][2]).name == "castrum:knight_lv2_dark" and minetest.get_node(list[move2][3]).name  == "air" then
+        if minetest.get_node(list[move2][2]).name == "castrum:knight_lv2_dark" and (minetest.get_node(list[move2][3]).name  == "air" or minetest.get_node(list[move2][3]).name  == "castrum:knight_lv2_dark") then
             minetest.set_node(list[move2][2], {name="air"})
             minetest.set_node(list[move2][3], {name="castrum:knight_lv2_dark"})
             player:set_attribute("fightmove", ""..(move2+1))
@@ -648,7 +713,7 @@ function fight_step2(player)
         end
     end
 	while d == 0 and move2 < 430 and dd == 0 and tonumber(chapter) == 4 do
-        if minetest.get_node(list[move2][2]).name == "castrum:knight_lv2_dark" and minetest.get_node(list[move2][3]).name  == "air" then
+        if minetest.get_node(list[move2][2]).name == "castrum:knight_lv2_dark" and (minetest.get_node(list[move2][3]).name  == "air" or minetest.get_node(list[move2][3]).name  == "castrum:knight_lv2_dark") then
             minetest.set_node(list[move2][2], {name="air"})
             minetest.set_node(list[move2][3], {name="castrum:knight_lv2_dark"})
             player:set_attribute("fightmove", ""..(move2+1))
@@ -661,7 +726,20 @@ function fight_step2(player)
         end
     end
 	while d == 0 and move2 < 430 and dd == 0 and tonumber(chapter) == 5 do
-        if minetest.get_node(list[move2][2]).name == "castrum:knight_lv3_dark" and minetest.get_node(list[move2][3]).name  == "air" then
+        if minetest.get_node(list[move2][2]).name == "castrum:knight_lv3_dark" and (minetest.get_node(list[move2][3]).name  == "air" or minetest.get_node(list[move2][3]).name  == "castrum:knight_lv3_dark") then
+            minetest.set_node(list[move2][2], {name="air"})
+            minetest.set_node(list[move2][3], {name="castrum:knight_lv3_dark"})
+            player:set_attribute("fightmove", ""..(move2+1))
+            screwdriver_handler(player, {type="node", under=list[move2][3], above=list[move2][3]}, 1)
+            screwdriver_handler(player, {type="node", under=list[move2][3], above=list[move2][3]}, 1)
+            screwdriver_handler(player, {type="node", under=list[move2][3], above=list[move2][3]}, 1)
+            d = 1
+        else
+            move2 = move2+1
+        end
+    end
+	while d == 0 and move2 < 742 and dd == 0 and tonumber(chapter) == 6 do
+        if minetest.get_node(list[move2][2]).name == "castrum:knight_lv3_dark" and (minetest.get_node(list[move2][3]).name  == "air" or minetest.get_node(list[move2][3]).name  == "castrum:knight_lv3_dark") then
             minetest.set_node(list[move2][2], {name="air"})
             minetest.set_node(list[move2][3], {name="castrum:knight_lv3_dark"})
             player:set_attribute("fightmove", ""..(move2+1))
