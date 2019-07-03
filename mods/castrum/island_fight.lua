@@ -1185,12 +1185,12 @@ function Chapter_Ship2_2(player)
 	local c1 = player:get_attribute("sea_fight_c1")
 	if c1 == "1" then
 		minetest.set_node({x=-166, y=9, z=-2}, {name="castrum:cannon_1_1"})
-		screwdriver_handler(player, {type="node", under={x=-152, y=9, z=-10}, above={x=-152, y=9, z=-10}}, 1)
-		screwdriver_handler(player, {type="node", under={x=-152, y=9, z=-10}, above={x=-152, y=9, z=-10}}, 1)
 	end
 	local c2 = player:get_attribute("sea_fight_c2")
 	if c2 == "1" then
 		minetest.set_node({x=-166, y=9, z=-10}, {name="castrum:cannon_1_1"})
+		screwdriver_handler(player, {type="node", under={x=-166, y=9, z=-10}, above={x=-166, y=9, z=-10}}, 1)
+		screwdriver_handler(player, {type="node", under={x=-166, y=9, z=-10}, above={x=-166, y=9, z=-10}}, 1)
 	end
 	local p1 = player:get_attribute("sea_fight_p1")
 	if p1 == "1" then

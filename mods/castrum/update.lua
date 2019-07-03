@@ -313,7 +313,7 @@ minetest.register_chatcommand("update", {
 	    local level = file:read("*l")
         file:close()
         if tonumber(level) > 0 then
-            Update_pirates(player)
+            Update_pirate(player)
         end
 		file = io.open(minetest.get_worldpath().."/SAVE/Camp3.txt", "r")
 	    local level = file:read("*l")

@@ -14,7 +14,7 @@ minetest.register_on_joinplayer(function(player)
 		offset = {x=0, y=30},
 		alignment = {x=1, y=0},
 		number = 0xFFFFFF ,
-		text = "Game Version	 :  1.9.0",
+		text = "Game Version	 :  1.9.1",
 	})
     player:hud_add({ 
 		hud_elem_type = "text",
@@ -22,7 +22,7 @@ minetest.register_on_joinplayer(function(player)
 		offset = {x=0, y=50},
 		alignment = {x=1, y=0},
 		number = 0xFFFFFF ,
-		text = "Map Version	   :  11",
+		text = "Map Version	   :  12",
 	})
 end)
 function file_check(file_name)
@@ -258,6 +258,8 @@ minetest.register_on_joinplayer(function(player)
 		file:write("1")
 		file:close()
 	end
+	minetest.setting_set("time_speed", "0")
+    minetest.set_timeofday(0.5)
 end)
 dofile(minetest.get_modpath("castrum").."/Chapter1.lua")
 dofile(minetest.get_modpath("castrum").."/Chapter2.lua")
@@ -930,7 +932,7 @@ minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack
         minetest.set_node(pos, {name="castrum:knight_lv1"})
         screwdriver_handler(placer, {type="node", under=pos, above=pos}, 1)
         local inv = placer:get_inventory()
-        Item_Remove2(player, "main", "castrum:knight_lv1")
+        Item_Remove2(placer, "main", "castrum:knight_lv1 1")
         local fight = placer:get_attribute("fight")
         placer:set_attribute("fightdig", "false")
         if fight == "true" then
@@ -945,7 +947,7 @@ minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack
         minetest.set_node(pos, {name="castrum:knight_lv2"})
         screwdriver_handler(placer, {type="node", under=pos, above=pos}, 1)
         local inv = placer:get_inventory()
-        Item_Remove2(player, "main", "castrum:knight_lv2")
+        Item_Remove2(placer, "main", "castrum:knight_lv2 1")
         local fight = placer:get_attribute("fight")
         placer:set_attribute("fightdig", "false")
         if fight == "true" then
@@ -960,7 +962,7 @@ minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack
         minetest.set_node(pos, {name="castrum:knight_lv3"})
         screwdriver_handler(placer, {type="node", under=pos, above=pos}, 1)
         local inv = placer:get_inventory()
-        Item_Remove2(player, "main", "castrum:knight_lv3")
+        Item_Remove2(placer, "main", "castrum:knight_lv3 1")
         local fight = placer:get_attribute("fight")
         placer:set_attribute("fightdig", "false")
         if fight == "true" then
@@ -984,6 +986,7 @@ minetest.register_on_placenode(function(pos, newnode, placer, oldnode, itemstack
         return itemstack
     end
 end)
+--]]
 function Home1(v,player)
     if v+0 == 1 then
         for i=26,32 do
@@ -8448,7 +8451,7 @@ function Island_Pier(v,player)
         minetest.set_node({x=175, y=7, z=58}, {name="default:wood"})
         minetest.set_node({x=175, y=6, z=58}, {name="default:wood"})
 		minetest.set_node({x=171, y=8, z=44}, {name="castrum:ship2"})
-		minetest.set_node({x=175, y=8, z=44}, {name="castrum:comming_soon"})
+		minetest.set_node({x=175, y=8, z=44}, {name="castrum:island_pier2"})
     elseif v+0 == 0 then
         for j=171,175 do
             for i=38,58 do
@@ -8491,7 +8494,7 @@ function Island_Pier2(v,player)
         minetest.set_node({x=184, y=6, z=42}, {name="default:wood"})
         minetest.set_node({x=184, y=7, z=46}, {name="default:wood"})
         minetest.set_node({x=184, y=6, z=46}, {name="default:wood"})
-		minetest.set_node({x=179, y=8, z=44}, {name="castrum:comming_soon"})
+		minetest.set_node({x=179, y=8, z=44}, {name="castrum:island_battleground"})
     elseif v+0 == 0 then
         for j=176,184 do
             for i=42,46 do
@@ -8841,8 +8844,8 @@ function Update_knight(player)
 	local camp3 = file:read("*l")
     file:close()
     if tonumber(camp3) > 0 then
-        for j=59,67 do
-            for i=81,89 do
+        for j=81,89 do
+            for i=53,61 do
                 for k=9,9 do
                     minetest.set_node({x=j*(-1), y=k, z=i*(-1)}, {name="air"})
                 end
@@ -12571,7 +12574,7 @@ minetest.register_craftitem("castrum:horse1_item_1", {
 			minetest.set_node({x=pos.x,y=pos.y+2,z=pos.z}, {name="castrum:knight_lv1_sit"})
 			screwdriver_handler(placer, {type="node", under={x=pos.x,y=pos.y+2,z=pos.z}, above={x=pos.x,y=pos.y+2,z=pos.z}}, 1)
 			local inv = placer:get_inventory()
-			Item_Remove2(player, "main", "castrum:knight_lv2")
+			Item_Remove2(placer, "main", "castrum:knight_lv2 1")
 			local fight = placer:get_attribute("fight")
 			placer:set_attribute("fightdig", "false")
 			if fight == "true" then
@@ -12597,7 +12600,6 @@ minetest.register_craftitem("castrum:horse1_item_2", {
 			minetest.set_node({x=pos.x,y=pos.y+2,z=pos.z}, {name="castrum:knight_lv2_sit"})
 			screwdriver_handler(placer, {type="node", under={x=pos.x,y=pos.y+2,z=pos.z}, above={x=pos.x,y=pos.y+2,z=pos.z}}, 1)
 			local inv = placer:get_inventory()
-			Item_Remove2(player, "main", "castrum:knight_lv2")
 			local fight = placer:get_attribute("fight")
 			placer:set_attribute("fightdig", "false")
 			if fight == "true" then
@@ -12623,7 +12625,7 @@ minetest.register_craftitem("castrum:horse1_item_3", {
 			minetest.set_node({x=pos.x,y=pos.y+2,z=pos.z}, {name="castrum:knight_lv3_sit"})
 			screwdriver_handler(placer, {type="node", under={x=pos.x,y=pos.y+2,z=pos.z}, above={x=pos.x,y=pos.y+2,z=pos.z}}, 1)
 			local inv = placer:get_inventory()
-			Item_Remove2(player, "main", "castrum:knight_lv3")
+			Item_Remove2(placer, "main", "castrum:knight_lv3 1")
 			local fight = placer:get_attribute("fight")
 			placer:set_attribute("fightdig", "false")
 			if fight == "true" then
