@@ -12600,6 +12600,7 @@ minetest.register_craftitem("castrum:horse1_item_2", {
 			minetest.set_node({x=pos.x,y=pos.y+2,z=pos.z}, {name="castrum:knight_lv2_sit"})
 			screwdriver_handler(placer, {type="node", under={x=pos.x,y=pos.y+2,z=pos.z}, above={x=pos.x,y=pos.y+2,z=pos.z}}, 1)
 			local inv = placer:get_inventory()
+			Item_Remove2(placer, "main", "castrum:knight_lv2 1")
 			local fight = placer:get_attribute("fight")
 			placer:set_attribute("fightdig", "false")
 			if fight == "true" then
