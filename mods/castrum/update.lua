@@ -255,6 +255,12 @@ minetest.register_chatcommand("update", {
         for i=1,tonumber(level) do
             Island_Home1(i,player)
         end
+		file = io.open(minetest.get_worldpath().."/SAVE/Island_Home2.txt", "r")
+	    local level = file:read("*l")
+        file:close()
+        for i=1,tonumber(level) do
+            Island_Home2(i,player)
+        end
 		file = io.open(minetest.get_worldpath().."/SAVE/Home3.txt", "r")
 	    local level = file:read("*l")
         file:close()
@@ -333,6 +339,12 @@ minetest.register_chatcommand("update", {
         for i=1,tonumber(level) do
             Cannon2(i,player)
         end
+		file = io.open(minetest.get_worldpath().."/SAVE/Cannon3.txt", "r")
+	    local level = file:read("*l")
+        file:close()
+        for i=1,tonumber(level) do
+            Cannon3(i,player)
+        end
 		file = io.open(minetest.get_worldpath().."/SAVE/Island_Pier2.txt", "r")
 	    local level = file:read("*l")
         file:close()
@@ -344,6 +356,12 @@ minetest.register_chatcommand("update", {
         file:close()
         for i=1,tonumber(level) do
             Island_Battleground(i,player)
+        end
+		file = io.open(minetest.get_worldpath().."/SAVE/Meadow.txt", "r")
+	    local level = file:read("*l")
+        file:close()
+        for i=1,tonumber(level) do
+            Meadow(i,player)
         end
 	end,
 })

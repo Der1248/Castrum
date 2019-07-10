@@ -1,0 +1,4 @@
+dig_code = true
+place_code = true
+fill_chest = true
+del_button = false
