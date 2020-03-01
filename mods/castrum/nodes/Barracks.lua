@@ -78,6 +78,9 @@ knight.get_formspec = function(player, pos)
 	file = io.open(minetest.get_worldpath().."/SAVE/Home3.txt", "r")
 	local home3 = file:read("*l")
     file:close()
+	file = io.open(minetest.get_worldpath().."/SAVE/Home4.txt", "r")
+	local home4 = file:read("*l")
+    file:close()
     file = io.open(minetest.get_worldpath().."/SAVE/Barracks.txt", "r")
 	local barracks = file:read("*l")
     file:close()
@@ -101,6 +104,11 @@ knight.get_formspec = function(player, pos)
         max1 = max1+8
     elseif tonumber(home3) == 7 then
         max1 = max1+11
+	elseif tonumber(home3) == 8 then
+        max1 = max1+14
+    end
+	if tonumber(home4) == 6 then
+        max1 = max1+8
     end
     file = io.open(minetest.get_worldpath().."/SAVE/Camp1.txt", "r")
 	local camp1 = file:read("*l")
@@ -181,7 +189,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname == "barracks" then
         for k, v in pairs(fields) do
             if v == "del" then
-                Barracks(0,player)
+                minetest.place_schematic({x=-43, y=9, z=25}, minetest.get_modpath("castrum").."/schematics/Barracks/Barracks_0.mts","0")
                 file = io.open(minetest.get_worldpath().."/SAVE/Barracks.txt", "w")
 		        file:write("0")
 		        file:close()
@@ -220,8 +228,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 8 and upgrade then
-                    Barracks(tonumber(level)+1,player)
+                if (tonumber(level)) < 8 and upgrade or buildings_costs == false then
+                    minetest.place_schematic({x=-43, y=9, z=25}, minetest.get_modpath("castrum").."/schematics/Barracks/Barracks_"..(tonumber(level)+1)..".mts","0")
                     file = io.open(minetest.get_worldpath().."/SAVE/Barracks.txt", "w")
 		            file:write(tonumber(level)+1)
 		            file:close()
@@ -249,6 +257,9 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 				file = io.open(minetest.get_worldpath().."/SAVE/Home3.txt", "r")
 	            local home3 = file:read("*l")
                 file:close()
+				file = io.open(minetest.get_worldpath().."/SAVE/Home4.txt", "r")
+	            local home4 = file:read("*l")
+                file:close()
                 if tonumber(home1) == 6 then
                     max1 = max1+8
                 elseif tonumber(home1) == 7 then
@@ -269,7 +280,12 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     max1 = max1+8
                 elseif tonumber(home3) == 7 then
                     max1 = max1+11
+				elseif tonumber(home3) == 8 then
+                    max1 = max1+14
                 end
+				if tonumber(home4) == 6 then
+					max1 = max1+8
+				end
                 file = io.open(minetest.get_worldpath().."/SAVE/Camp1.txt", "r")
 	            local camp1 = file:read("*l")
                 file:close()

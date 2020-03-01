@@ -40,6 +40,8 @@ island_battleground.get_formspec = function(player, pos)
             formspec = formspec.."button[0,3;5,1;;Start Island Chapter 1]"
 		elseif tonumber(chapter) == 2 and tonumber(level) > 3 then
 			formspec = formspec.."button[0,3;5,1;;Start Island Chapter 2]"
+		elseif tonumber(chapter) == 3 and tonumber(level) > 3 then
+			formspec = formspec.."button[0,3;5,1;;Start Island Chapter 3]"
         end
         formspec = formspec.."image_button[4.5,-0.3;0.8,0.8;;esc;X]"
 		if del_button == true then
@@ -62,7 +64,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname == "island_battleground" then
         for k, v in pairs(fields) do
             if v == "del" then
-                Island_Battleground(0,player)
+                minetest.place_schematic({x=180, y=9, z=42}, minetest.get_modpath("castrum").."/schematics/Island_Battleground/Island_Battleground_0.mts","0") 
                 file = io.open(minetest.get_worldpath().."/SAVE/Island_Battleground.txt", "w")
 		        file:write("0")
 		        file:close()
@@ -89,8 +91,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 4 and upgrade then
-                    Island_Battleground(tonumber(level)+1,player)
+                if (tonumber(level)) < 4 and upgrade or buildings_costs == false then
+                    minetest.place_schematic({x=180, y=9, z=42}, minetest.get_modpath("castrum").."/schematics/Island_Battleground/Island_Battleground_"..(tonumber(level)+1)..".mts","0")
                     file = io.open(minetest.get_worldpath().."/SAVE/Island_Battleground.txt", "w")
 		            file:write(tonumber(level)+1)
 		            file:close()
@@ -101,6 +103,9 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 minetest.show_formspec(player:get_player_name(), "", "")
 			elseif v == "Start Island Chapter 2" then
                 set_sea_fight(2,player)
+                minetest.show_formspec(player:get_player_name(), "", "")
+			elseif v == "Start Island Chapter 3" then
+                set_sea_fight(3,player)
                 minetest.show_formspec(player:get_player_name(), "", "")
             elseif v == "X" then
                 minetest.show_formspec(player:get_player_name(), "", "")

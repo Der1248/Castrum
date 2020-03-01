@@ -58,7 +58,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname == "island_wallw" then
         for k, v in pairs(fields) do
             if v == "del" then
-                Island_Wallw(0,player)
+                minetest.place_schematic({x=118, y=9, z=-27}, minetest.get_modpath("castrum").."/schematics/Island_Wallw/Island_Wallw_0.mts","0") 
                 file = io.open(minetest.get_worldpath().."/SAVE/Island_Wallw.txt", "w")
 		        file:write("0")
 		        file:close()
@@ -85,8 +85,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 8 and upgrade then
-                    Island_Wallw(tonumber(level)+1,player)
+                if (tonumber(level)) < 8 and upgrade or buildings_costs == false then
+                    minetest.place_schematic({x=118, y=9, z=-27}, minetest.get_modpath("castrum").."/schematics/Island_Wallw/Island_Wallw_"..(tonumber(level)+1)..".mts","0")
                     file = io.open(minetest.get_worldpath().."/SAVE/Island_Wallw.txt", "w")
 		            file:write(tonumber(level)+1)
 		            file:close()

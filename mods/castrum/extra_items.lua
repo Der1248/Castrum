@@ -18,7 +18,7 @@ minetest.register_node("castrum:bridge_status",{
 	description = "Change Bridge Status",
     --groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
     on_punch = function(pos, node, player, pointed_thing)
-        Bridge_Status(player)
+        Bridge_Status(player,true,false)
     end,
 })
 minetest.register_craftitem("castrum:soul", {
@@ -190,6 +190,343 @@ stairs.register_stair_and_slab(
 	"Wooden Slab",
 	default.node_sound_wood_defaults()
 )
+
+local quarry_chest = {}
+quarry_chest.get_formspec = function(player, pos)
+	if player == nil then
+        return
+    end
+    local player_inv = player:get_inventory()
+	player_inv:set_size("quarry", 64)
+	local formspec =
+		"size[8,9]" ..
+		"list[current_player;quarry;0,0.3;8,4;]" ..
+		"list[current_player;main;0,4.85;8,1;]" ..
+		"list[current_player;main;0,6.08;8,3;8]" ..
+		"listring[current_player;quarry]" ..
+		"listring[current_player;main]" ..
+		default.get_hotbar_bg(0,4.85)
+	return formspec		
+end
+local mine_chest = {}
+mine_chest.get_formspec = function(player, pos)
+	if player == nil then
+        return
+    end
+    local player_inv = player:get_inventory()
+	player_inv:set_size("mine", 64)
+	local formspec =
+		"size[8,9]" ..
+		"list[current_player;mine;0,0.3;8,4;]" ..
+		"list[current_player;main;0,4.85;8,1;]" ..
+		"list[current_player;main;0,6.08;8,3;8]" ..
+		"listring[current_player;mine]" ..
+		"listring[current_player;main]" ..
+		default.get_hotbar_bg(0,4.85)
+	return formspec		
+end
+local tree_chest = {}
+tree_chest.get_formspec = function(player, pos)
+	if player == nil then
+        return
+    end
+    local player_inv = player:get_inventory()
+	player_inv:set_size("tree", 64)
+	local formspec =
+		"size[8,9]" ..
+		"list[current_player;tree;0,0.3;8,4;]" ..
+		"list[current_player;main;0,4.85;8,1;]" ..
+		"list[current_player;main;0,6.08;8,3;8]" ..
+		"listring[current_player;tree]" ..
+		"listring[current_player;main]" ..
+		default.get_hotbar_bg(0,4.85)
+	return formspec		
+end
+
+local lake_chest = {}
+lake_chest.get_formspec = function(player, pos)
+	if player == nil then
+        return
+    end
+    local player_inv = player:get_inventory()
+	player_inv:set_size("lake", 64)
+	local formspec =
+		"size[8,9]" ..
+		"list[current_player;lake;0,0.3;8,4;]" ..
+		"list[current_player;main;0,4.85;8,1;]" ..
+		"list[current_player;main;0,6.08;8,3;8]" ..
+		"listring[current_player;lake]" ..
+		"listring[current_player;main]" ..
+		default.get_hotbar_bg(0,4.85)
+	return formspec		
+end
+
+local lake2_chest = {}
+lake2_chest.get_formspec = function(player, pos)
+	if player == nil then
+        return
+    end
+    local player_inv = player:get_inventory()
+	player_inv:set_size("lake2", 64)
+	local formspec =
+		"size[8,9]" ..
+		"list[current_player;lake2;0,0.3;8,4;]" ..
+		"list[current_player;main;0,4.85;8,1;]" ..
+		"list[current_player;main;0,6.08;8,3;8]" ..
+		"listring[current_player;lake2]" ..
+		"listring[current_player;main]" ..
+		default.get_hotbar_bg(0,4.85)
+	return formspec		
+end
+
+local sandmine = {}
+sandmine.get_formspec = function(player, pos)
+	if player == nil then
+        return
+    end
+    local player_inv = player:get_inventory()
+	player_inv:set_size("sandmine", 64)
+	local formspec =
+		"size[8,9]" ..
+		"list[current_player;sandmine;0,0.3;8,4;]" ..
+		"list[current_player;main;0,4.85;8,1;]" ..
+		"list[current_player;main;0,6.08;8,3;8]" ..
+		"listring[current_player;sandmine]" ..
+		"listring[current_player;main]" ..
+		default.get_hotbar_bg(0,4.85)
+	return formspec		
+end
+
+local cactusfarm = {}
+cactusfarm.get_formspec = function(player, pos)
+	if player == nil then
+        return
+    end
+    local player_inv = player:get_inventory()
+	player_inv:set_size("cactusfarm", 64)
+	local formspec =
+		"size[8,9]" ..
+		"list[current_player;cactusfarm;0,0.3;8,4;]" ..
+		"list[current_player;main;0,4.85;8,1;]" ..
+		"list[current_player;main;0,6.08;8,3;8]" ..
+		"listring[current_player;cactusfarm]" ..
+		"listring[current_player;main]" ..
+		default.get_hotbar_bg(0,4.85)
+	return formspec		
+end
+
+local farm = {}
+farm.get_formspec = function(player, pos)
+	if player == nil then
+        return
+    end
+    local player_inv = player:get_inventory()
+	player_inv:set_size("farm", 64)
+	local formspec =
+		"size[8,9]" ..
+		"list[current_player;farm;0,0.3;8,4;]" ..
+		"list[current_player;main;0,4.85;8,1;]" ..
+		"list[current_player;main;0,6.08;8,3;8]" ..
+		"listring[current_player;farm]" ..
+		"listring[current_player;main]" ..
+		default.get_hotbar_bg(0,4.85)
+	return formspec		
+end
+
+local mountain_quarry = {}
+mountain_quarry.get_formspec = function(player, pos)
+	if player == nil then
+        return
+    end
+    local player_inv = player:get_inventory()
+	player_inv:set_size("mountain_quarry", 64)
+	local formspec =
+		"size[8,9]" ..
+		"list[current_player;mountain_quarry;0,0.3;8,4;]" ..
+		"list[current_player;main;0,4.85;8,1;]" ..
+		"list[current_player;main;0,6.08;8,3;8]" ..
+		"listring[current_player;mountain_quarry]" ..
+		"listring[current_player;main]" ..
+		default.get_hotbar_bg(0,4.85)
+	return formspec		
+end
+
+local meadow = {}
+meadow.get_formspec = function(player, pos)
+	if player == nil then
+        return
+    end
+    local player_inv = player:get_inventory()
+	player_inv:set_size("meadow", 64)
+	local formspec =
+		"size[8,9]" ..
+		"list[current_player;meadow;0,0.3;8,4;]" ..
+		"list[current_player;main;0,4.85;8,1;]" ..
+		"list[current_player;main;0,6.08;8,3;8]" ..
+		"listring[current_player;meadow]" ..
+		"listring[current_player;main]" ..
+		default.get_hotbar_bg(0,4.85)
+	return formspec		
+end
+
+minetest.register_node("castrum:quarry_chest",{
+	tiles = {
+		"default_chest_top.png",
+		"default_chest_top.png",
+		"default_chest_side.png",
+		"default_chest_front.png",
+		"default_chest_side.png",
+		"default_chest_side.png"
+	},
+	description = "Quarry Chest",
+    groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
+	on_rightclick = function(pos, node, player, pointed_thing)
+        minetest.show_formspec(player:get_player_name(), "quarry_chest" , quarry_chest.get_formspec(player))
+    end,
+})
+minetest.register_node("castrum:tree_chest",{
+	tiles = {
+		"default_chest_top.png",
+		"default_chest_top.png",
+		"default_chest_side.png",
+		"default_chest_front.png",
+		"default_chest_side.png",
+		"default_chest_side.png"
+	},
+	description = "Tree Chest",
+    groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
+	on_rightclick = function(pos, node, player, pointed_thing)
+        minetest.show_formspec(player:get_player_name(), "tree_chest" , tree_chest.get_formspec(player))
+    end,
+})
+minetest.register_node("castrum:mine_chest",{
+	tiles = {
+		"default_chest_top.png",
+		"default_chest_top.png",
+		"default_chest_side.png",
+		"default_chest_front.png",
+		"default_chest_side.png",
+		"default_chest_side.png"
+	},
+	description = "Mine Chest",
+    groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
+	on_rightclick = function(pos, node, player, pointed_thing)
+        minetest.show_formspec(player:get_player_name(), "mine_chest" , mine_chest.get_formspec(player))
+    end,
+})
+
+minetest.register_node("castrum:lake_chest",{
+	tiles = {
+		"default_chest_top.png",
+		"default_chest_top.png",
+		"default_chest_side.png",
+		"default_chest_front.png",
+		"default_chest_side.png",
+		"default_chest_side.png"
+	},
+	description = "Lake Chest",
+    groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
+	on_rightclick = function(pos, node, player, pointed_thing)
+        minetest.show_formspec(player:get_player_name(), "lake_chest" , lake_chest.get_formspec(player))
+    end,
+})
+
+minetest.register_node("castrum:lake2_chest",{
+	tiles = {
+		"default_chest_top.png",
+		"default_chest_top.png",
+		"default_chest_side.png",
+		"default_chest_front.png",
+		"default_chest_side.png",
+		"default_chest_side.png"
+	},
+	description = "Lake2 Chest",
+    groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
+	on_rightclick = function(pos, node, player, pointed_thing)
+        minetest.show_formspec(player:get_player_name(), "lake2_chest" , lake2_chest.get_formspec(player))
+    end,
+})
+
+minetest.register_node("castrum:sandmine_chest",{
+	tiles = {
+		"default_chest_top.png",
+		"default_chest_top.png",
+		"default_chest_front.png",
+		"default_chest_side.png",
+		"default_chest_side.png",
+		"default_chest_side.png"
+	},
+	description = "Sandmine Chest",
+    groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
+	on_rightclick = function(pos, node, player, pointed_thing)
+        minetest.show_formspec(player:get_player_name(), "sandmine" , sandmine.get_formspec(player))
+    end,
+})
+
+minetest.register_node("castrum:cactusfarm_chest",{
+	tiles = {
+		"default_chest_top.png",
+		"default_chest_top.png",
+		"default_chest_front.png",
+		"default_chest_side.png",
+		"default_chest_side.png",
+		"default_chest_side.png"
+	},
+	description = "Cactusfarm Chest",
+    groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
+	on_rightclick = function(pos, node, player, pointed_thing)
+        minetest.show_formspec(player:get_player_name(), "cactusfarm" , cactusfarm.get_formspec(player))
+    end,
+})
+
+minetest.register_node("castrum:farm_chest",{
+	tiles = {
+		"default_chest_top.png",
+		"default_chest_top.png",
+		"default_chest_side.png",
+		"default_chest_front.png",
+		"default_chest_side.png",
+		"default_chest_side.png"
+	},
+	description = "Farm Chest",
+    groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
+	on_rightclick = function(pos, node, player, pointed_thing)
+        minetest.show_formspec(player:get_player_name(), "farm" , farm.get_formspec(player))
+    end,
+})
+
+minetest.register_node("castrum:mountain_quarry_chest",{
+	tiles = {
+		"default_chest_top.png",
+		"default_chest_top.png",
+		"default_chest_side.png",
+		"default_chest_front.png",
+		"default_chest_side.png",
+		"default_chest_side.png"
+	},
+	description = "Mountain Quarry Chest",
+    groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
+	on_rightclick = function(pos, node, player, pointed_thing)
+        minetest.show_formspec(player:get_player_name(), "mountain_quarry" , mountain_quarry.get_formspec(player))
+    end,
+})
+
+minetest.register_node("castrum:meadow_chest",{
+	tiles = {
+		"default_chest_top.png",
+		"default_chest_top.png",
+		"default_chest_front.png",
+		"default_chest_side.png",
+		"default_chest_side.png",
+		"default_chest_side.png"
+	},
+	description = "Meadow Chest",
+    groups = {snappy=1,choppy=2,oddly_breakable_by_hand=2,flammable=3},
+	on_rightclick = function(pos, node, player, pointed_thing)
+        minetest.show_formspec(player:get_player_name(), "meadow" , meadow.get_formspec(player))
+    end,
+})
+
 minetest.register_node("castrum:cobble",{
 	tiles  = {"default_cobble.png"},
 	description = "Cobble",
@@ -385,6 +722,16 @@ minetest.register_node("castrum:skeleton_lv1", {
 	drawtype = "mesh",
 	mesh = "character.obj",
 	tiles = {"castrum_skeleton_lv1.png"},
+	paramtype = "light",
+	paramtype2 = "facedir",
+	groups = {cracky=3, oddly_breakable_by_hand=2},
+})
+
+minetest.register_node("castrum:skeleton_lv2", {
+	description = "character",
+	drawtype = "mesh",
+	mesh = "character.obj",
+	tiles = {"castrum_skeleton_lv2.png"},
 	paramtype = "light",
 	paramtype2 = "facedir",
 	groups = {cracky=3, oddly_breakable_by_hand=2},

@@ -17,8 +17,12 @@ cannon3.get_formspec = function(player, pos)
         label = "not build yet ("..math.floor((level/1)*100).."%)"
         label2 = "Build"
 		need1 = "25 Steel Ingot"
+	elseif tonumber(level) == 1 then
+        label = (level).."/2"
+        label2 = "Upgrade"
+        need1 = "50 Bronze Ingot"
     else
-        label = (level).."/1"
+        label = (level).."/2"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -53,7 +57,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname == "cannon3" then
         for k, v in pairs(fields) do
             if v == "del" then
-                Cannon3(0,player)
+                minetest.place_schematic({x=161, y=9, z=44}, minetest.get_modpath("castrum").."/schematics/Cannon3/Cannon3_0.mts","0") 
                 file = io.open(minetest.get_worldpath().."/SAVE/Cannon3.txt", "w")
 		        file:write("0")
 		        file:close()
@@ -68,12 +72,15 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 if tonumber(level) < 1 and inv:contains_item("main", "default:steel_ingot 25") then
                     Item_Remove2(player, "main", "default:steel_ingot 25")
 					upgrade = true
+				elseif tonumber(level) == 1 and inv:contains_item("main", "default:bronze_ingot 50") then
+                    Item_Remove2(player, "main", "default:bronze_ingot 50")
+                    upgrade = true
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 1 and upgrade then
-                    Cannon3(tonumber(level)+1,player)
+                if (tonumber(level)) < 2 and upgrade or buildings_costs == false then
+                    minetest.place_schematic({x=161, y=9, z=44}, minetest.get_modpath("castrum").."/schematics/Cannon3/Cannon3_"..(tonumber(level)+1)..".mts","0")
                     file = io.open(minetest.get_worldpath().."/SAVE/Cannon3.txt", "w")
 		            file:write(tonumber(level)+1)
 		            file:close()

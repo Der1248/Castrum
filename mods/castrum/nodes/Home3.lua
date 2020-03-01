@@ -20,13 +20,19 @@ home3.get_formspec = function(player, pos)
         need2 = "10 Wooden Planks"
         need3 = "Fountain lv.5"
 	elseif tonumber(level) == 6 then
-        label = (level-5).."/2"
+        label = (level-5).."/3"
         label2 = "Upgrade"
         need1 = "64 Cobblestone"
         need2 = "80 Jungle Wood Planks"
         need3 = "Fountain lv.6"
+	elseif tonumber(level) == 7 then
+        label = (level-5).."/3"
+        label2 = "Upgrade"
+        need1 = "128 Cobblestone"
+        need2 = "160 Pine Wood Planks"
+        need3 = "Fountain lv.7"
     else
-        label = (level-5).."/2"
+        label = (level-5).."/3"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -61,7 +67,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname == "home3" then
         for k, v in pairs(fields) do
             if v == "del" then
-                Home3(0,player)
+                minetest.place_schematic({x=-32, y=9, z=25}, minetest.get_modpath("castrum").."/schematics/Home3/Home3_0.mts","0")
                 file = io.open(minetest.get_worldpath().."/SAVE/Home3.txt", "w")
 		        file:write("0")
 		        file:close()
@@ -88,12 +94,18 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
                 elseif tonumber(level) == 6 and inv:contains_item("main", "default:cobble 64") and inv:contains_item("main", "default:junglewood 80") then
                     txt = "upgrade fountain to lv.6 first"
+				elseif tonumber(level) == 7 and inv:contains_item("main", "default:cobble 128") and inv:contains_item("main", "default:pine_wood 160") and tonumber(fountain) > 9 then
+                    Item_Remove2(player, "main", "default:pine_wood 160")
+					Item_Remove2(player, "main", "default:cobble 128")
+                    upgrade = true
+                elseif tonumber(level) == 7 and inv:contains_item("main", "default:cobble 128") and inv:contains_item("main", "default:pine_wood 160") then
+                    txt = "upgrade fountain to lv.7 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 7 and upgrade then
-                    Home3(tonumber(level)+1,player)
+                if (tonumber(level)) < 8 and upgrade or buildings_costs == false then
+                    minetest.place_schematic({x=-32, y=9, z=25}, minetest.get_modpath("castrum").."/schematics/Home3/Home3_"..(tonumber(level)+1)..".mts","0")
                     file = io.open(minetest.get_worldpath().."/SAVE/Home3.txt", "w")
 		            file:write(tonumber(level)+1)
 		            file:close()

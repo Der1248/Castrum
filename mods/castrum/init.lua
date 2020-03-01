@@ -6,7 +6,7 @@ minetest.register_on_joinplayer(function(player)
 		offset = {x=0, y=10},
 		alignment = {x=1, y=0},
 		number = 0xFFFFFF ,
-		text = "For Minetest 	  :  5.0.x",
+		text = "For Minetest 	  :  5.1.x",
 	})
 	player:hud_add({
 		hud_elem_type = "text",
@@ -14,75 +14,10 @@ minetest.register_on_joinplayer(function(player)
 		offset = {x=0, y=30},
 		alignment = {x=1, y=0},
 		number = 0xFFFFFF ,
-		text = "Game Version	 :  1.10.0",
-	})
-    player:hud_add({ 
-		hud_elem_type = "text",
-		position = {x=0, y=0.85},
-		offset = {x=0, y=50},
-		alignment = {x=1, y=0},
-		number = 0xFFFFFF ,
-		text = "Map Version	   :  13",
+		text = "Game Version	 :  1.11.0",
 	})
 end)
-
-dofile(minetest.get_modpath("castrum").."/buildings/Barracks.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Battleground.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Bridge.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Bridge2.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Cactusfarm.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Camp1.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Camp2.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Camp3.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Cannon1.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Cannon2.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Cannon3.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Farm.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Fountain.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Home1.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Home2.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Home3.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Island_Barracks.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Island_Battleground.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Island_Fountain.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Island_Home1.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Island_Home2.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Island_Pier.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Island_Pier2.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Island_Smithy.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Island_Walle.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Island_Walln.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Island_Walls.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Island_Wallw.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Lake.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Lake2.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Meadow.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Mine.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Moat_east.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Moat_north.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Moat_south.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Moat_west.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Mountain_Fountain.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Mountain_Quarry.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Mountain_Smithy.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Pier.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Quarry.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Sail1.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Sail2.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Sandmine.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Ship1.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Ship2.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Smithy.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Stable.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Tower1.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Tower2.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Tower3.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Tower4.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Tree.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Wall_east.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Wall_north.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Wall_south.lua")
-dofile(minetest.get_modpath("castrum").."/buildings/Wall_west.lua")
+dofile(minetest.get_modpath("castrum").."/nodes/Market.lua")
 dofile(minetest.get_modpath("castrum").."/nodes/Barracks.lua")
 dofile(minetest.get_modpath("castrum").."/nodes/Battleground.lua")
 dofile(minetest.get_modpath("castrum").."/nodes/Bridge.lua")
@@ -98,6 +33,7 @@ dofile(minetest.get_modpath("castrum").."/nodes/Fountain.lua")
 dofile(minetest.get_modpath("castrum").."/nodes/Home1.lua")
 dofile(minetest.get_modpath("castrum").."/nodes/Home2.lua")
 dofile(minetest.get_modpath("castrum").."/nodes/Home3.lua")
+dofile(minetest.get_modpath("castrum").."/nodes/Home4.lua")
 dofile(minetest.get_modpath("castrum").."/nodes/Island_Barracks.lua")
 dofile(minetest.get_modpath("castrum").."/nodes/Island_Battleground.lua")
 dofile(minetest.get_modpath("castrum").."/nodes/Island_Fountain.lua")
@@ -159,6 +95,7 @@ dofile(minetest.get_modpath("castrum").."/knight.lua")
 dofile(minetest.get_modpath("castrum").."/horse.lua")
 dofile(minetest.get_modpath("castrum").."/pirate.lua")
 dofile(minetest.get_modpath("castrum").."/extra_items.lua")
+dofile(minetest.get_modpath("castrum").."/pier_ship.lua")
 
 function file_check(file_name)
 	local file_found=io.open(file_name, "r")

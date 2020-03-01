@@ -77,6 +77,7 @@ craft3.get_formspec = function(player, pos)
         .."button[0,2;5,1;;Craft]"
         .."button[0,3;1,1;;White\nWool]"
 		.."button[1,3;1,1;;Pink\nWool]"
+		.."button[2,3;1,1;;Yellow\nWool]"
         .."image_button[4.5,-0.3;0.8,0.8;;esc;X]"
         .."image_button[3.9,-0.3;0.8,0.8;;back;<]"
 	return formspec			
@@ -96,7 +97,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname == "mountain_smithy" then
         for k, v in pairs(fields) do
             if v == "del" then
-                Mountain_Smithy(0,player)
+                minetest.place_schematic({x=318, y=40, z=-15}, minetest.get_modpath("castrum").."/schematics/Mountain_Smithy/Mountain_Smithy_0.mts","0")  
                 file = io.open(minetest.get_worldpath().."/SAVE/Mountain_Smithy.txt", "w")
 		        file:write("0")
 		        file:close()
@@ -121,8 +122,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 6 and upgrade then
-                    Mountain_Smithy(tonumber(level)+1,player)
+                if (tonumber(level)) < 6 and upgrade or buildings_costs == false then
+                    minetest.place_schematic({x=318, y=40, z=-15}, minetest.get_modpath("castrum").."/schematics/Mountain_Smithy/Mountain_Smithy_"..(tonumber(level)+1)..".mts","0")
                     file = io.open(minetest.get_worldpath().."/SAVE/Mountain_Smithy.txt", "w")
 		            file:write(tonumber(level)+1)
 		            file:close()
@@ -179,6 +180,16 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 player:set_attribute("6need2string", "flowers:rose 4")
 				player:set_attribute("6need3string", "flowers:dandelion_white 4")
                 player:set_attribute("6itemstring", "wool:pink")
+                minetest.show_formspec(player:get_player_name(), "craft3" , craft3.get_formspec(player))
+			elseif v == "Yellow\nWool" then
+                player:set_attribute("6item", "Yellow Wool")
+                player:set_attribute("6need1", "1 Pink Wool")
+                player:set_attribute("6need2", "8 Yellow Dandelion")
+				player:set_attribute("6need3", "")
+                player:set_attribute("6need1string", "wool:pink")
+                player:set_attribute("6need2string", "flowers:dandelion_yellow 8")
+				player:set_attribute("6need3string", "")
+                player:set_attribute("6itemstring", "wool:yellow")
                 minetest.show_formspec(player:get_player_name(), "craft3" , craft3.get_formspec(player))
             elseif v == "X" then
                 minetest.show_formspec(player:get_player_name(), "", "")

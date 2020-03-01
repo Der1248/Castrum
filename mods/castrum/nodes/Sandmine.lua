@@ -64,7 +64,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname == "sandmine" then
         for k, v in pairs(fields) do
             if v == "del" then
-                Sandmine(0,player)
+                minetest.place_schematic({x=123, y=8, z=6}, minetest.get_modpath("castrum").."/schematics/Sandmine/Sandmine_0.mts","0")
                 file = io.open(minetest.get_worldpath().."/SAVE/Sandmine.txt", "w")
 		        file:write("0")
 		        file:close()
@@ -102,8 +102,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 4 and upgrade then
-                    Sandmine(tonumber(level)+1,player)
+                if (tonumber(level)) < 4 and upgrade or buildings_costs == false then
+                    minetest.place_schematic({x=123, y=8, z=6}, minetest.get_modpath("castrum").."/schematics/Sandmine/Sandmine_"..(tonumber(level)+1)..".mts","0")
                     file = io.open(minetest.get_worldpath().."/SAVE/Sandmine.txt", "w")
 		            file:write(tonumber(level)+1)
 		            file:close()

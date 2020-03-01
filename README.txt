@@ -16,4 +16,3 @@ Every code written by me is LGPLv2.1
 
 notes:
 wood door in doors mod changed
-chest in default mod changed

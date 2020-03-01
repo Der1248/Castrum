@@ -19,40 +19,46 @@ fountain.get_formspec = function(player, pos)
         need1 = "10 Cobblestone"
 		need2 = "Walls and Towers lv.1"
     elseif tonumber(level) == 4 then
-        label = (level-3).."/6"
+        label = (level-3).."/7"
         label2 = "Upgrade"
         need1 = "25 Cobblestone"
         need2 = "8 Stone Pickaxe"
         need3 = "Walls and Towers lv.2"
 		need4 = "Moats lv.1"
     elseif tonumber(level) == 5 then
-        label = (level-3).."/6"
+        label = (level-3).."/7"
         label2 = "Upgrade"
         need1 = "100 Cobblestone"
         need2 = "32 Stone Pickaxe"
         need3 = "Walls and Towers lv.3"
     elseif tonumber(level) == 6 then
-        label = (level-3).."/6"
+        label = (level-3).."/7"
         label2 = "Upgrade"
         need1 = "100 Desert Cobblestone"
         need2 = "32 Steel Pickaxe"
         need3 = "Walls and Towers lv.4"
         need4 = "Moats lv.2"
 	elseif tonumber(level) == 7 then
-        label = (level-3).."/6"
+        label = (level-3).."/7"
         label2 = "Upgrade"
         need1 = "400 Desert Cobblestone"
         need2 = "64 Steel Pickaxe"
         need3 = "Walls and Towers lv.5"
 	elseif tonumber(level) == 8 then
-        label = (level-3).."/6"
+        label = (level-3).."/7"
         label2 = "Upgrade"
-        need1 = "600 Desert Cobblestone"
+        need1 = "400 Desert Cobblestone"
         need2 = "64 Bronze Pickaxe"
         need3 = "Walls and Towers lv.6"
 		need4 = "Moats lv.3"
+	elseif tonumber(level) == 9 then
+        label = (level-3).."/7"
+        label2 = "Upgrade"
+        need1 = "600 Desert Cobblestone"
+        need2 = "128 Bronze Pickaxe"
+        need3 = "Walls and Towers lv.7"
     else
-        label = (level-3).."/6"
+        label = (level-3).."/7"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -87,7 +93,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname == "fountain" then
         for k, v in pairs(fields) do
             if v == "del" then
-                Fountain(0,player)
+                minetest.place_schematic({x=-45, y=9, z=-2}, minetest.get_modpath("castrum").."/schematics/Fountain/Fountain_0.mts","0")
                 file = io.open(minetest.get_worldpath().."/SAVE/Fountain.txt", "w")
 		        file:write("0")
 		        file:close()
@@ -170,20 +176,26 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
                 elseif tonumber(level) == 7 and inv:contains_item("main", "default:desert_cobble 400") and inv:contains_item("main", "castrum:pick_steel 64") then
                     txt = "upgrade walls and towers to lv.5 first"
-				elseif tonumber(level) == 8 and inv:contains_item("main", "default:desert_cobble 600") and inv:contains_item("main", "castrum:pick_bronze 64") and tonumber(tower1) > 22 and tonumber(tower2) > 22 and tonumber(tower3) > 22 and tonumber(tower4) > 22 and tonumber(walle) > 18 and tonumber(wallw) > 18 and tonumber(walln) > 18 and tonumber(walls) > 18 and tonumber(moate) > 10 and tonumber(moatw) > 10 and tonumber(moats) > 10 and tonumber(moatn) > 10 then
-                    Item_Remove2(player, "main", "default:desert_cobble 600")
+				elseif tonumber(level) == 8 and inv:contains_item("main", "default:desert_cobble 400") and inv:contains_item("main", "castrum:pick_bronze 64") and tonumber(tower1) > 22 and tonumber(tower2) > 22 and tonumber(tower3) > 22 and tonumber(tower4) > 22 and tonumber(walle) > 18 and tonumber(wallw) > 18 and tonumber(walln) > 18 and tonumber(walls) > 18 and tonumber(moate) > 10 and tonumber(moatw) > 10 and tonumber(moats) > 10 and tonumber(moatn) > 10 then
+                    Item_Remove2(player, "main", "default:desert_cobble 400")
                     Item_Remove2(player, "main", "castrum:pick_bronze 64")
                     upgrade = true
-                elseif tonumber(level) == 8 and inv:contains_item("main", "default:desert_cobble 600") and inv:contains_item("main", "castrum:pick_bronze 64") and tonumber(tower1) > 22 and tonumber(tower2) > 22 and tonumber(tower3) > 22 and tonumber(tower4) > 22 and tonumber(walle) > 18 and tonumber(wallw) > 18 and tonumber(walln) > 18 and tonumber(walls) > 18 then
+                elseif tonumber(level) == 8 and inv:contains_item("main", "default:desert_cobble 400") and inv:contains_item("main", "castrum:pick_bronze 64") and tonumber(tower1) > 22 and tonumber(tower2) > 22 and tonumber(tower3) > 22 and tonumber(tower4) > 22 and tonumber(walle) > 18 and tonumber(wallw) > 18 and tonumber(walln) > 18 and tonumber(walls) > 18 then
                     txt = "upgrade moats to lv.3 first"
-                elseif tonumber(level) == 8 and inv:contains_item("main", "default:desert_cobble 600") and inv:contains_item("main", "castrum:pick_bronze 64") then
+                elseif tonumber(level) == 8 and inv:contains_item("main", "default:desert_cobble 400") and inv:contains_item("main", "castrum:pick_bronze 64") then
                     txt = "upgrade walls and towers to lv.6 first"
+				elseif tonumber(level) == 9 and inv:contains_item("main", "default:desert_cobble 600") and inv:contains_item("main", "castrum:pick_bronze 128") and tonumber(tower1) > 23 and tonumber(tower2) > 23 and tonumber(tower3) > 23 and tonumber(tower4) > 23 and tonumber(walle) > 19 and tonumber(wallw) > 19 and tonumber(walln) > 19 and tonumber(walls) > 19 then
+                    Item_Remove2(player, "main", "default:desert_cobble 600")
+                    Item_Remove2(player, "main", "castrum:pick_bronze 128")
+                    upgrade = true
+                elseif tonumber(level) == 9 and inv:contains_item("main", "default:desert_cobble 600") and inv:contains_item("main", "castrum:pick_bronze 128") then
+                    txt = "upgrade walls and towers to lv.7 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 9 and upgrade then
-                    Fountain(tonumber(level)+1,player)
+                if (tonumber(level)) < 10 and upgrade or buildings_costs == false then
+                    minetest.place_schematic({x=-45, y=9, z=-2}, minetest.get_modpath("castrum").."/schematics/Fountain/Fountain_"..(tonumber(level)+1)..".mts","0")
                     file = io.open(minetest.get_worldpath().."/SAVE/Fountain.txt", "w")
 		            file:write(tonumber(level)+1)
 		            file:close()

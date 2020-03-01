@@ -4,4 +4,3 @@ unified_inventory?
 inventory_plus?
 sfinv?
 creative?
-smart_inventory?

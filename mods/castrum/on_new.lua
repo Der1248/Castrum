@@ -17,7 +17,7 @@ new.get_formspec = function(player, pos)
 end
 
 minetest.register_on_newplayer(function(player)
-	player:setpos({x=-40, y=8.5, z=3.0})
+	player:setpos({x=-40, y=8.5, z=-5.0})
     minetest.show_formspec(player:get_player_name(), "new" , new.get_formspec(player))
     local privs = minetest.get_player_privs(player:get_player_name())
     privs["fast"] = true

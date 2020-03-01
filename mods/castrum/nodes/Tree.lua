@@ -77,7 +77,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname == "tree" then
         for k, v in pairs(fields) do
             if v == "del" then
-                Tree(0,player)
+                minetest.place_schematic({x=-20, y=9, z=11}, minetest.get_modpath("castrum").."/schematics/Tree/Tree_0.mts","0")   
                 file = io.open(minetest.get_worldpath().."/SAVE/Tree.txt", "w")
 		        file:write("0")
 		        file:close()
@@ -127,8 +127,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 7 and upgrade then
-                    Tree(tonumber(level)+1,player)
+                if (tonumber(level)) < 7 and upgrade or buildings_costs == false then
+                    minetest.place_schematic({x=-20, y=9, z=11}, minetest.get_modpath("castrum").."/schematics/Tree/Tree_"..(tonumber(level)+1)..".mts","0")
                     file = io.open(minetest.get_worldpath().."/SAVE/Tree.txt", "w")
 		            file:write(tonumber(level)+1)
 		            file:close()

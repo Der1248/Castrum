@@ -1,8 +1,6 @@
 local safe_region_callback = {}
 local safe_region_param = {}
 
-worldedit._override_safe_regions = false -- internal use ONLY!
-
 local function check_region(name, param)
 	local pos1, pos2 = worldedit.pos1[name], worldedit.pos2[name] --obtain positions
 	if pos1 == nil or pos2 == nil then
@@ -22,7 +20,7 @@ local function safe_region(callback, nodes_needed)
 		--check if the operation applies to a safe number of nodes
 		local count = nodes_needed(name, param)
 		if count == nil then return end --invalid command
-		if worldedit._override_safe_regions or count < 10000 then
+		if count < 10000 then
 			return callback(name, param)
 		end
 
@@ -46,21 +44,20 @@ minetest.register_chatcommand("/y", {
 			return
 		end
 
-		reset_pending(name)
+		safe_region_callback[name], safe_region_param[name] = nil, nil --reset pending operation
 		callback(name, param)
 	end,
 })
 
 minetest.register_chatcommand("/n", {
 	params = "",
-	description = "Abort a pending operation",
+	description = "Confirm a pending operation",
 	func = function(name)
 		if not safe_region_callback[name] then
 			worldedit.player_notify(name, "no operation pending")
 			return
 		end
-
-		reset_pending(name)
+		safe_region_callback[name], safe_region_param[name] = nil, nil
 	end,
 })
 

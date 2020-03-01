@@ -57,7 +57,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname == "mountain_quarry" then
         for k, v in pairs(fields) do
 			if v == "del" then
-                Mountain_Quarry(0,player)
+                minetest.place_schematic({x=345, y=39, z=-16}, minetest.get_modpath("castrum").."/schematics/Mountain_Quarry/Mountain_Quarry_0.mts","0") 
                 file = io.open(minetest.get_worldpath().."/SAVE/Mountain_Quarry.txt", "w")
 		        file:write("0")
 		        file:close()
@@ -84,8 +84,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 2 and upgrade then
-                    Mountain_Quarry(tonumber(level)+1,player)
+                if (tonumber(level)) < 2 and upgrade or buildings_costs == false then
+                    minetest.place_schematic({x=345, y=39, z=-16}, minetest.get_modpath("castrum").."/schematics/Mountain_Quarry/Mountain_Quarry_"..(tonumber(level)+1)..".mts","0")
                     file = io.open(minetest.get_worldpath().."/SAVE/Mountain_Quarry.txt", "w")
 		            file:write(tonumber(level)+1)
 		            file:close()

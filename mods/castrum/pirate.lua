@@ -29,5 +29,10 @@ function Update_pirate(player)
 			screwdriver_handler(player, {type="node", under={x=pirate_pos[i][2], y=10, z=pirate_pos[i][3]}, above={x=pirate_pos[i][2], y=10, z=pirate_pos[i][3]}}, 1)
 		end
     end
-	minetest.set_node({x=169, y=10, z=10}, {name="castrum:fire"})
+	file = io.open(minetest.get_worldpath().."/SAVE/Island_Barracks.txt", "r")
+	local island_barracks = file:read("*l")
+    file:close()
+	if tonumber(island_barracks) > 5 then
+		minetest.set_node({x=169, y=10, z=10}, {name="castrum:fire"})
+	end
 end

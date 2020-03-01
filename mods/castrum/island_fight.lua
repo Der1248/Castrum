@@ -47,6 +47,7 @@ local levels = {
 --   l,c1,c2,c3,c4,c5,c6,c7,c8,c9,p1,p2,p3,p4,p5,p6,p7,p8,p9,s1,s2,hp
 	{1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1,10},
 	{2, 2, 2, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 2, 2,10},
+	{3, 2, 2, 2, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 3, 3,10},
 }
 function set_sea_fight(level,player)
 	file = io.open(minetest.get_worldpath().."/SAVE/Pirate_1.txt", "r")
@@ -129,7 +130,7 @@ function EnemyStep(player)
 	local stepdone = 0
 	if player:get_attribute("sea_fight_pos2") == "1" then
 		if tonumber(player:get_attribute("sea_fight_c1")) > 0 then
-			if player:get_attribute("sea_fight_step_2c1") == "0" and player:get_attribute("sea_fight_p1") == "1" and player:get_attribute("sea_fight_c1") == "1"then
+			if player:get_attribute("sea_fight_step_2c1") == "0" and player:get_attribute("sea_fight_p1") == "1" and player:get_attribute("sea_fight_c1") == "1" then
 				stepdone = 1
 				if math.random(100) < 31 then
 					player:set_attribute("sea_fight_p_hp", ""..tonumber(player:get_attribute("sea_fight_p_hp")-2))
@@ -138,9 +139,27 @@ function EnemyStep(player)
 					minetest.chat_send_player(player:get_player_name(), "The enemy did not hit you!")
 				end
 				player:set_attribute("sea_fight_step_2c1", "5")
-			elseif player:get_attribute("sea_fight_step_2c1") == "0" and player:get_attribute("sea_fight_p1") == "1" and player:get_attribute("sea_fight_c1") == "2"then
+			elseif player:get_attribute("sea_fight_step_2c1") == "0" and player:get_attribute("sea_fight_p1") == "1" and player:get_attribute("sea_fight_c1") == "2" then
 				stepdone = 1
 				if math.random(100) < 31 then
+					player:set_attribute("sea_fight_p_hp", ""..tonumber(player:get_attribute("sea_fight_p_hp")-3))
+					minetest.chat_send_player(player:get_player_name(), "Hit! The enemy has done 3Hp damage. You have "..player:get_attribute("sea_fight_p_hp").." hp left.")
+				else
+					minetest.chat_send_player(player:get_player_name(), "The enemy did not hit you!")
+				end
+				player:set_attribute("sea_fight_step_2c1", "5")
+			elseif player:get_attribute("sea_fight_step_2c1") == "0" and player:get_attribute("sea_fight_p1") == "2" and player:get_attribute("sea_fight_c1") == "1" then
+				stepdone = 1
+				if math.random(100) < 46 then
+					player:set_attribute("sea_fight_p_hp", ""..tonumber(player:get_attribute("sea_fight_p_hp")-2))
+					minetest.chat_send_player(player:get_player_name(), "Hit! The enemy has done 2Hp damage. You have "..player:get_attribute("sea_fight_p_hp").." hp left.")
+				else
+					minetest.chat_send_player(player:get_player_name(), "The enemy did not hit you!")
+				end
+				player:set_attribute("sea_fight_step_2c1", "5")
+			elseif player:get_attribute("sea_fight_step_2c1") == "0" and player:get_attribute("sea_fight_p1") == "2" and player:get_attribute("sea_fight_c1") == "2" then
+				stepdone = 1
+				if math.random(100) < 46 then
 					player:set_attribute("sea_fight_p_hp", ""..tonumber(player:get_attribute("sea_fight_p_hp")-3))
 					minetest.chat_send_player(player:get_player_name(), "Hit! The enemy has done 3Hp damage. You have "..player:get_attribute("sea_fight_p_hp").." hp left.")
 				else
@@ -176,6 +195,24 @@ function EnemyStep(player)
 					minetest.chat_send_player(player:get_player_name(), "The enemy did not hit you!")
 				end
 				player:set_attribute("sea_fight_step_2c2", "5")
+			elseif player:get_attribute("sea_fight_step_2c2") == "0" and player:get_attribute("sea_fight_p2") == "2" and player:get_attribute("sea_fight_c2") == "1" then
+				stepdone = 1
+				if math.random(100) < 46 then
+					player:set_attribute("sea_fight_p_hp", ""..tonumber(player:get_attribute("sea_fight_p_hp")-2))
+					minetest.chat_send_player(player:get_player_name(), "Hit! The enemy has done 2Hp damage. You have "..player:get_attribute("sea_fight_p_hp").." hp left.")
+				else
+					minetest.chat_send_player(player:get_player_name(), "The enemy did not hit you!")
+				end
+				player:set_attribute("sea_fight_step_2c2", "5")
+			elseif player:get_attribute("sea_fight_step_2c2") == "0" and player:get_attribute("sea_fight_p2") == "2" and player:get_attribute("sea_fight_c2") == "2" then
+				stepdone = 1
+				if math.random(100) < 46 then
+					player:set_attribute("sea_fight_p_hp", ""..tonumber(player:get_attribute("sea_fight_p_hp")-3))
+					minetest.chat_send_player(player:get_player_name(), "Hit! The enemy has done 3Hp damage. You have "..player:get_attribute("sea_fight_p_hp").." hp left.")
+				else
+					minetest.chat_send_player(player:get_player_name(), "The enemy did not hit you!")
+				end
+				player:set_attribute("sea_fight_step_2c2", "5")
 			else
 				if tonumber(player:get_attribute("sea_fight_step_2c2")) > 0 then
 					player:set_attribute("sea_fight_step_2c2", ""..tonumber(player:get_attribute("sea_fight_step_2c2"))-1)
@@ -186,6 +223,33 @@ function EnemyStep(player)
 				if math.random(100) < 31 then
 					player:set_attribute("sea_fight_p_hp", ""..tonumber(player:get_attribute("sea_fight_p_hp")-2))
 					minetest.chat_send_player(player:get_player_name(), "Hit! The enemy has done 2Hp damage. You have "..player:get_attribute("sea_fight_p_hp").." hp left.")
+				else
+					minetest.chat_send_player(player:get_player_name(), "The enemy did not hit you!")
+				end
+				player:set_attribute("sea_fight_step_2c3", "5")
+			elseif stepdone == 0 and player:get_attribute("sea_fight_step_2c3") == "0" and player:get_attribute("sea_fight_p3") == "1" and player:get_attribute("sea_fight_c3") == "2" then
+				stepdone = 1
+				if math.random(100) < 31 then
+					player:set_attribute("sea_fight_p_hp", ""..tonumber(player:get_attribute("sea_fight_p_hp")-3))
+					minetest.chat_send_player(player:get_player_name(), "Hit! The enemy has done 3Hp damage. You have "..player:get_attribute("sea_fight_p_hp").." hp left.")
+				else
+					minetest.chat_send_player(player:get_player_name(), "The enemy did not hit you!")
+				end
+				player:set_attribute("sea_fight_step_2c3", "5")
+			elseif stepdone == 0 and player:get_attribute("sea_fight_step_2c3") == "0" and player:get_attribute("sea_fight_p3") == "2" and player:get_attribute("sea_fight_c3") == "1" then
+				stepdone = 1
+				if math.random(100) < 46 then
+					player:set_attribute("sea_fight_p_hp", ""..tonumber(player:get_attribute("sea_fight_p_hp")-2))
+					minetest.chat_send_player(player:get_player_name(), "Hit! The enemy has done 2Hp damage. You have "..player:get_attribute("sea_fight_p_hp").." hp left.")
+				else
+					minetest.chat_send_player(player:get_player_name(), "The enemy did not hit you!")
+				end
+				player:set_attribute("sea_fight_step_2c3", "5")
+			elseif stepdone == 0 and player:get_attribute("sea_fight_step_2c3") == "0" and player:get_attribute("sea_fight_p3") == "2" and player:get_attribute("sea_fight_c3") == "2" then
+				stepdone = 1
+				if math.random(100) < 46 then
+					player:set_attribute("sea_fight_p_hp", ""..tonumber(player:get_attribute("sea_fight_p_hp")-3))
+					minetest.chat_send_player(player:get_player_name(), "Hit! The enemy has done 3Hp damage. You have "..player:get_attribute("sea_fight_p_hp").." hp left.")
 				else
 					minetest.chat_send_player(player:get_player_name(), "The enemy did not hit you!")
 				end
@@ -494,6 +558,14 @@ function Chapter_Ship1_1(player)
 			minetest.set_node({x=-155, y=13, z=i*(-1)}, {name="wool:pink"})
 			minetest.set_node({x=-154, y=12, z=i*(-1)}, {name="wool:pink"})
 		end
+	elseif tonumber(sail1) == 3 then
+		for i=23,31 do
+			minetest.set_node({x=-154, y=16, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-155, y=15, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-155, y=14, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-155, y=13, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-154, y=12, z=i*(-1)}, {name="wool:yellow"})
+		end
 	end
 	if tonumber(sail2) == 1 then
 		for i=25,29 do
@@ -508,6 +580,13 @@ function Chapter_Ship1_1(player)
 			minetest.set_node({x=-161, y=13, z=i*(-1)}, {name="wool:pink"})
 			minetest.set_node({x=-161, y=12, z=i*(-1)}, {name="wool:pink"})
 			minetest.set_node({x=-160, y=11, z=i*(-1)}, {name="wool:pink"})
+		end
+	elseif tonumber(sail2) == 3 then
+		for i=25,29 do
+			minetest.set_node({x=-160, y=14, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-161, y=13, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-161, y=12, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-160, y=11, z=i*(-1)}, {name="wool:yellow"})
 		end
 	end
 	local started = player:get_attribute("sea_started")
@@ -552,6 +631,13 @@ function Chapter_Ship1_1(player)
 			minetest.set_node({x=-154, y=7, z=-30}, {name="castrum:sea_fight1"})
 		end
 		minetest.set_node({x=-154, y=9, z=-31}, {name="castrum:cannon_1_1"})
+		screwdriver_handler(player, {type="node", under={x=-154, y=9, z=-31}, above={x=-154, y=9, z=-31}}, 1)
+		screwdriver_handler(player, {type="node", under={x=-154, y=9, z=-31}, above={x=-154, y=9, z=-31}}, 1)
+	elseif tonumber(cannon3) == 2 then
+		if started == "false" then
+			minetest.set_node({x=-154, y=7, z=-30}, {name="castrum:sea_fight1"})
+		end
+		minetest.set_node({x=-154, y=9, z=-31}, {name="castrum:cannon_1_2"})
 		screwdriver_handler(player, {type="node", under={x=-154, y=9, z=-31}, above={x=-154, y=9, z=-31}}, 1)
 		screwdriver_handler(player, {type="node", under={x=-154, y=9, z=-31}, above={x=-154, y=9, z=-31}}, 1)
 	end
@@ -812,6 +898,14 @@ function Chapter_Ship1_2(player)
 			minetest.set_node({x=-163, y=13, z=i*(-1)}, {name="wool:pink"})
 			minetest.set_node({x=-164, y=12, z=i*(-1)}, {name="wool:pink"})
 		end
+	elseif tonumber(sail1) == 3 then
+		for i=23,31 do
+			minetest.set_node({x=-164, y=16, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-163, y=15, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-163, y=14, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-163, y=13, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-164, y=12, z=i*(-1)}, {name="wool:yellow"})
+		end
 	end
 	if tonumber(sail2) == 1 then
 		for i=25,29 do
@@ -826,6 +920,13 @@ function Chapter_Ship1_2(player)
 			minetest.set_node({x=-157, y=13, z=i*(-1)}, {name="wool:pink"})
 			minetest.set_node({x=-157, y=12, z=i*(-1)}, {name="wool:pink"})
 			minetest.set_node({x=-158, y=11, z=i*(-1)}, {name="wool:pink"})
+		end
+	elseif tonumber(sail2) == 3 then
+		for i=25,29 do
+			minetest.set_node({x=-158, y=14, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-157, y=13, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-157, y=12, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-158, y=11, z=i*(-1)}, {name="wool:yellow"})
 		end
 	end
 	minetest.set_node({x=-156, y=7, z=-27}, {name="castrum:turn_ship"})
@@ -855,6 +956,8 @@ function Chapter_Ship1_2(player)
     file:close()
 	if tonumber(cannon3) == 1 then
 		minetest.set_node({x=-164, y=9, z=-23}, {name="castrum:cannon_1_1"})
+	elseif tonumber(cannon3) == 2 then
+		minetest.set_node({x=-164, y=9, z=-23}, {name="castrum:cannon_1_2"})
 	end
 	if pirate1 == 1 then
 		minetest.set_node({x=-166, y=8, z=-30}, {name="castrum:pirate_lv1"})
@@ -1095,7 +1198,12 @@ function Chapter_Ship2_1(player)
 			minetest.set_node({x=-155, y=14, z=i*(-1)}, {name="wool:pink"})
 			minetest.set_node({x=-155, y=13, z=i*(-1)}, {name="wool:pink"})
 			minetest.set_node({x=-154, y=12, z=i*(-1)}, {name="wool:pink"})
-			
+		elseif s1 == "3" then
+			minetest.set_node({x=-154, y=16, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-155, y=15, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-155, y=14, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-155, y=13, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-154, y=12, z=i*(-1)}, {name="wool:yellow"})
 		end
     end
 	for i=4,8 do
@@ -1109,6 +1217,11 @@ function Chapter_Ship2_1(player)
 			minetest.set_node({x=-161, y=13, z=i*(-1)}, {name="wool:pink"})
 			minetest.set_node({x=-161, y=12, z=i*(-1)}, {name="wool:pink"})
 			minetest.set_node({x=-160, y=11, z=i*(-1)}, {name="wool:pink"})
+		elseif s2 == "3" then
+			minetest.set_node({x=-160, y=14, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-161, y=13, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-161, y=12, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-160, y=11, z=i*(-1)}, {name="wool:yellow"})
 		end
     end
 	local c1 = player:get_attribute("sea_fight_c1")
@@ -1130,20 +1243,32 @@ function Chapter_Ship2_1(player)
 	local c3 = player:get_attribute("sea_fight_c3")
 	if c3 == "1" then
 		minetest.set_node({x=-154, y=9, z=-2}, {name="castrum:cannon_1_1"})
+	elseif c3 == "2" then
+		minetest.set_node({x=-154, y=9, z=-2}, {name="castrum:cannon_1_2"})
 	end
 	local p1 = player:get_attribute("sea_fight_p1")
 	if p1 == "1" then
 		minetest.set_node({x=-152, y=8, z=-9}, {name="castrum:skeleton_lv1"})
+	elseif p1 == "2" then
+		minetest.set_node({x=-152, y=8, z=-9}, {name="castrum:skeleton_lv2"})
 	end
 	local p2 = player:get_attribute("sea_fight_p2")
 	if p2 == "1" then
 		minetest.set_node({x=-152, y=8, z=-3}, {name="castrum:skeleton_lv1"})
 		screwdriver_handler(player, {type="node", under={x=-152, y=8, z=-3}, above={x=-152, y=8, z=-3}}, 1)
 		screwdriver_handler(player, {type="node", under={x=-152, y=8, z=-3}, above={x=-152, y=8, z=-3}}, 1)
+	elseif p2 == "2" then
+		minetest.set_node({x=-152, y=8, z=-3}, {name="castrum:skeleton_lv2"})
+		screwdriver_handler(player, {type="node", under={x=-152, y=8, z=-3}, above={x=-152, y=8, z=-3}}, 1)
+		screwdriver_handler(player, {type="node", under={x=-152, y=8, z=-3}, above={x=-152, y=8, z=-3}}, 1)
 	end
 	local p3 = player:get_attribute("sea_fight_p3")
 	if p3 == "1" then
 		minetest.set_node({x=-154, y=8, z=-3}, {name="castrum:skeleton_lv1"})
+		screwdriver_handler(player, {type="node", under={x=-154, y=8, z=-3}, above={x=-154, y=8, z=-3}}, 1)
+		screwdriver_handler(player, {type="node", under={x=-154, y=8, z=-3}, above={x=-154, y=8, z=-3}}, 1)
+	elseif p3 == "2" then
+		minetest.set_node({x=-154, y=8, z=-3}, {name="castrum:skeleton_lv2"})
 		screwdriver_handler(player, {type="node", under={x=-154, y=8, z=-3}, above={x=-154, y=8, z=-3}}, 1)
 		screwdriver_handler(player, {type="node", under={x=-154, y=8, z=-3}, above={x=-154, y=8, z=-3}}, 1)
 	end
@@ -1362,6 +1487,12 @@ function Chapter_Ship2_2(player)
 			minetest.set_node({x=-163, y=14, z=i*(-1)}, {name="wool:pink"})
 			minetest.set_node({x=-163, y=13, z=i*(-1)}, {name="wool:pink"})
 			minetest.set_node({x=-164, y=12, z=i*(-1)}, {name="wool:pink"})
+		elseif s1 == "3" then
+			minetest.set_node({x=-164, y=16, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-163, y=15, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-163, y=14, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-163, y=13, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-164, y=12, z=i*(-1)}, {name="wool:yellow"})
 		end
     end
 	for i=4,8 do
@@ -1375,6 +1506,11 @@ function Chapter_Ship2_2(player)
 			minetest.set_node({x=-157, y=13, z=i*(-1)}, {name="wool:pink"})
 			minetest.set_node({x=-157, y=12, z=i*(-1)}, {name="wool:pink"})
 			minetest.set_node({x=-158, y=11, z=i*(-1)}, {name="wool:pink"})
+		elseif s2 == "3" then
+			minetest.set_node({x=-158, y=14, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-157, y=13, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-157, y=12, z=i*(-1)}, {name="wool:yellow"})
+			minetest.set_node({x=-158, y=11, z=i*(-1)}, {name="wool:yellow"})
 		end
     end
 	local c1 = player:get_attribute("sea_fight_c1")
@@ -1398,20 +1534,32 @@ function Chapter_Ship2_2(player)
 		minetest.set_node({x=-164, y=9, z=-10}, {name="castrum:cannon_1_1"})
 		screwdriver_handler(player, {type="node", under={x=-164, y=9, z=-10}, above={x=-164, y=9, z=-10}}, 1)
 		screwdriver_handler(player, {type="node", under={x=-164, y=9, z=-10}, above={x=-164, y=9, z=-10}}, 1)
+	elseif c3 == "2" then
+		minetest.set_node({x=-164, y=9, z=-10}, {name="castrum:cannon_1_2"})
+		screwdriver_handler(player, {type="node", under={x=-164, y=9, z=-10}, above={x=-164, y=9, z=-10}}, 1)
+		screwdriver_handler(player, {type="node", under={x=-164, y=9, z=-10}, above={x=-164, y=9, z=-10}}, 1)
 	end
 	local p1 = player:get_attribute("sea_fight_p1")
 	if p1 == "1" then
 		minetest.set_node({x=-166, y=8, z=-3}, {name="castrum:skeleton_lv1"})
 		screwdriver_handler(player, {type="node", under={x=-166, y=8, z=-3}, above={x=-166, y=8, z=-3}}, 1)
 		screwdriver_handler(player, {type="node", under={x=-166, y=8, z=-3}, above={x=-166, y=8, z=-3}}, 1)
+	elseif p1 == "2" then
+		minetest.set_node({x=-166, y=8, z=-3}, {name="castrum:skeleton_lv2"})
+		screwdriver_handler(player, {type="node", under={x=-166, y=8, z=-3}, above={x=-166, y=8, z=-3}}, 1)
+		screwdriver_handler(player, {type="node", under={x=-166, y=8, z=-3}, above={x=-166, y=8, z=-3}}, 1)
 	end
 	local p2 = player:get_attribute("sea_fight_p2")
 	if p2 == "1" then
 		minetest.set_node({x=-166, y=8, z=-9}, {name="castrum:skeleton_lv1"})
+	elseif p2 == "2" then
+		minetest.set_node({x=-166, y=8, z=-9}, {name="castrum:skeleton_lv2"})
 	end
 	local p3 = player:get_attribute("sea_fight_p3")
 	if p3 == "1" then
 		minetest.set_node({x=-164, y=8, z=-9}, {name="castrum:skeleton_lv1"})
+	elseif p3 == "2" then
+		minetest.set_node({x=-164, y=8, z=-9}, {name="castrum:skeleton_lv2"})
 	end
 end
 
@@ -1520,6 +1668,13 @@ minetest.register_node("castrum:fire_cannon_ready",{
 						if math.random(100) < 31 then
 							player:set_attribute("sea_fight_e_hp", ""..tonumber(player:get_attribute("sea_fight_e_hp")-2))
 							minetest.chat_send_player(player:get_player_name(), "Hit! You have done 2 hp damage. The enemy has "..player:get_attribute("sea_fight_e_hp").." hp left.")
+						else
+							minetest.chat_send_player(player:get_player_name(), "You did not hit the enemy!")
+						end
+					elseif minetest.get_node({x=-164, y=9, z=-23}).name == "castrum:cannon_1_2" then
+						if math.random(100) < 31 then
+							player:set_attribute("sea_fight_e_hp", ""..tonumber(player:get_attribute("sea_fight_e_hp")-3))
+							minetest.chat_send_player(player:get_player_name(), "Hit! You have done 3 hp damage. The enemy has "..player:get_attribute("sea_fight_e_hp").." hp left.")
 						else
 							minetest.chat_send_player(player:get_player_name(), "You did not hit the enemy!")
 						end

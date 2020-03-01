@@ -52,6 +52,17 @@ local knight_pos = {
 	{40, -66, -68, 3},
 	{41, -83, -54, 0},
 	{42, -84, -54, 0},
+	{43, -85, -54, 0},
+	{44, -86, -54, 0},
+	{45, -87, -54, 0},
+	{46, -88, -55, 3},
+	{47, -88, -56, 3},
+	{48, -88, -57, 3},
+	{49, -88, -58, 3},
+	{50, -88, -59, 3},
+	{51, -87, -60, 2},
+	{52, -86, -60, 2},
+	{53, -85, -60, 2},
 	
 }
 function Update_knight(player)
@@ -64,14 +75,19 @@ function Update_knight(player)
 	file = io.open(minetest.get_worldpath().."/SAVE/Knight_3.txt", "r")
 	local knight3 = file:read("*l")
     file:close()
-    for j=59,67 do
-        for i=53,61 do
-            for k=9,9 do
-                minetest.set_node({x=j*(-1), y=k, z=i*(-1)}, {name="air"})
-            end
-        end
+	file = io.open(minetest.get_worldpath().."/SAVE/Camp1.txt", "r")
+	local camp1 = file:read("*l")
+    file:close()
+    if tonumber(camp1) > 0 then
+        for j=59,67 do
+			for i=53,61 do
+				for k=9,9 do
+					minetest.set_node({x=j*(-1), y=k, z=i*(-1)}, {name="air"})
+				end
+			end
+		end
+        minetest.set_node({x=-63, y=9, z=-57}, {name="castrum:fire"})
     end
-    minetest.set_node({x=-63, y=9, z=-57}, {name="castrum:fire"})
     file = io.open(minetest.get_worldpath().."/SAVE/Camp2.txt", "r")
 	local camp2 = file:read("*l")
     file:close()

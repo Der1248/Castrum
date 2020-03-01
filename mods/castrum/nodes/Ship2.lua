@@ -54,7 +54,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname == "ship2" then
         for k, v in pairs(fields) do
             if v == "del" then
-                Ship2(0,player)
+                minetest.place_schematic({x=161, y=7, z=39}, minetest.get_modpath("castrum").."/schematics/Ship2/Ship2_0.mts","0") 
                 file = io.open(minetest.get_worldpath().."/SAVE/Ship2.txt", "w")
 		        file:write("0")
 		        file:close()
@@ -78,8 +78,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 14 and upgrade then
-                    Ship2(tonumber(level)+1,player)
+                if (tonumber(level)) < 14 and upgrade or buildings_costs == false then
+                    minetest.place_schematic({x=161, y=7, z=39}, minetest.get_modpath("castrum").."/schematics/Ship2/Ship2_"..(tonumber(level)+1)..".mts","0")
                     file = io.open(minetest.get_worldpath().."/SAVE/Ship2.txt", "w")
 		            file:write(tonumber(level)+1)
 		            file:close()

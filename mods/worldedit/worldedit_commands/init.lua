@@ -110,7 +110,7 @@ minetest.register_chatcommand("/about", {
 	params = "",
 	description = "Get information about the mod",
 	func = function(name, param)
-		worldedit.player_notify(name, "WorldEdit " .. worldedit.version_string .. " is available on this server. Type /help to get a list of commands, or get more information at https://github.com/Uberi/Minetest-WorldEdit/")
+		worldedit.player_notify(name, "WorldEdit " .. worldedit.version_string .. " is available on this server. Type /help to get a list of commands, or get more information at https://github.com/Uberi/MineTest-WorldEdit/")
 	end,
 })
 
@@ -203,7 +203,7 @@ minetest.register_on_punchnode(function(pos, node, puncher)
 	local name = puncher:get_player_name()
 	if worldedit.inspect[name] then
 		local axis, sign = worldedit.player_axis(name)
-		local message = string.format("inspector: %s at %s (param1=%d, param2=%d, received light=%d) punched facing the %s axis",
+		message = string.format("inspector: %s at %s (param1=%d, param2=%d, received light=%d) punched facing the %s axis",
 			node.name, minetest.pos_to_string(pos), node.param1, node.param2, get_node_rlight(pos), axis .. (sign > 0 and "+" or "-"))
 		worldedit.player_notify(name, message)
 	end
@@ -642,7 +642,6 @@ minetest.register_chatcommand("/hollowcylinder", {
 		end
 		length = tonumber(length)
 		if axis == "?" then
-			local sign
 			axis, sign = worldedit.player_axis(name)
 			length = length * sign
 		end
@@ -666,7 +665,6 @@ minetest.register_chatcommand("/cylinder", {
 		end
 		length = tonumber(length)
 		if axis == "?" then
-			local sign
 			axis, sign = worldedit.player_axis(name)
 			length = length * sign
 		end
@@ -700,7 +698,6 @@ minetest.register_chatcommand("/hollowpyramid", {
 		local found, _, axis, height, nodename = param:find("^([xyz%?])%s+([+-]?%d+)%s+(.+)$")
 		height = tonumber(height)
 		if axis == "?" then
-			local sign
 			axis, sign = worldedit.player_axis(name)
 			height = height * sign
 		end
@@ -718,7 +715,6 @@ minetest.register_chatcommand("/pyramid", {
 		local found, _, axis, height, nodename = param:find("^([xyz%?])%s+([+-]?%d+)%s+(.+)$")
 		height = tonumber(height)
 		if axis == "?" then
-			local sign
 			axis, sign = worldedit.player_axis(name)
 			height = height * sign
 		end
@@ -766,7 +762,6 @@ minetest.register_chatcommand("/copy", {
 		end
 		amount = tonumber(amount)
 		if axis == "?" then
-			local sign
 			axis, sign = worldedit.player_axis(name)
 			amount = amount * sign
 		end
@@ -793,7 +788,6 @@ minetest.register_chatcommand("/move", {
 		end
 		amount = tonumber(amount)
 		if axis == "?" then
-			local sign
 			axis, sign = worldedit.player_axis(name)
 			amount = amount * sign
 		end
@@ -816,7 +810,6 @@ minetest.register_chatcommand("/stack", {
 		local found, _, axis, repetitions = param:find("^([xyz%?])%s+([+-]?%d+)$")
 		repetitions = tonumber(repetitions)
 		if axis == "?" then
-			local sign
 			axis, sign = worldedit.player_axis(name)
 			repetitions = repetitions * sign
 		end

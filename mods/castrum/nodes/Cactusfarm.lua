@@ -69,7 +69,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname == "cactusfarm" then
         for k, v in pairs(fields) do
             if v == "del" then
-                Cactusfarm(0,player)
+                minetest.place_schematic({x=123, y=8, z=-8}, minetest.get_modpath("castrum").."/schematics/Cactusfarm/Cactusfarm_0.mts","0")
                 file = io.open(minetest.get_worldpath().."/SAVE/Cactusfarm.txt", "w")
 		        file:write("0")
 		        file:close()
@@ -111,8 +111,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 5 and upgrade then
-                    Cactusfarm(tonumber(level)+1,player)
+                if (tonumber(level)) < 5 and upgrade or buildings_costs == false then
+                    minetest.place_schematic({x=123, y=8, z=-8}, minetest.get_modpath("castrum").."/schematics/Cactusfarm/Cactusfarm_"..(tonumber(level)+1)..".mts","0")
                     file = io.open(minetest.get_worldpath().."/SAVE/Cactusfarm.txt", "w")
 		            file:write(tonumber(level)+1)
 		            file:close()

@@ -60,7 +60,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname == "island_ship1" then
         for k, v in pairs(fields) do
             if v == "del" then
-                Ship1(0,player)
+                Update_Ship1(0,false)
                 file = io.open(minetest.get_worldpath().."/SAVE/Ship1.txt", "w")
 		        file:write("0")
 		        file:close()
@@ -94,8 +94,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 7 and upgrade then
-                    Ship1(tonumber(level)+1,player)
+                if (tonumber(level)) < 7 and upgrade or buildings_costs == false then
+                    Update_Ship1(tonumber(level)+1,false)
                     file = io.open(minetest.get_worldpath().."/SAVE/Ship1.txt", "w")
 		            file:write(tonumber(level)+1)
 		            file:close()

@@ -18,15 +18,19 @@ pier.get_formspec = function(player, pos)
         label2 = "Build"
         need1 = "5 Wooden Planks"
     elseif tonumber(level) == 5 then
-        label = (level-4).."/3"
+        label = (level-4).."/4"
         label2 = "Upgrade"
         need1 = "25 Jungle Wood Planks"
 	elseif tonumber(level) == 6 then
-        label = (level-4).."/3"
+        label = (level-4).."/4"
         label2 = "Upgrade"
         need1 = "100 Pine Wood Planks"
+	elseif tonumber(level) == 7 then
+        label = (level-4).."/4"
+        label2 = "Upgrade"
+        need1 = "300 Acacia Wood Planks"
     else
-        label = (level-4).."/3"
+        label = (level-4).."/4"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -61,7 +65,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname == "pier" then
         for k, v in pairs(fields) do
             if v == "del" then
-                Pier(0,player)
+                Update_Pier(0,false)
                 file = io.open(minetest.get_worldpath().."/SAVE/Pier.txt", "w")
 		        file:write("0")
 		        file:close()
@@ -82,12 +86,15 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 				elseif tonumber(level) == 6 and inv:contains_item("main", "default:pine_wood 100") then
                     Item_Remove2(player, "main", "default:pine_wood 100")
                     upgrade = true
-                end
+                elseif tonumber(level) == 7 and inv:contains_item("main", "default:acacia_wood 300") then
+                    Item_Remove2(player, "main", "default:acacia_wood 300")
+                    upgrade = true
+				end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 7 and upgrade then
-                    Pier(tonumber(level)+1,player)
+                if (tonumber(level)) < 7 and upgrade or buildings_costs == false then
+                    Update_Pier(tonumber(level)+1,false)
                     file = io.open(minetest.get_worldpath().."/SAVE/Pier.txt", "w")
 		            file:write(tonumber(level)+1)
 		            file:close()

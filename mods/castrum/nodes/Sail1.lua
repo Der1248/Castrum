@@ -18,12 +18,17 @@ sail1.get_formspec = function(player, pos)
         label2 = "Build"
 		need1 = "9 White Wool"
 	elseif tonumber(level) == 1 then
-        label = (level).."/2"
+        label = (level).."/3"
         label2 = "Upgrade"
         need1 = "9 Pink Wool"
         need2 = "Completed island chapter 1"
+	elseif tonumber(level) == 2 then
+        label = (level).."/3"
+        label2 = "Upgrade"
+        need1 = "9 Yellow Wool"
+        need2 = "Completed island chapter 2"
     else
-        label = (level).."/2"
+        label = (level).."/3"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -58,7 +63,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname == "sail1" then
         for k, v in pairs(fields) do
             if v == "del" then
-                Sail1(0,player)
+                minetest.place_schematic({x=161, y=12, z=44}, minetest.get_modpath("castrum").."/schematics/Sail1/Sail1_0.mts","0") 
                 file = io.open(minetest.get_worldpath().."/SAVE/Sail1.txt", "w")
 		        file:write("0")
 		        file:close()
@@ -81,12 +86,17 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
 				elseif tonumber(level) == 1 and inv:contains_item("main", "wool:pink 9") then
                     txt = "complete island chapter 1 first"
+				elseif tonumber(level) == 2 and inv:contains_item("main", "wool:yellow 9") and tonumber(chapter) > 2 then
+                    Item_Remove2(player, "main", "wool:yellow 9")
+                    upgrade = true
+				elseif tonumber(level) == 2 and inv:contains_item("main", "wool:yellow 9") then
+                    txt = "complete island chapter 2 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 2 and upgrade then
-                    Sail1(tonumber(level)+1,player)
+                if (tonumber(level)) < 3 and upgrade or buildings_costs == false then
+                    minetest.place_schematic({x=161, y=12, z=44}, minetest.get_modpath("castrum").."/schematics/Sail1/Sail1_"..(tonumber(level)+1)..".mts","0")
                     file = io.open(minetest.get_worldpath().."/SAVE/Sail1.txt", "w")
 		            file:write(tonumber(level)+1)
 		            file:close()

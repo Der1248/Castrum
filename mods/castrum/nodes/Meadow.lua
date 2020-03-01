@@ -18,8 +18,13 @@ meadow.get_formspec = function(player, pos)
         label2 = "Build"
         need1 = "80 Water Buckets"
 		need2 = "Mountain Fountain lv.2"
+	elseif tonumber(level) == 9 then
+        label = (level-8).."/2"
+        label2 = "Upgrade"
+        need1 = "160 Water Buckets"
+		need2 = "Completed island chapter 2"
 	else
-        label = (level-8).."/1"
+        label = (level-8).."/2"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -54,7 +59,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname == "meadow" then
         for k, v in pairs(fields) do
             if v == "del" then
-                Meadow(0,player)
+                minetest.place_schematic({x=318, y=39, z=-1}, minetest.get_modpath("castrum").."/schematics/Meadow/Meadow_0.mts","0") 
                 file = io.open(minetest.get_worldpath().."/SAVE/Meadow.txt", "w")
 		        file:write("0")
 		        file:close()
@@ -66,6 +71,9 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 				file = io.open(minetest.get_worldpath().."/SAVE/Mountain_Fountain.txt", "r")
 	            local fountain = file:read("*l")
                 file:close()
+				file = io.open(minetest.get_worldpath().."/SAVE/Island_Chapter.txt", "r")
+	            local chapter = file:read("*l")
+                file:close()
                 local inv = player:get_inventory()
                 local upgrade = false
                 local txt = "not enough items"
@@ -74,12 +82,17 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
 				elseif tonumber(level) < 9 and inv:contains_item("main", "castrum:bucket_water 80") then
 					txt = "upgrade mountain fountain to lv.2 first"
+				elseif tonumber(level) == 9 and inv:contains_item("main", "castrum:bucket_water 160") and tonumber(chapter) > 2 then
+                    Item_Remove2(player, "main", "castrum:bucket_water 160")
+                    upgrade = true
+				elseif tonumber(level) == 9 and inv:contains_item("main", "castrum:bucket_water 160") then
+					txt = "complete island chapter 2 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 9 and upgrade then
-                    Meadow(tonumber(level)+1,player)
+                if (tonumber(level)) < 10 and upgrade or buildings_costs == false then
+                    minetest.place_schematic({x=318, y=39, z=-1}, minetest.get_modpath("castrum").."/schematics/Meadow/Meadow_"..(tonumber(level)+1)..".mts","0")
                     file = io.open(minetest.get_worldpath().."/SAVE/Meadow.txt", "w")
 		            file:write(tonumber(level)+1)
 		            file:close()

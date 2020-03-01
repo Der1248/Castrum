@@ -120,7 +120,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname == "smithy" then
         for k, v in pairs(fields) do
             if v == "del" then
-                Smithy(0,player)
+                minetest.place_schematic({x=-69, y=9, z=-14}, minetest.get_modpath("castrum").."/schematics/Smithy/Smithy_0.mts","0")
                 file = io.open(minetest.get_worldpath().."/SAVE/Smithy.txt", "w")
 		        file:write("0")
 		        file:close()
@@ -143,7 +143,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     Item_Remove2(player, "main", "default:cobble 80")
                     Item_Remove2(player, "main", "default:wood 60")
                     upgrade = true
-				elseif tonumber(level) == 7 and inv:contains_item("main", "default:desert_cobble 80") and inv:contains_item("main", "default:junglewood 60") and tonumber(fountain) > 5 then
+				elseif tonumber(level) == 7 and inv:contains_item("main", "default:desert_cobble 80") and inv:contains_item("main", "default:junglewood 60") and tonumber(fountain) > 7 then
                     Item_Remove2(player, "main", "default:desert_cobble 80")
                     Item_Remove2(player, "main", "default:junglewood 60")
                     upgrade = true
@@ -157,8 +157,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 8 and upgrade then
-                    Smithy(tonumber(level)+1,player)
+                if (tonumber(level)) < 8 and upgrade or buildings_costs == false then
+                    minetest.place_schematic({x=-69, y=9, z=-14}, minetest.get_modpath("castrum").."/schematics/Smithy/Smithy_"..(tonumber(level)+1)..".mts","0")
                     file = io.open(minetest.get_worldpath().."/SAVE/Smithy.txt", "w")
 		            file:write(tonumber(level)+1)
 		            file:close()
@@ -174,12 +174,20 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname == "craft" then
         for k, v in pairs(fields) do
             if v == "Craft" then
-                if player:get_attribute("need1string") then
-                    if player:get_inventory():contains_item("main", player:get_attribute("need1string")) and player:get_inventory():contains_item("main", player:get_attribute("need2string")) and player:get_inventory():contains_item("main", player:get_attribute("need3string")) then
-                        player:get_inventory():remove_item("main", player:get_attribute("need1string"))
-                        player:get_inventory():remove_item("main", player:get_attribute("need2string"))
-						player:get_inventory():remove_item("main", player:get_attribute("need3string"))
-                        player:get_inventory():add_item("main", player:get_attribute("itemstring"))
+                if player:get_attribute("need1string") and player:get_attribute("need2string") and player:get_attribute("need3string") and player:get_attribute("need3string") ~= "" then
+                    if player:get_inventory():contains_item("main", player:get_attribute("need1string")) or player:get_attribute("need1string") == "air" then
+						if player:get_inventory():contains_item("main", player:get_attribute("need2string")) or player:get_attribute("need2string") == "air" then
+							if player:get_inventory():contains_item("main", player:get_attribute("need3string")) or player:get_attribute("need3string") == "air" then
+								player:get_inventory():remove_item("main", player:get_attribute("need1string"))
+								player:get_inventory():remove_item("main", player:get_attribute("need2string"))
+								player:get_inventory():remove_item("main", player:get_attribute("need3string"))
+								player:get_inventory():add_item("main", player:get_attribute("itemstring"))
+							else
+								minetest.chat_send_player(player:get_player_name(), "not enough items")
+							end
+						else
+							minetest.chat_send_player(player:get_player_name(), "not enough items")
+						end
                     else
                         minetest.chat_send_player(player:get_player_name(), "not enough items")
                     end
@@ -193,7 +201,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 player:set_attribute("need1string", "default:cobble 25")
                 player:set_attribute("need2string", "default:wood 15")
 				player:set_attribute("need3", "")
-				player:set_attribute("need3string", "")
+				player:set_attribute("need3string", "air")
                 player:set_attribute("itemstring", "castrum:soul")
                 minetest.show_formspec(player:get_player_name(), "craft" , craft.get_formspec(player))
             elseif v == "Steel\nIngot" then
@@ -203,7 +211,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 player:set_attribute("need1string", "default:coal_lump 2")
                 player:set_attribute("need2string", "default:iron_lump")
 				player:set_attribute("need3", "")
-				player:set_attribute("need3string", "")
+				player:set_attribute("need3string", "air")
                 player:set_attribute("itemstring", "default:steel_ingot")
                 minetest.show_formspec(player:get_player_name(), "craft" , craft.get_formspec(player))
 			elseif v == "Bronze\nIngot" then
@@ -223,7 +231,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 player:set_attribute("need1string", "default:cobble")
                 player:set_attribute("need2string", "default:wood 2")
 				player:set_attribute("need3", "")
-				player:set_attribute("need3string", "")
+				player:set_attribute("need3string", "air")
                 player:set_attribute("itemstring", "castrum:shovel_stone")
                 minetest.show_formspec(player:get_player_name(), "craft" , craft.get_formspec(player))
             elseif v == "Stone\nPickaxe" then
@@ -233,7 +241,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 player:set_attribute("need1string", "default:cobble 3")
                 player:set_attribute("need2string", "default:wood 2")
 				player:set_attribute("need3", "")
-				player:set_attribute("need3string", "")
+				player:set_attribute("need3string", "air")
                 player:set_attribute("itemstring", "castrum:pick_stone")
                 minetest.show_formspec(player:get_player_name(), "craft" , craft.get_formspec(player))
             elseif v == "Stone\nSword" then
@@ -243,7 +251,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 player:set_attribute("need1string", "default:cobble 2")
                 player:set_attribute("need2string", "default:wood")
 				player:set_attribute("need3", "")
-				player:set_attribute("need3string", "")
+				player:set_attribute("need3string", "air")
                 player:set_attribute("itemstring", "castrum:sword_stone")
                 minetest.show_formspec(player:get_player_name(), "craft" , craft.get_formspec(player))
             elseif v == "Steel\nShovel" then
@@ -253,7 +261,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 player:set_attribute("need1string", "default:steel_ingot")
                 player:set_attribute("need2string", "default:junglewood 2")
 				player:set_attribute("need3", "")
-				player:set_attribute("need3string", "")
+				player:set_attribute("need3string", "air")
                 player:set_attribute("itemstring", "castrum:shovel_steel")
                 minetest.show_formspec(player:get_player_name(), "craft" , craft.get_formspec(player))
             elseif v == "Steel\nPickaxe" then
@@ -263,7 +271,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 player:set_attribute("need1string", "default:steel_ingot 3")
                 player:set_attribute("need2string", "default:junglewood 2")
 				player:set_attribute("need3", "")
-				player:set_attribute("need3string", "")
+				player:set_attribute("need3string", "air")
                 player:set_attribute("itemstring", "castrum:pick_steel")
                 minetest.show_formspec(player:get_player_name(), "craft" , craft.get_formspec(player))
             elseif v == "Steel\nSword" then
@@ -273,7 +281,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 player:set_attribute("need1string", "default:steel_ingot 2")
                 player:set_attribute("need2string", "default:junglewood")
 				player:set_attribute("need3", "")
-				player:set_attribute("need3string", "")
+				player:set_attribute("need3string", "air")
                 player:set_attribute("itemstring", "castrum:sword_steel")
                 minetest.show_formspec(player:get_player_name(), "craft" , craft.get_formspec(player))
 			elseif v == "Bronze\nShovel" then
@@ -283,7 +291,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 player:set_attribute("need1string", "default:bronze_ingot")
                 player:set_attribute("need2string", "default:pine_wood 2")
 				player:set_attribute("need3", "")
-				player:set_attribute("need3string", "")
+				player:set_attribute("need3string", "air")
                 player:set_attribute("itemstring", "castrum:shovel_bronze")
                 minetest.show_formspec(player:get_player_name(), "craft" , craft.get_formspec(player))
             elseif v == "Bronze\nPickaxe" then
@@ -293,7 +301,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 player:set_attribute("need1string", "default:bronze_ingot 3")
                 player:set_attribute("need2string", "default:pine_wood 2")
 				player:set_attribute("need3", "")
-				player:set_attribute("need3string", "")
+				player:set_attribute("need3string", "air")
                 player:set_attribute("itemstring", "castrum:pick_bronze")
                 minetest.show_formspec(player:get_player_name(), "craft" , craft.get_formspec(player))
             elseif v == "Bronze\nSword" then
@@ -303,7 +311,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 player:set_attribute("need1string", "default:bronze_ingot 2")
                 player:set_attribute("need2string", "default:pine_wood")
 				player:set_attribute("need3", "")
-				player:set_attribute("need3string", "")
+				player:set_attribute("need3string", "air")
                 player:set_attribute("itemstring", "castrum:sword_bronze")
                 minetest.show_formspec(player:get_player_name(), "craft" , craft.get_formspec(player))
             elseif v == "X" then

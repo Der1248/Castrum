@@ -19,17 +19,22 @@ bridge.get_formspec = function(player, pos)
         need1 = "3 Wooden Planks"
 		need2 = "Fountain lv.1"
     elseif tonumber(level) == 9 then
-        label = (level-8).."/3"
+        label = (level-8).."/4"
         label2 = "Upgrade"
         need1 = "27 Jungle Wood Planks"
 		need2 = "Fountain lv.3"
 	elseif tonumber(level) == 10 then
-        label = (level-8).."/3"
+        label = (level-8).."/4"
         label2 = "Upgrade"
         need1 = "108 Pine Wood Planks"
 		need2 = "Fountain lv.5"
+	elseif tonumber(level) == 11 then
+        label = (level-8).."/4"
+        label2 = "Upgrade"
+        need1 = "324 Acacia Wood Planks"
+		need2 = "Fountain lv.7"
     else
-        label = (level-8).."/3"
+        label = (level-8).."/4"
         label2 = "Upgrade (comming soon)"
     end
 	formspec = "size[5,6.5]"
@@ -73,7 +78,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname == "bridge" then
         for k, v in pairs(fields) do
             if v == "del" then
-                Bridge(0,player)
+                minetest.place_schematic({x=-44, y=8, z=-40}, minetest.get_modpath("castrum").."/schematics/Bridge1/Bridge1_0.mts","0")
                 file = io.open(minetest.get_worldpath().."/SAVE/Bridge.txt", "w")
 		        file:write("0")
 		        file:close()
@@ -104,12 +109,17 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                     upgrade = true
 				elseif tonumber(level) == 10 and inv:contains_item("main", "default:pine_wood 108") then
                     txt = "upgrade fountain to lv.5 first"
+				elseif tonumber(level) == 11 and inv:contains_item("main", "default:acacia_wood 324") and tonumber(fountain) > 9 then
+                    Item_Remove2(player, "main", "default:acacia_wood 324")
+                    upgrade = true
+				elseif tonumber(level) == 11 and inv:contains_item("main", "default:acacia_wood 324") then
+                    txt = "upgrade fountain to lv.7 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 11 and upgrade then
-                    Bridge(tonumber(level)+1,player)
+                if (tonumber(level)) < 12 and upgrade or buildings_costs == false then
+                    minetest.place_schematic({x=-44, y=8, z=-40}, minetest.get_modpath("castrum").."/schematics/Bridge1/Bridge1_"..(tonumber(level)+1)..".mts","0")
                     file = io.open(minetest.get_worldpath().."/SAVE/Bridge.txt", "w")
 		            file:write(tonumber(level)+1)
 		            file:close()
@@ -123,7 +133,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
     if formname == "bridge2" then
         for k, v in pairs(fields) do
             if v == "del" then
-                Bridge2(0,player)
+				minetest.place_schematic({x=-44, y=8, z=-40}, minetest.get_modpath("castrum").."/schematics/Bridge1/Bridge1_0.mts","0")
+                minetest.place_schematic({x=-44, y=8, z=-32}, minetest.get_modpath("castrum").."/schematics/Bridge2/Bridge2_0.mts","0")
                 file = io.open(minetest.get_worldpath().."/SAVE/Bridge.txt", "w")
 		        file:write("0")
 		        file:close()
@@ -138,22 +149,32 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
                 local inv = player:get_inventory()
                 local upgrade = false
 				local txt = "not enough items"
-                if tonumber(level) == 9 and inv:contains_item("main", "default:junglewood 27") and tonumber(fountain) > 5 then
+                if tonumber(level) < 9 and inv:contains_item("main", "default:wood 3") and tonumber(fountain) > 3 then
+                    Item_Remove2(player, "main", "default:wood 3")
+                    upgrade = true
+				elseif tonumber(level) < 9 and inv:contains_item("main", "default:wood 3") then
+                    txt = "build fountain first"
+                elseif tonumber(level) == 9 and inv:contains_item("main", "default:junglewood 27") and tonumber(fountain) > 5 then
                     Item_Remove2(player, "main", "default:junglewood 27")
                     upgrade = true
 				elseif tonumber(level) == 9 and inv:contains_item("main", "default:junglewood 27") then
                     txt = "upgrade fountain to lv.3 first"
 				elseif tonumber(level) == 10 and inv:contains_item("main", "default:pine_wood 108") and tonumber(fountain) > 7 then
-					Item_Remove2(player, "main", "default:pine_wood 108")
+                    Item_Remove2(player, "main", "default:pine_wood 108")
                     upgrade = true
 				elseif tonumber(level) == 10 and inv:contains_item("main", "default:pine_wood 108") then
                     txt = "upgrade fountain to lv.5 first"
+				elseif tonumber(level) == 11 and inv:contains_item("main", "default:acacia_wood 324") and tonumber(fountain) > 9 then
+                    Item_Remove2(player, "main", "default:acacia_wood 324")
+                    upgrade = true
+				elseif tonumber(level) == 11 and inv:contains_item("main", "default:acacia_wood 324") then
+                    txt = "upgrade fountain to lv.7 first"
                 end
                 if upgrade == false then
                     minetest.chat_send_player(player:get_player_name(), txt)
                 end
-                if (tonumber(level)) < 11 and upgrade then
-                    Bridge2(tonumber(level)+1,player)
+                if (tonumber(level)) < 12 and upgrade or buildings_costs == false then
+                    minetest.place_schematic({x=-44, y=8, z=-32}, minetest.get_modpath("castrum").."/schematics/Bridge2/Bridge2_"..(tonumber(level)+1)..".mts","0")
                     file = io.open(minetest.get_worldpath().."/SAVE/Bridge.txt", "w")
 		            file:write(tonumber(level)+1)
 		            file:close()
