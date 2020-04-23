@@ -1,4 +1,4 @@
-local map_version = 14
+local map_version = 15
 minetest.register_on_joinplayer(function(player)
 	minetest.mkdir(minetest.get_worldpath().."/SAVE")
 	local files = {

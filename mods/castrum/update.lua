@@ -1,6 +1,6 @@
 function update(player)		
 	minetest.place_schematic({ x = -184, y = 5, z =  -91 }, minetest.get_modpath("castrum").."/schematics/Sector/sector1.mts","0")
-	minetest.place_schematic({ x = -134, y = 3, z =  -91 }, minetest.get_modpath("castrum").."/schematics/Sector/sector2.mts","0")
+	minetest.place_schematic({ x = -134, y = 5, z =  -91 }, minetest.get_modpath("castrum").."/schematics/Sector/sector2.mts","0")
 	minetest.place_schematic({ x =   54, y = 5, z =  -91 }, minetest.get_modpath("castrum").."/schematics/Sector/sector3.mts","0")
 	minetest.place_schematic({ x =  242, y = 5, z =  -91 }, minetest.get_modpath("castrum").."/schematics/Sector/sector4.mts","0")
 	minetest.place_schematic({ x = -134, y = 5, z =   97 }, minetest.get_modpath("castrum").."/schematics/Sector/sector5.mts","0")

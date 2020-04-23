@@ -110,7 +110,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname == "battleground" then
         for k, v in pairs(fields) do
             if v == "del" then
-                minetest.place_schematic({x=-76, y=9, z=-84}, minetest.get_modpath("castrum").."/schematics/Battleground/Battleground.mts","0")
+                minetest.place_schematic({x=-76, y=9, z=-84}, minetest.get_modpath("castrum").."/schematics/Battleground/Battleground_0.mts","0")
                 file = io.open(minetest.get_worldpath().."/SAVE/Battleground.txt", "w")
 		        file:write("0")
 		        file:close()
