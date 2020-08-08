@@ -6,7 +6,8 @@ minetest.register_on_joinplayer(function(player)
 		offset = {x=0, y=10},
 		alignment = {x=1, y=0},
 		number = 0xFFFFFF ,
-		text = "For Minetest 	  :  5.2.0",
+		text = "For Minetest 	  :  5.3.0",
+		
 	})
 	player:hud_add({
 		hud_elem_type = "text",
@@ -14,7 +15,7 @@ minetest.register_on_joinplayer(function(player)
 		offset = {x=0, y=30},
 		alignment = {x=1, y=0},
 		number = 0xFFFFFF ,
-		text = "Game Version	 :  1.11.1",
+		text = "Game Version	 :  1.11.2",
 	})
 end)
 dofile(minetest.get_modpath("castrum").."/nodes/Market.lua")
