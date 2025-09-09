@@ -156,7 +156,7 @@ minetest.register_on_dignode(function(pos, node, digger)
 			end
 			digger:set_attribute("fightdig", "true")
 		else
-			minetest.set_node(pos, {name=node.name})
+			minetest.set_node(pos, {name=node.name, param2=node.param2})
 			if node.name == "castrum:knight_lv1" or node.name == "castrum:knight_lv2" or node.name == "castrum:knight_lv3" then
 				screwdriver_handler(digger, {type="node", under=pos, above=pos}, 1)
 			end
